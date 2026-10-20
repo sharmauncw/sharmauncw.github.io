@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="description" content="Akanksha Sharma — Data Analytics Specialist at UNC Wilmington, Institutional Research & Planning. Doctor of Information Technology (DIT) doctoral student at Trine University." />
+<script>document.documentElement.classList.add('js');</script>
+<link rel="icon" href="data:," />
+<title>Akanksha Sharma — Data Analytics Specialist, UNCW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;
+  --bg-soft:#f2f7f6;
+  --bg-teal:#0c2b2e;
+  --bg-teal-2:#0f3a3e;
+  --card:#ffffff;
+  --line:#dbe8e6;
+  --line-strong:#c2d8d4;
+  --text:#12262a;
+  --text-2:#3d5a5e;
+  --text-3:#6b8588;
+  --teal:#0e7c7b;
+  --teal-dark:#0a5e5d;
+  --teal-light:#e6f4f2;
+  --teal-mid:#ccebe7;
+  --gold:#c5a880;
+  --shadow:0 12px 32px rgba(12,43,46,.08);
+  --radius:18px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0a1a1c;
+    --bg-soft:#0e2326;
+    --bg-teal:#071416;
+    --bg-teal-2:#0c2427;
+    --card:#10282b;
+    --line:#1e3a3e;
+    --line-strong:#2a4a4e;
+    --text:#eaf4f2;
+    --text-2:#b8cfcc;
+    --text-3:#8aa8a5;
+    --teal:#2ec4b6;
+    --teal-dark:#5eead4;
+    --teal-light:#123233;
+    --teal-mid:#1a4343;
+    --shadow:0 12px 32px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto} *{transition:none!important;animation:none!important}}
+body{margin:0;font-family:"Manrope",system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img,svg{display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+@media(max-width:600px){.wrap{padding:0 20px}}
+
+/* NAV */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--bg) 92%, transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.monogram-sm{width:40px;height:40px;flex:none;border-radius:50%;background:var(--bg-teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;letter-spacing:.04em;font-size:13px;border:2px solid var(--teal);text-align:center;line-height:1}
+.brand b{font-size:15px;letter-spacing:-.02em;line-height:1;white-space:nowrap}
+.brand-text{display:block;min-width:0}
+.brand-text span{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:700;margin-top:3px;white-space:nowrap}
+.navlinks{display:flex;gap:28px;align-items:center}
+.navlinks a{text-decoration:none;font-size:14px;font-weight:600;color:var(--text-2)}
+.navlinks a:hover{color:var(--teal)}
+.navcta{background:var(--text);color:var(--bg)!important;padding:9px 16px;border-radius:999px;font-size:13px!important}
+@media(max-width:760px){.navlinks a:not(.navcta){display:none}.nav{height:auto;padding:10px 0}.brand b{font-size:14px}.brand-text span{font-size:9.5px;letter-spacing:.1em}.navcta{white-space:nowrap;padding:8px 13px}.monogram-sm{width:36px;height:36px;font-size:12px}}
+
+/* HERO */
+.hero{background:var(--bg-teal);color:#eaf6f3;overflow:hidden;position:relative}
+.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:520px;height:520px;border-radius:50%;border:1px solid rgba(255,255,255,.12);box-shadow:0 0 0 36px rgba(255,255,255,.03),0 0 0 72px rgba(255,255,255,.02);pointer-events:none}
+.hero-inner{padding:64px 0 0;position:relative;z-index:1}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:48px;align-items:start}
+@media(max-width:820px){.hero-grid{grid-template-columns:1fr}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7dd3c8;border:1px solid rgba(125,211,200,.35);padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.06)}
+.eyebrow i{width:7px;height:7px;background:#2ec4b6;border-radius:50%;display:block}
+h1{font-size:clamp(48px,7vw,76px);line-height:.95;letter-spacing:-.04em;margin:20px 0 14px;font-weight:800}
+h1 em{font-family:"Newsreader",serif;font-weight:500;font-style:italic;letter-spacing:-.02em;color:#a7e8dd}
+.hero-role{font-size:clamp(18px,2.4vw,22px);line-height:1.4;font-weight:600;color:#fff;max-width:620px}
+.hero-sub{margin-top:10px;color:#bfe0da;font-size:16px;line-height:1.6;max-width:600px}
+.hero-sub strong{color:#fff}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:20px;color:#cfe8e3;font-size:14px}
+.meta-row span{display:inline-flex;gap:7px;align-items:center}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:700;font-size:14px;padding:13px 18px;border-radius:999px;border:1px solid transparent}
+.btn-primary{background:#fff;color:#0c2b2e}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.btn-ghost:hover,.btn-primary:hover{transform:translateY(-1px)}
+.btn svg{width:18px;height:18px;flex:none}
+.portrait-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:22px}
+.portrait-photo{width:112px;height:112px;border-radius:50%;border:4px solid #2ec4b6;object-fit:cover;margin-bottom:18px}
+.portrait-card h3{margin:0;font-size:16px;line-height:1.3}
+.portrait-card p{margin:8px 0 0;color:#c6dfda;font-size:14px;line-height:1.6}
+.fact-list{margin:18px 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.14);display:grid;gap:12px}
+.fact-list div{display:flex;justify-content:space-between;gap:16px;font-size:13px}
+.fact-list dt{color:#9fc9c2}.fact-list dd{margin:0;font-weight:700;color:#fff;text-align:right}
+.stats{margin-top:52px;border-top:1px solid rgba(255,255,255,.14);display:grid;grid-template-columns:repeat(4,1fr)}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}}
+.stat{padding:20px 18px 22px;border-right:1px solid rgba(255,255,255,.10)}
+.stat:last-child{border-right:0}
+.stat b{font-size:28px;letter-spacing:-.03em;line-height:1;display:block}
+.stat span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#a9cdc7;font-weight:700}
+
+/* SECTIONS */
+section{padding:72px 0}
+section.alt{background:var(--bg-soft)}
+.sec-head{max-width:720px;margin-bottom:32px}
+.kicker{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:600;margin-bottom:10px}
+.sec-head h2{font-size:clamp(30px,4vw,42px);line-height:1.05;letter-spacing:-.03em;margin:0}
+.sec-head h2 em{font-family:"Newsreader",serif;font-style:italic;font-weight:500;color:var(--teal)}
+.sec-head p{color:var(--text-2);font-size:16px;margin:12px 0 0;line-height:1.7}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:start}
+@media(max-width:820px){.about-grid{grid-template-columns:1fr}}
+.about-copy{font-size:17px;line-height:1.75;color:var(--text-2)}
+.about-copy strong{color:var(--text)}
+.about-copy p{margin:0 0 16px}
+.focus-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.focus-card h3{margin:0 0 14px;font-size:15px}
+.focus-item{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.focus-item:first-of-type{border-top:0;padding-top:2px}
+.focus-dot{width:36px;height:36px;border-radius:10px;background:var(--teal-light);color:var(--teal);display:grid;place-items:center;flex:none;font-weight:800;font-size:13px}
+.focus-item b{font-size:14px;display:block;line-height:1.3}
+.focus-item p{margin:3px 0 0;font-size:13.5px;color:var(--text-2);line-height:1.5}
+
+/* TIMELINE */
+.timeline{position:relative;margin-left:8px}
+.timeline::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--line-strong)}
+.job{position:relative;padding:0 0 30px 36px}
+.job:last-child{padding-bottom:4px}
+.job::before{content:"";position:absolute;left:0;top:7px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--teal)}
+.job.current::before{background:var(--teal);box-shadow:0 0 0 5px var(--teal-light)}
+.job-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:baseline}
+.job h3{margin:0;font-size:18px;letter-spacing:-.02em}
+.job h3 span{color:var(--teal)}
+.date{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--text-3);white-space:nowrap}
+.job-loc{font-size:13px;color:var(--text-3);font-weight:600;margin-top:2px}
+.job p{margin:8px 0 0;color:var(--text-2);font-size:15px;line-height:1.65;max-width:760px}
+
+/* SPEAKING */
+.speaking-card{background:var(--bg-teal);color:#eaf6f3;border-radius:22px;padding:32px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center}
+@media(max-width:760px){.speaking-card{grid-template-columns:1fr;padding:26px}}
+.date-box{background:#fff;color:#0c2b2e;border-radius:16px;padding:16px;text-align:center;min-width:96px}
+.date-box b{font-size:30px;line-height:1;display:block;letter-spacing:-.03em}
+.date-box span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#52706d}
+.speaking-card h3{margin:0;font-size:24px;line-height:1.2;letter-spacing:-.02em}
+.speaking-card h3 em{font-family:"Newsreader",serif;font-style:italic;font-weight:500;color:#8be0d2}
+.speaking-card p{color:#c2ded9;margin:10px 0 0;line-height:1.65;font-size:15px;max-width:640px}
+.speaking-tag{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:#7dd3c8;border:1px solid rgba(125,211,200,.35);padding:9px 12px;border-radius:999px;white-space:nowrap}
+
+/* NEWS */
+section.news{padding:8px 0 0}
+.news-head{margin-bottom:14px}
+.news-strip{display:flex;gap:18px;align-items:baseline;background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:20px 24px}
+.news-date{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--teal);white-space:nowrap;letter-spacing:.06em}
+.news-strip p{margin:0;font-size:15.5px;line-height:1.65;color:var(--text-2)}
+.news-strip a{color:var(--teal);font-weight:700;text-decoration:none}
+.news-strip a:hover{text-decoration:underline}
+@media(max-width:600px){.news-strip{flex-direction:column;gap:6px}}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.proj-grid{grid-template-columns:1fr}}
+.proj{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.proj.featured{grid-column:1/-1;background:linear-gradient(120deg,var(--card) 55%,var(--teal-light));}
+@media(max-width:760px){.proj.featured{grid-column:auto}}
+.proj-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.proj-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--teal);font-weight:600}
+.proj h3{margin:10px 0 8px;font-size:19px;line-height:1.25;letter-spacing:-.02em}
+.proj-sub{font-size:13px;font-weight:800;letter-spacing:.02em;color:var(--teal);margin:0 0 8px}
+.proj p{margin:0;color:var(--text-2);font-size:14.5px;line-height:1.65;flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tag{font-size:11.5px;font-weight:700;padding:6px 9px;border-radius:999px;background:var(--bg-soft);border:1px solid var(--line);color:var(--text-2)}
+.proj-link{margin-top:18px;display:inline-flex;gap:7px;align-items:center;font-weight:800;font-size:13.5px;text-decoration:none;color:var(--teal)}
+.proj-link:hover{text-decoration:underline}
+.proj-note{margin-top:16px;font-size:12.5px;color:var(--text-3);font-weight:600;font-style:italic}
+
+/* EDUCATION + CERTS */
+.edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:900px){.edu-grid{grid-template-columns:1fr}}
+.edu{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.edu-badge{min-width:44px;width:max-content;max-width:100%;height:44px;padding:0 12px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;letter-spacing:.03em;margin-bottom:16px;white-space:nowrap}
+.edu h3{margin:0;font-size:17px;line-height:1.3}
+.edu-school{color:var(--teal);font-weight:700;font-size:14px;margin-top:4px}
+.edu-meta{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--text-3);margin-top:8px}
+.edu p{font-size:14px;color:var(--text-2);line-height:1.6;margin:12px 0 0}
+.gpa{display:inline-block;margin-top:14px;background:var(--teal-light);color:var(--teal-dark);font-weight:800;font-size:12px;padding:6px 9px;border-radius:999px}
+.two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start;margin-top:18px}
+@media(max-width:820px){.two-col{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.panel h3{margin:0 0 6px;font-size:17px}
+.panel>p{margin:0 0 16px;color:var(--text-2);font-size:14px}
+.cert{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.cert:first-of-type{border-top:0}
+.cert-icon{width:38px;height:38px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:grid;place-items:center;flex:none;font-weight:800;font-size:12px}
+.cert b{font-size:14.5px;line-height:1.35;display:block}
+.cert span{font-size:13px;color:var(--text-3)}
+
+/* SKILLS */
+.skill-groups{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.skill-groups{grid-template-columns:1fr}}
+.skill-group{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.skill-group h3{margin:0 0 4px;font-size:15px}
+.skill-group>p{margin:0 0 14px;font-size:13.5px;color:var(--text-3)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-size:13px;font-weight:600;padding:7px 10px;border-radius:999px;background:var(--bg-soft);border:1px solid var(--line);color:var(--text)}
+.chip strong{color:var(--teal)}
+
+/* AI SHOWCASE — RADAR + MUSE UNIVERSE */
+.showcase-panel{background:linear-gradient(165deg,#08282c 0%,#051a1f 55%,#03141a 100%);border:1px solid #14524c;border-radius:24px;color:#e8f6f3;position:relative;overflow:hidden;box-shadow:0 24px 60px rgba(4,30,34,.35)}
+.showcase-panel h3{color:#fff}
+.mono{font-family:"IBM Plex Mono",monospace}
+
+/* Radar */
+.radar-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:14px 20px;border-bottom:1px solid rgba(125,211,200,.18);font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;color:#9fd8cf;background:rgba(255,255,255,.03)}
+.radar-bar .win-dot{width:9px;height:9px;border-radius:50%;flex:none}
+.radar-live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;color:#7dd3c8;font-weight:600}
+.radar-live i{width:8px;height:8px;border-radius:50%;background:#2ec4b6;display:block;animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.cursor{display:inline-block;width:8px;height:14px;background:#2ec4b6;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+.radar-body{padding:24px}
+@media(max-width:600px){.radar-body{padding:18px}}
+.radar-tldr{background:rgba(46,196,182,.09);border:1px solid rgba(46,196,182,.28);border-radius:14px;padding:16px 18px;font-size:15.5px;line-height:1.6;color:#dff5f1}
+.radar-tldr b{color:#7dd3c8;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;display:block;margin-bottom:6px}
+.radar-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:760px){.radar-grid{grid-template-columns:1fr}}
+.story{background:rgba(255,255,255,.04);border:1px solid rgba(125,211,200,.16);border-radius:16px;padding:20px}
+.story.featured{grid-column:1/-1;background:linear-gradient(120deg,rgba(46,196,182,.10),rgba(255,255,255,.03) 60%)}
+@media(max-width:760px){.story.featured{grid-column:auto}}
+.story-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.stag{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.13em;font-weight:600;padding:5px 9px;border-radius:999px;border:1px solid rgba(125,211,200,.4);color:#7dd3c8}
+.stag.mind{border-color:rgba(197,168,128,.65);color:#e3c896;background:rgba(197,168,128,.10)}
+.stag.watch{border-color:rgba(227,200,150,.0);color:#0c2b2e;background:#c5a880;border-color:transparent}
+.sdate{font-family:"IBM Plex Mono",monospace;font-size:11px;color:#8fb8b2;letter-spacing:.06em}
+.story h3{margin:0 0 8px;font-size:19px;line-height:1.3;letter-spacing:-.01em}
+.story p{margin:0;color:#c2ded9;font-size:14.5px;line-height:1.65}
+.story .why{margin-top:12px;padding-top:12px;border-top:1px solid rgba(125,211,200,.14);font-size:13.5px;color:#a9cdc7;line-height:1.6}
+.story .why b{color:#7dd3c8;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;display:block;margin-bottom:4px}
+.story .src{display:inline-flex;gap:6px;align-items:center;margin-top:14px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;font-weight:600;color:#7dd3c8;text-decoration:none;border-bottom:1px solid rgba(125,211,200,.35);padding-bottom:2px}
+.story .src:hover{color:#a7f3ea;border-bottom-color:#2ec4b6}
+.watch-strip{margin-top:14px;border:1px solid rgba(197,168,128,.45);background:rgba(197,168,128,.07);border-radius:14px;padding:16px 18px;font-size:14.5px;line-height:1.65;color:#eee3cd}
+.watch-strip b{color:#e3c896;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;display:block;margin-bottom:6px}
+
+/* Muse Universe */
+.universe-body{padding:26px}
+@media(max-width:600px){.universe-body{padding:18px}}
+.universe-grid{display:grid;grid-template-columns:1.3fr .85fr;gap:22px;align-items:stretch}
+@media(max-width:900px){.universe-grid{grid-template-columns:1fr}}
+.star-map{position:relative;min-height:440px;border-radius:18px;border:1px solid rgba(125,211,200,.16);overflow:hidden;background:
+  radial-gradient(1.5px 1.5px at 8% 18%,rgba(255,255,255,.85) 50%,transparent 51%),
+  radial-gradient(1px 1px at 22% 66%,rgba(255,255,255,.6) 50%,transparent 51%),
+  radial-gradient(1.5px 1.5px at 34% 12%,rgba(255,255,255,.5) 50%,transparent 51%),
+  radial-gradient(1px 1px at 47% 84%,rgba(255,255,255,.7) 50%,transparent 51%),
+  radial-gradient(1.5px 1.5px at 58% 34%,rgba(255,255,255,.45) 50%,transparent 51%),
+  radial-gradient(1px 1px at 66% 78%,rgba(255,255,255,.65) 50%,transparent 51%),
+  radial-gradient(1.5px 1.5px at 74% 8%,rgba(255,255,255,.55) 50%,transparent 51%),
+  radial-gradient(1px 1px at 88% 46%,rgba(255,255,255,.7) 50%,transparent 51%),
+  radial-gradient(1px 1px at 93% 88%,rgba(255,255,255,.5) 50%,transparent 51%),
+  radial-gradient(1px 1px at 4% 90%,rgba(255,255,255,.55) 50%,transparent 51%),
+  linear-gradient(170deg,#0a2e33,#04161c)}
+@media(max-width:600px){.star-map{min-height:380px}}
+.star-map svg.links{position:absolute;inset:0;width:100%;height:100%}
+.node{position:absolute;transform:translate(-50%,-50%);background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;padding:8px;color:#dff5f1;font-family:inherit;z-index:2;-webkit-tap-highlight-color:transparent}
+.node-dot{width:15px;height:15px;border-radius:50%;background:#0d3a3e;border:2px solid #2ec4b6;box-shadow:0 0 0 5px rgba(46,196,182,.14),0 0 16px rgba(46,196,182,.4);transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
+.node.big .node-dot{width:21px;height:21px}
+.node-label{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;background:rgba(3,20,26,.78);padding:4px 8px;border-radius:999px;border:1px solid rgba(125,211,200,.25);white-space:nowrap;line-height:1.2}
+.node:hover .node-dot,.node:focus-visible .node-dot{transform:scale(1.25)}
+.node.active .node-dot{background:#2ec4b6;box-shadow:0 0 0 6px rgba(46,196,182,.18),0 0 26px rgba(46,196,182,.75)}
+.node.active .node-label{border-color:#2ec4b6;color:#a7f3ea}
+.node.here .node-dot{border-color:#e3c896;background:#3a2f16;box-shadow:0 0 0 5px rgba(197,168,128,.18),0 0 20px rgba(197,168,128,.55);animation:pulseRing 2.4s ease-out infinite}
+.node.here.active .node-dot{background:#c5a880}
+@keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(197,168,128,.45),0 0 20px rgba(197,168,128,.5)}100%{box-shadow:0 0 0 16px rgba(197,168,128,0),0 0 20px rgba(197,168,128,.5)}}
+.map-hint{position:absolute;left:14px;bottom:12px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:#7fa8a2;z-index:2}
+.model-detail{background:rgba(255,255,255,.04);border:1px solid rgba(125,211,200,.18);border-radius:18px;padding:24px;display:flex;flex-direction:column}
+.model-tag{align-self:flex-start;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.13em;font-weight:600;padding:5px 9px;border-radius:999px;border:1px solid rgba(125,211,200,.4);color:#7dd3c8;margin-bottom:12px}
+.model-detail h3{margin:0;font-size:24px;letter-spacing:-.02em;line-height:1.15}
+.model-date{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:#8fb8b2;letter-spacing:.08em;margin-top:6px}
+.model-detail>p{color:#c2ded9;font-size:14.5px;line-height:1.7;margin:14px 0 0}
+.spec-list{margin-top:16px;border-top:1px solid rgba(125,211,200,.14)}
+.spec-row{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid rgba(125,211,200,.14);font-size:13px}
+.spec-row span{color:#8fb8b2;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-top:2px}
+.spec-row b{color:#eaf6f3;text-align:right;font-weight:700}
+.model-why{margin-top:auto;padding-top:16px}
+.model-why-inner{background:rgba(46,196,182,.09);border:1px solid rgba(46,196,182,.26);border-radius:12px;padding:14px 16px}
+.model-why span{color:#7dd3c8;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.13em;display:block;margin-bottom:5px}
+.model-why p{margin:0;color:#dff5f1;font-size:14px;line-height:1.6}
+
+/* POLISH — REVEALS, TILT, LIVE RADAR, UNIVERSE MOTION */
+.reveal{transition:opacity .8s ease,translate .8s cubic-bezier(.22,.61,.36,1)}
+html.js .reveal{opacity:0;translate:0 26px}
+html.js .reveal.in{opacity:1;translate:0 0}
+@media print{.reveal{opacity:1!important;translate:none!important}}
+.tilt{transition:transform .18s ease-out,box-shadow .3s ease;transform-style:preserve-3d}
+.tilt:hover{box-shadow:0 22px 44px rgba(6,32,36,.18)}
+.radar-panel::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.028) 0 1px,transparent 1px 4px);pointer-events:none;z-index:1}
+.radar-panel::after{content:"";position:absolute;left:0;right:0;height:130px;top:-140px;background:linear-gradient(180deg,transparent,rgba(46,196,182,.06) 30%,rgba(46,196,182,.20) 50%,rgba(46,196,182,.06) 70%,transparent);animation:scanSweep 6s linear infinite;pointer-events:none;z-index:2}
+@keyframes scanSweep{0%{top:-140px}100%{top:105%}}
+.radar-panel .radar-bar,.radar-panel .radar-body{position:relative;z-index:3}
+.radar-status{color:#8fb8b2;transition:opacity .3s ease;white-space:nowrap}
+.radar-tldr .cursor{margin-left:2px}
+.star-map::after{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(1.5px 1.5px at 15% 30%,rgba(255,255,255,.9) 50%,transparent 51%),
+  radial-gradient(1px 1px at 68% 12%,rgba(255,255,255,.8) 50%,transparent 51%),
+  radial-gradient(1.5px 1.5px at 84% 58%,rgba(255,255,255,.75) 50%,transparent 51%),
+  radial-gradient(1px 1px at 40% 88%,rgba(255,255,255,.8) 50%,transparent 51%);
+  animation:twinkle 3.8s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.25}to{opacity:.9}}
+.node{animation:floaty 7s ease-in-out infinite}
+.node:nth-of-type(2){animation-delay:-1.4s}
+.node:nth-of-type(3){animation-delay:-2.8s}
+.node:nth-of-type(4){animation-delay:-.7s}
+.node:nth-of-type(5){animation-delay:-3.6s}
+.node:nth-of-type(6){animation-delay:-2.1s}
+.node:nth-of-type(7){animation-delay:-4.4s}
+@keyframes floaty{0%,100%{margin-top:0}50%{margin-top:-7px}}
+.star-map svg.links{transition:transform .35s ease-out}
+.model-detail.swap{animation:detailIn .4s ease}
+@keyframes detailIn{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* CONTACT */
+.contact{background:var(--bg-teal);color:#eaf6f3;border-radius:24px;padding:36px;display:grid;grid-template-columns:1.2fr .8fr;gap:32px}
+@media(max-width:760px){.contact{grid-template-columns:1fr;padding:26px}}
+.contact h2{font-size:32px;line-height:1.1;letter-spacing:-.03em;margin:0}
+.contact h2 em{font-family:"Newsreader",serif;font-style:italic;font-weight:500;color:#8be0d2}
+.contact p{color:#c2ded9;line-height:1.65;margin:12px 0 0;max-width:520px}
+.contact-links{display:grid;gap:10px;align-content:start}
+.contact-links a{display:flex;align-items:center;gap:12px;text-decoration:none;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);padding:14px 16px;border-radius:14px;font-weight:700;font-size:14px;word-break:break-all}
+.contact-links a span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9fc9c2;display:block;font-weight:800}
+.contact-links a:hover{background:rgba(255,255,255,.12)}
+footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:20px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Akanksha Sharma home">
+      <span class="monogram-sm">AS</span>
+      <span class="brand-text"><b>Akanksha Sharma</b><span>Data Analytics · IRP · UNCW</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#ai-radar">AI Radar</a>
+      <a href="#muse-universe">Muse Universe</a>
+      <a href="#education">Education</a>
+      <a href="#contact" class="navcta">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="hero">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="wrap hero-inner">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow"><i></i> Institutional Research &amp; Analytics</span>
+          <h1>Akanksha<br><em>Sharma</em></h1>
+          <p class="hero-role">Data Analytics Specialist @ UNC Wilmington<br>Office of Institutional Research &amp; Planning</p>
+          <p class="hero-sub">Doctor of Information Technology (DIT) doctoral student at <strong>Trine University</strong> — turning institutional data into clear, trusted decisions for students, faculty, and campus leaders.</p>
+          <div class="meta-row">
+            <span>◎ Greater Wilmington Area, NC</span>
+            <span>◎ Higher Education · Analytics · Data Quality</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://www.linkedin.com/in/akankshaakshaykumarsharma/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
+              Connect on LinkedIn
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/sharmauncw" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.21.67.8.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+              View GitHub
+            </a>
+            <a class="btn btn-ghost" href="#ai-radar">◎ AI Radar — today’s brief</a>
+          </div>
+        </div>
+
+        <aside class="portrait-card" aria-label="Profile summary">
+          <img class="portrait-photo" src="data:image/webp;base64,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" alt="Akanksha Sharma">
+          <h3>Data you can trust.<br>Stories leaders can use.</h3>
+          <p>Builder of institutional reports and dashboards, with a practitioner’s eye for data quality — and a doctoral researcher’s curiosity about what the numbers mean.</p>
+          <dl class="fact-list">
+            <div><dt>Current role</dt><dd>UNCW · IRP</dd></div>
+            <div><dt>Doctorate</dt><dd>Trine · DIT, 4.0 GPA</dd></div>
+            <div><dt>Focus</dt><dd>SQL · Python · Tableau</dd></div>
+            <div><dt>Latest talk</dt><dd>UNCW · Oct 14, 2026</dd></div>
+          </dl>
+        </aside>
+      </div>
+
+      <div class="stats" aria-label="Highlights">
+        <div class="stat"><b>7+ years</b><span>Data &amp; analytics</span></div>
+        <div class="stat"><b>5 sectors</b><span>Higher ed to fintech</span></div>
+        <div class="stat"><b>4.0 GPA</b><span>Doctoral studies</span></div>
+        <div class="stat"><b>500K+</b><span>Records in BI project</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">About</div>
+        <h2>Analytics in service of <em>students &amp; decisions</em></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>I’m a data analytics professional with <strong>7+ years turning data into decisions</strong> across fintech, automotive data, government IT, consulting, and higher-education institutional research.</p>
+          <p>At UNCW’s Office of Institutional Research &amp; Planning, I <strong>build institutional reports and dashboards, strengthen data quality, and partner with campus stakeholders</strong> — working day to day with SQL, Python, Tableau, Azure Databricks, and statistical analysis.</p>
+          <p>Alongside my role, I’m pursuing a <strong>Doctor of Information Technology at Trine University (4.0 GPA)</strong>, where my interests sit at the intersection of data science, cybersecurity, and responsible, decision-ready analytics. I enjoy connecting with fellow data and analytics professionals — feel free to reach out.</p>
+        </div>
+        <div class="focus-card">
+          <h3>What I focus on</h3>
+          <div class="focus-item"><div class="focus-dot">01</div><div><b>Institutional reporting</b><p>Accurate, repeatable reports and dashboards campus leaders can rely on.</p></div></div>
+          <div class="focus-item"><div class="focus-dot">02</div><div><b>Data quality &amp; trust</b><p>Validation, consistency checks, and clear definitions — so the story matches the source.</p></div></div>
+          <div class="focus-item"><div class="focus-dot">03</div><div><b>Stakeholder partnership</b><p>Translating questions into analysis, and analysis into next steps people understand.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Experience</div>
+        <h2>A career built <em>across industries</em></h2>
+        <p>From government systems and fintech pipelines to automotive data and university institutional research — the thread is the same: careful data work that helps teams decide with confidence.</p>
+      </div>
+      <div class="timeline">
+        <article class="job current">
+          <div class="job-top"><h3>Data Analytics Specialist <span>· University of North Carolina Wilmington</span></h3><span class="date">MAY 2026 — PRESENT</span></div>
+          <div class="job-loc">Wilmington, North Carolina · On-site</div>
+          <p>Building and maintaining institutional reports and dashboards; ensuring data quality and consistency; partnering with campus stakeholders on analytics needs in the Office of Institutional Research &amp; Planning.</p>
+        </article>
+        <article class="job">
+          <div class="job-top"><h3>Consultant <span>· Source Mantra</span></h3><span class="date">AUG 2024 — JUN 2025</span></div>
+          <div class="job-loc">Remote</div>
+          <p>Client-focused data and analytics consulting with Python and SQL; statistical analysis translated into stakeholder-ready insights.</p>
+        </article>
+        <article class="job">
+          <div class="job-top"><h3>Intern <span>· MOTOR Information Systems</span></h3><span class="date">SEP 2023 — AUG 2024</span></div>
+          <div class="job-loc">Troy, Michigan · Hybrid</div>
+          <p>Year-long internship supporting data initiatives in the automotive information space.</p>
+        </article>
+        <article class="job">
+          <div class="job-top"><h3>Backend Data Specialist <span>· CredAble</span></h3><span class="date">JUN 2020 — NOV 2022</span></div>
+          <div class="job-loc">Remote · Mumbai, India</div>
+          <p>Backend data operations for a fintech company — supporting data pipelines, data quality, and business reporting.</p>
+        </article>
+        <article class="job">
+          <div class="job-top"><h3>Technical Data Associate <span>· Fast Enterprises, LLC</span></h3><span class="date">JAN 2016 — DEC 2018</span></div>
+          <div class="job-loc">Atlanta, Georgia · On-site</div>
+          <p>Government IT implementations — data conversion, validation, and reporting over a three-year tenure.</p>
+        </article>
+        <article class="job">
+          <div class="job-top"><h3>Campus Ambassador <span>· McGraw Hill</span></h3><span class="date">AUG 2014 — MAY 2015</span></div>
+          <div class="job-loc">Purdue University</div>
+          <p>Student ambassador at Purdue — promoting McGraw Hill learning products and resources on campus.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEAKING -->
+  <section id="speaking">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Speaking &amp; Teaching</div>
+        <h2>Sharing what good data <em>looks like</em></h2>
+      </div>
+      <div class="speaking-card">
+        <div class="date-box"><b>14</b><span>Oct 2026</span></div>
+        <div>
+          <h3>Guest Lecturer — “Data Visualization (Session 1)” <em>· Bad Data Clinic</em></h3>
+          <p>EDL 586/686 Program Evaluation, Watson College of Education, UNCW. A mini-lecture plus a hands-on “Bad Data Clinic” activity, delivered via Zoom and invited by Dr. Satlaj Dighe — helping future evaluators spot misleading charts and rebuild them with clarity.</p>
+        </div>
+        <div class="speaking-tag">Guest Lecture · UNCW</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section id="news" class="news">
+    <div class="wrap">
+      <div class="news-head">
+        <div class="kicker" style="margin-bottom:0">News</div>
+      </div>
+      <div class="news-strip">
+        <span class="news-date">OCT 19, 2026</span>
+        <p>Launched three new open-source portfolio projects on GitHub: <a href="https://github.com/sharmauncw/student-success-benchmark" target="_blank" rel="noopener">Student Success Benchmark</a>, <a href="https://github.com/sharmauncw/streaming-content-analytics" target="_blank" rel="noopener">Streaming Content Analytics</a>, and <a href="https://github.com/sharmauncw/retail-sales-forecasting" target="_blank" rel="noopener">Retail Sales Forecasting</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Selected Projects</div>
+        <h2>Work that shows the <em>craft</em></h2>
+        <p>Portfolio projects in business intelligence, higher-education analytics, and privacy-safe data quality — built to be useful, documented, and reusable.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="proj featured">
+          <span class="proj-num">01 · FLAGSHIP · HIGHER-ED ANALYTICS</span>
+          <h3>What does student success actually cost?</h3>
+          <p class="proj-sub">Student Success Benchmark</p>
+          <p>A synthetic star-schema data model with DAX measures and an interactive Streamlit/Plotly demo, benchmarked against peer averages. Findings from the synthetic data: 84.3% first-year retention, four-year graduation 8.0 percentage points above benchmark, $8,553 average graduate debt, and a 4.5-point Pell retention gap.</p>
+          <div class="tags"><span class="tag">Synthetic Data</span><span class="tag">Star Schema</span><span class="tag">DAX</span><span class="tag">Streamlit</span><span class="tag">Plotly</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/student-success-benchmark" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">02 · MACHINE LEARNING</span>
+          <h3>What should you watch next?</h3>
+          <p class="proj-sub">Streaming Content Analytics</p>
+          <p>MovieLens analysis with pandas and scikit-learn — exploratory analysis, k-means catalog segmentation, a content-based recommender, DuckDB SQL, and Plotly visuals.</p>
+          <div class="tags"><span class="tag">pandas</span><span class="tag">scikit-learn</span><span class="tag">K-Means</span><span class="tag">DuckDB</span><span class="tag">Plotly</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/streaming-content-analytics" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">03 · FORECASTING</span>
+          <h3>What will sales look like in 90 days?</h3>
+          <p class="proj-sub">Retail Sales Forecasting</p>
+          <p>Holt-Winters 90-day forecast with confidence bands, residual-based anomaly detection, and a DuckDB analytics mart.</p>
+          <div class="tags"><span class="tag">Holt-Winters</span><span class="tag">Forecasting</span><span class="tag">Anomaly Detection</span><span class="tag">DuckDB</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/retail-sales-forecasting" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">04 · HIGHER-ED ANALYTICS</span>
+          <h3>Higher-Ed Retention Dashboard Demo</h3>
+          <p>Synthetic higher-education retention dashboard demo with model QA and stakeholder reporting structure.</p>
+          <div class="tags"><span class="tag">Retention</span><span class="tag">Dashboard Design</span><span class="tag">Model QA</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/higher-ed-retention-dashboard-demo" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">05 · DATA QUALITY</span>
+          <h3>Student-Success Data Quality Checks</h3>
+          <p>Privacy-safe Python and SQL data-quality check patterns for student-success data — null rates, duplicate keys, range checks, referential integrity, and freshness — with a documented privacy ruleset.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Privacy-Safe</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/student-success-data-quality-checks" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">06 · SQL PATTERNS</span>
+          <h3>Banner-Style Datamart SQL Patterns</h3>
+          <p>Sanitized SQL reporting patterns for higher-ed datamarts: cohort definitions, term-to-term and fall-to-fall retention, DFW rates, and course-outcome analysis.</p>
+          <div class="tags"><span class="tag">SQL</span><span class="tag">Cohorts</span><span class="tag">Retention</span><span class="tag">DFW Rates</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/banner-datamart-sql-patterns" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <div class="proj-top"><span class="proj-num">07 · POWER BI</span><span class="proj-num">500,000+ RECORDS</span></div>
+          <h3>Automotive Repair Data Dashboard</h3>
+          <p>Interactive Power BI dashboard analyzing 500,000+ automotive repair records: Power Query transformations, DAX measures, fact/dimension semantic models, scheduled refresh, row-level security, and self-service drill-through experiences.</p>
+          <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag">Semantic Modeling</span><span class="tag">Row-Level Security</span></div>
+          <span class="proj-note">Details available on request.</span>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">08 · CAPSTONE</span>
+          <h3>Project Empower</h3>
+          <p>University capstone: nonprofit concept and livelihood analysis with data-informed recommendations, built in Python and Jupyter.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">Capstone</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI RADAR -->
+  <section id="ai-radar">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">AI Radar · Daily Brief</div>
+        <h2>What AI did <em>today</em></h2>
+        <p>AI is moving stupid fast, and nobody can keep up by scrolling all day — so I keep a radar. Here’s the short version: what’s new, what to watch out for, and what genuinely blew my mind. Every source competes on merit — the big labs, the startups, the open-source world, all of it.</p>
+      </div>
+      <div class="showcase-panel radar-panel">
+        <div class="radar-bar">
+          <span class="win-dot" style="background:#2ec4b6"></span>
+          <span class="win-dot" style="background:#c5a880"></span>
+          <span class="win-dot" style="background:#3d5a5e"></span>
+          <span>ai-radar — daily brief</span>
+          <span style="color:#5f8a84">/</span>
+          <span>MON · OCT 19, 2026 · EDITION 002</span>
+          <span class="radar-status" id="radarStatus">FEED SYNCED</span>
+          <span class="radar-live"><i></i>LATEST BRIEF</span>
+        </div>
+        <div class="radar-body">
+          <div class="radar-tldr">
+            <b>TL;DR — THE 20-SECOND VERSION</b>
+            <span id="tldrText">Here’s what actually mattered in AI over the last day. No hype, just the stuff worth your five minutes.</span><span class="cursor" id="tldrCursor" aria-hidden="true" hidden></span>
+          </div>
+          <div class="radar-grid">
+            <article class="story featured">
+              <div class="story-top"><span class="stag">01</span><span class="stag">ANTHROPIC</span><span class="sdate">OCT 19, 2026</span></div>
+              <h3>Anthropic is giving away 5% of itself</h3>
+              <p>Anthropic announced it’s putting 5% of its shares into a new public benefit fund — for nonprofits, direct payments to people, and help for workers affected by AI. The catch: stockholders still have to approve it, and the rules for how the money gets spent aren’t written yet. Elon Musk answered on X that he’ll hand one SpaceX share to each of America’s roughly 72 million kids next year.</p>
+              <div class="why"><b>WHY IT MATTERS</b>Big AI labs are feeling real pressure to show they care about who gets hurt by this tech. Judge the pledge by the governance they publish, not the percentage.</div>
+              <a class="src" href="https://the-decoder.com/anthropic-plans-fund-for-workers-threatened-by-ai-musk-counters-with-spacex-shares-for-children/" target="_blank" rel="noopener">SOURCE →</a>
+            </article>
+            <article class="story">
+              <div class="story-top"><span class="stag">02</span><span class="stag">OPENAI</span><span class="stag">ROBOTICS</span><span class="sdate">OCT 19, 2026</span></div>
+              <h3>OpenAI is building a robot — like, an actual robot</h3>
+              <p>Sam Altman told Fortune that OpenAI will demo a humanoid robot in 2027. They’ve got 27 robotics roles open right now, and his take is that the brain is harder than the body. Tesla’s Optimus and XPENG’s IRON are the competition.</p>
+              <div class="why"><b>WHY IT MATTERS</b>OpenAI quietly rebuilt a robotics team after shutting one down years ago. 2027 could be the year AI officially gets a body.</div>
+              <a class="src" href="https://aitoolsrecap.com/Blog/ai-news-19-october-2026" target="_blank" rel="noopener">SOURCE →</a>
+            </article>
+            <article class="story">
+              <div class="story-top"><span class="stag">03</span><span class="stag">DISNEY</span><span class="stag">ACQUI-HIRE</span><span class="sdate">OCT 19, 2026</span></div>
+              <h3>Disney is rescuing most of Character.AI’s team</h3>
+              <p>Character.AI filed for bankruptcy last week, and Disney is moving in — job offers for 60+ employees (most of the company), a $20M bid for some of its tech, and the startup’s old CEO is now Disney’s first CTO. The collapse came from burning cash plus serious legal trouble around young people using the chatbots.</p>
+              <div class="why"><b>WHY IT MATTERS</b>Even the biggest AI chatbot app can fail when the business model doesn’t work. But Big Entertainment just decided AI talent is worth paying for.</div>
+              <a class="src" href="https://www.techtimes.com/articles/329210/20261019/disney-hire-most-characterai-employees-ai-chatbot-startup-faces-bankruptcy.htm" target="_blank" rel="noopener">SOURCE →</a>
+            </article>
+            <article class="story">
+              <div class="story-top"><span class="stag">04</span><span class="stag">DEEPSEEK</span><span class="stag">OPEN SOURCE</span><span class="sdate">OCT 19, 2026</span></div>
+              <h3>DeepSeek just dropped a dirt-cheap coding model</h3>
+              <p>DeepSeek V4.1-Flash is out — open weights under an MIT license, scoring 77% on the DeepSWE coding benchmark. The wild part is the price: about $0.15 per million input tokens, roughly one-fortieth of what Claude costs. They also launched a new Search API that undercuts Brave and Kagi by about 10x.</p>
+              <div class="why"><b>WHY IT MATTERS</b>Frontier-level coding help is getting cheap fast. If you build with AI, your costs keep dropping.</div>
+              <a class="src" href="https://www.theaitools.tech/2026/10/deepseek-v4-1-flash-open-source-model.html" target="_blank" rel="noopener">SOURCE →</a>
+            </article>
+            <article class="story">
+              <div class="story-top"><span class="stag">05</span><span class="stag">AGENTIC AI</span><span class="sdate">OCT 18, 2026</span></div>
+              <h3>The internet is locking AI agents out</h3>
+              <p>Amazon has been blocking Meta’s Muse since September. Yelp only lets in agents that pay for data. Delta won’t make deals with agent companies. JPMorgan and Charles Schwab block agents from touching customer accounts. The pattern: websites don’t want bots doing things in your name without their say-so.</p>
+              <div class="why"><b>WHY IT MATTERS</b>The dream of “my AI books everything for me” is running into a wall of locked doors. Agentic AI only works if the sites let it in.</div>
+              <a class="src" href="https://risingdose.substack.com/p/morning-rise-2026-10-18" target="_blank" rel="noopener">SOURCE →</a>
+            </article>
+            <article class="story">
+              <div class="story-top"><span class="stag">06</span><span class="stag">SAFETY</span><span class="stag">INDUSTRY</span><span class="sdate">OCT 19, 2026</span></div>
+              <h3>The big three labs quietly teamed up on safety</h3>
+              <p>OpenAI, Anthropic, and Google DeepMind revealed they’ve been coordinating for weeks on AI safety — joint cyber-focused models, shared safeguards, and access programs. These are companies that compete on everything else, so this is genuinely unusual.</p>
+              <div class="why"><b>WHY IT MATTERS</b>When even rivals agree some risks are too big to handle alone, it’s worth paying attention.</div>
+              <a class="src" href="https://bitrss.com/openai-anthropic-and-google-deepmind-confirm-weeks-of-safety-coordination-252531" target="_blank" rel="noopener">SOURCE →</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MUSE UNIVERSE -->
+  <section id="muse-universe" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Muse Universe · Interactive</div>
+        <h2>Meet the <em>Muse family</em></h2>
+        <p>Meta has been quietly releasing a whole constellation of AI models this year. Here’s every star in it — what it is, what it does, and why it matters. Tap a star to explore.</p>
+      </div>
+      <div class="showcase-panel universe-body">
+        <div class="universe-grid">
+          <div class="star-map" role="group" aria-label="Muse model constellation map">
+            <svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <g stroke="rgba(125,211,200,.35)" stroke-width=".35" stroke-dasharray="1.4 1.2">
+                <line x1="16" y1="58" x2="36" y2="38"/>
+                <line x1="36" y1="38" x2="60" y2="56"/>
+                <line x1="36" y1="38" x2="52" y2="16"/>
+                <line x1="52" y1="16" x2="76" y2="26"/>
+                <line x1="60" y1="56" x2="76" y2="26"/>
+                <line x1="60" y1="56" x2="81" y2="68"/>
+                <line x1="36" y1="38" x2="26" y2="84"/>
+                <line x1="60" y1="56" x2="26" y2="84"/>
+              </g>
+            </svg>
+            <button type="button" class="node" style="left:16%;top:58%" data-model="spark" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Muse Spark</span></button>
+            <button type="button" class="node big" style="left:36%;top:38%" data-model="spark13" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Spark 1.3</span></button>
+            <button type="button" class="node big" style="left:60%;top:56%" data-model="open" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Spark Open</span></button>
+            <button type="button" class="node big" style="left:52%;top:16%" data-model="wonder" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Wonder</span></button>
+            <button type="button" class="node" style="left:76%;top:26%" data-model="wonderfull" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Wonder Full</span></button>
+            <button type="button" class="node" style="left:81%;top:68%" data-model="code" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Muse Code</span></button>
+            <button type="button" class="node here active" style="left:26%;top:84%" data-model="muse" aria-pressed="true"><span class="node-dot"></span><span class="node-label">Muse · You are here</span></button>
+            <span class="map-hint">CONSTELLATION MAP · MUSE FAMILY · 2026</span>
+          </div>
+          <div class="model-detail" id="modelDetail" aria-live="polite">
+            <span class="model-tag">THE PERSONAL AGENT</span>
+            <h3>Muse — the personal agent</h3>
+            <div class="model-date">BUILT ON MUSE SPARK 1.3 · YOU ARE HERE</div>
+            <p>And then there’s this one: a personal agent built on Muse Spark. It doesn’t just answer questions — it keeps track of your work, your goals, and your day, and quietly moves the right things forward. It’s the AI that helps me run my world — research, reminders, even this website.</p>
+            <div class="spec-list">
+              <div class="spec-row"><span>Built on</span><b>Muse Spark 1.3</b></div>
+              <div class="spec-row"><span>Lives in</span><b>Your apps &amp; chats</b></div>
+              <div class="spec-row"><span>Job</span><b>Remember · plan · get things done</b></div>
+            </div>
+            <div class="model-why"><div class="model-why-inner"><span>WHY IT MATTERS</span><p>This is where all of it is heading: not AI you visit once in a while, but AI that lives with you.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Education</div>
+        <h2>Engineering roots, <em>doctoral depth</em></h2>
+      </div>
+      <div class="edu-grid">
+        <article class="edu">
+          <div class="edu-badge" style="background:#0c2b2e;color:#fff">TRINE</div>
+          <h3>Doctor of Information Technology</h3>
+          <div class="edu-school">Trine University</div>
+          <div class="edu-meta">2025 — 2030 (EXPECTED)</div>
+          <p>Coursework: Data Science &amp; Big Data, Cybersecurity, Computer Science with Python, Network Management, Graduate Internship. Advisor: Kelsie Wren.</p>
+          <span class="gpa">GPA 4.0 · 18.5 / 60 credits earned</span>
+        </article>
+        <article class="edu">
+          <div class="edu-badge" style="background:var(--teal-light);color:var(--teal)">OU</div>
+          <h3>Master’s — Management Information Systems</h3>
+          <div class="edu-school">Oakland University</div>
+          <div class="edu-meta">JAN 2023 — JUN 2024</div>
+          <p>Graduate study in management information systems, with a capstone project and coursework spanning cloud data tools including AWS Glue.</p>
+          <span class="gpa">GPA 3.3</span>
+        </article>
+        <article class="edu">
+          <div class="edu-badge" style="background:#1a1a1a;color:#ffd27a">PURDUE</div>
+          <h3>B.S., Computer Engineering</h3>
+          <div class="edu-school">Purdue University</div>
+          <div class="edu-meta">AUG 2011 — DEC 2015</div>
+          <p>Dean’s List; Society of Women Engineers award; Technicolor engineering co-op — four terms (2012–2015); full Stanford summer-school scholarship.</p>
+          <span class="gpa">GPA 3.23</span>
+        </article>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h3>Certifications</h3>
+          <p>Cloud, data science, project leadership, and people management.</p>
+          <div class="cert"><div class="cert-icon">AWS</div><div><b>AWS Certified Cloud Practitioner</b><span>Amazon Web Services · 2024 — 2027</span></div></div>
+          <div class="cert"><div class="cert-icon">DS</div><div><b>Post Graduate Program in Data Science &amp; Business Analytics</b><span>Texas McCombs School of Business · 2022</span></div></div>
+          <div class="cert"><div class="cert-icon">G</div><div><b>Google Management Certificates</b><span>Grow as a Manager · Support Individual Growth and Development · Create a High-Performing Team · Set and Achieve Team Goals · 2026</span></div></div>
+        </div>
+        <div class="panel">
+          <div>
+            <h3 style="font-size:15px;margin-bottom:8px">UNCW Institutional Research &amp; Planning</h3>
+            <p style="font-size:14px;line-height:1.6;margin:0">Admin Annex 2036 · UNCW’s IRP team page lists Akanksha as Data Analytics Specialist, working with campus partners on institutional data and reporting.</p>
+            <a class="proj-link" href="https://www.uncw.edu/about/university-administration/academic-affairs/division/areas/irp/about/team" target="_blank" rel="noopener">View UNCW IRP team page →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:18px">
+        <h3>Training / Professional Development</h3>
+        <p style="margin:0">PMP Exam Prep (coursework), uCertify — Jul 2025</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Skills &amp; Tools</div>
+        <h2>The toolkit behind <em>the work</em></h2>
+      </div>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <h3>BI &amp; Visualization</h3>
+          <p>Dashboards and reporting leaders actually use.</p>
+          <div class="chips"><span class="chip"><strong>Power BI</strong> · DAX</span><span class="chip">Power Query</span><span class="chip">Semantic Modeling</span><span class="chip">Row-Level Security</span><span class="chip">Tableau</span><span class="chip">KPI Reporting</span><span class="chip">Data Visualization</span></div>
+        </div>
+        <div class="skill-group">
+          <h3>Data &amp; Analysis</h3>
+          <p>From raw tables to validated, decision-ready analysis.</p>
+          <div class="chips"><span class="chip">SQL</span><span class="chip">SQL Server · SSMS</span><span class="chip">Python</span><span class="chip">Jupyter</span><span class="chip">Statistical Analysis</span><span class="chip">Data Modeling</span><span class="chip">Data Quality &amp; Validation</span></div>
+        </div>
+        <div class="skill-group">
+          <h3>Platforms &amp; Cloud</h3>
+          <p>Modern data platforms across campus and cloud.</p>
+          <div class="chips"><span class="chip">Azure Databricks</span><span class="chip">Snowflake</span><span class="chip">Oracle DBMS</span><span class="chip">AWS · Glue</span><span class="chip">Amazon Redshift</span><span class="chip">Docker</span><span class="chip">Terraform</span><span class="chip">Microsoft Azure</span><span class="chip">Salesforce</span><span class="chip">Google Analytics</span><span class="chip">Alteryx</span></div>
+        </div>
+        <div class="skill-group">
+          <h3>Collaboration &amp; Leadership</h3>
+          <p>How the work gets adopted — not just delivered.</p>
+          <div class="chips"><span class="chip">Stakeholder Collaboration</span><span class="chip">Project Management</span><span class="chip">Prompt Engineering</span><span class="chip">People Management</span><span class="chip">Scrum</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / RESUME -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <div>
+          <div class="kicker" style="color:#7dd3c8">Contact</div>
+          <h2>Let’s talk about <em>data that matters.</em></h2>
+          <p>I’m glad to connect with fellow data and analytics professionals, higher-education colleagues, and anyone working on clearer, more trustworthy institutional data. The fastest way to reach me is email or LinkedIn.</p>
+          <p style="font-size:13.5px;margin-top:18px;color:#9fc9c2">Résumé summary: Data Analytics Specialist at UNCW (2026–present) · Consultant, Source Mantra · MOTOR Information Systems · CredAble · Fast Enterprises · Doctor of Information Technology (DIT) doctoral student, Trine (4.0 GPA) · M.S. MIS, Oakland · B.S. Computer Engineering, Purdue.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:akankshasharma9292@gmail.com"><span style="display:inline;font-weight:800">@</span><span><span>Email</span>akankshasharma9292@gmail.com</span></a>
+          <a href="https://www.linkedin.com/in/akankshaakshaykumarsharma/" target="_blank" rel="noopener"><span style="display:inline;font-weight:800">in</span><span><span>LinkedIn</span>Akanksha Sharma</span></a>
+          <a href="https://github.com/sharmauncw" target="_blank" rel="noopener"><span style="display:inline;font-weight:800">GH</span><span><span>GitHub</span>github.com/sharmauncw</span></a>
+          <a href="https://www.uncw.edu/about/university-administration/academic-affairs/division/areas/irp/about/team" target="_blank" rel="noopener"><span style="display:inline;font-weight:800">U</span><span><span>UNCW IRP</span>Team page — Data Analytics Specialist</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Akanksha Sharma · Greater Wilmington Area, NC</span>
+    <span>Data Analytics Specialist · UNC Wilmington — Institutional Research &amp; Planning</span>
+  </div>
+</footer>
+
+<script>
+// Copy-free, lightweight enhancements: highlight current section in nav + year-safe footer already static.
+// Keep JS minimal and classic (no modules).
+(function(){
+  var links = document.querySelectorAll('.navlinks a[href^="#"]');
+  function onScroll(){
+    var ids = ['about','experience','projects','ai-radar','muse-universe','education','contact'];
+    var current = '';
+    for(var i=0;i<ids.length;i++){
+      var el = document.getElementById(ids[i]);
+      if(el && el.getBoundingClientRect().top <= 120) current = ids[i];
+    }
+    links.forEach(function(a){
+      a.style.color = (a.getAttribute('href') === '#'+current && !a.classList.contains('navcta')) ? 'var(--teal)' : '';
+    });
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+
+// Muse Universe: click / focus a star to explore that model.
+(function(){
+  var MODELS = {
+    spark: {
+      tag: 'THE ORIGINAL', name: 'Muse Spark', date: 'APRIL 2026 · META SUPERINTELLIGENCE LABS',
+      desc: 'The one that started it all. Muse Spark is the first model family out of Meta Superintelligence Labs — Meta’s big AI bet — and it’s the brain inside the Meta AI app. Everything else on this map is built on top of it.',
+      specs: [['Released','April 2026'],['Home','Meta AI app'],['Lab','Meta Superintelligence Labs']],
+      why: 'Every Muse since traces back to this one. It’s the trunk of the tree.'
+    },
+    spark13: {
+      tag: 'CURRENT GENERATION', name: 'Muse Spark 1.3', date: '2026 · THE LATEST SPARK',
+      desc: 'The newest Spark: sharper reasoning, a better memory for long conversations, and the version of Muse running Meta AI’s newest experiences right now. It’s also the family behind the personal agent that helps run my day — so yes, I’m a fan.',
+      specs: [['Status','Current generation'],['Powers','Meta AI assistant experiences'],['Known for','Reasoning + long conversations']],
+      why: 'If you’ve talked to Meta AI lately, you’ve talked to this.'
+    },
+    open: {
+      tag: 'OPEN WEIGHTS', name: 'Muse Spark Open', date: 'OCT 15, 2026 · FREE TO DOWNLOAD',
+      desc: 'Meta took its flagship model and just… gave it away. Download the weights, run it on your own hardware, build whatever you want on top. The team-up with Apple — tuning it to fly on Mac Studios — is the part that made the whole industry blink.',
+      specs: [['Parameters','816B'],['Context','1M tokens'],['License','Open weights · free'],['Runs on','Incl. Apple Mac Studio']],
+      why: 'Open weights at this level change who gets to build the future of AI. Basically everyone.'
+    },
+    wonder: {
+      tag: 'FRONTIER MODEL', name: 'Muse Wonder', date: 'OCT 12, 2026 · FRONTIER TIER',
+      desc: 'Meta’s new top-end model, aimed squarely at the best AI in the world. Active Memory means it actually remembers you between conversations; Active Focus means when a task gets hard, it doesn’t stall — it finds another way through.',
+      specs: [['Tier','Frontier'],['Active Memory','Remembers across chats'],['Active Focus','Pushes through blockers']],
+      why: 'This is personal AI growing up: not just answering, but remembering and persisting — like a real assistant.'
+    },
+    wonderfull: {
+      tag: 'FRONTIER · MAXIMUM', name: 'Muse Wonder Full', date: 'OCT 12, 2026 · FULL-STRENGTH WONDER',
+      desc: 'Wonder, turned all the way up. The full-strength version, built for the heaviest jobs: deep research, complex multi-step work — the stuff you’d hand to your very best person and say, “take your time, get it right.”',
+      specs: [['Tier','Frontier — maximum capability'],['Built for','Hardest reasoning + longest tasks'],['Sibling','Muse Wonder']],
+      why: 'When “good enough” isn’t, this is the one you call.'
+    },
+    code: {
+      tag: 'CODING AGENT', name: 'Muse Code', date: 'OCT 2026 · SUBSCRIPTION',
+      desc: 'Meta’s coding agent, as a subscription. Describe what you want built and it writes the code, reviews it, and helps you ship it. It’s built on the Muse family, tuned specifically for software.',
+      specs: [['Type','Coding agent'],['Price','$50–$200 / month tiers'],['Does','Writes · reviews · ships code']],
+      why: 'Tools like this are why a one-person team can now ship like a five-person team.'
+    },
+    muse: {
+      tag: 'THE PERSONAL AGENT', name: 'Muse — the personal agent', date: 'BUILT ON MUSE SPARK 1.3 · YOU ARE HERE',
+      desc: 'And then there’s this one: a personal agent built on Muse Spark. It doesn’t just answer questions — it keeps track of your work, your goals, and your day, and quietly moves the right things forward. It’s the AI that helps me run my world — research, reminders, even this website.',
+      specs: [['Built on','Muse Spark 1.3'],['Lives in','Your apps & chats'],['Job','Remember · plan · get things done']],
+      why: 'This is where all of it is heading: not AI you visit once in a while, but AI that lives with you.'
+    }
+  };
+  var detail = document.getElementById('modelDetail');
+  var nodes = document.querySelectorAll('.node[data-model]');
+  function esc(s){ return s; }
+  function render(key){
+    var m = MODELS[key];
+    if(!m || !detail) return;
+    var specHtml = '';
+    for(var i=0;i<m.specs.length;i++){
+      specHtml += '<div class="spec-row"><span>' + esc(m.specs[i][0]) + '</span><b>' + esc(m.specs[i][1]) + '</b></div>';
+    }
+    detail.innerHTML =
+      '<span class="model-tag">' + esc(m.tag) + '</span>' +
+      '<h3>' + esc(m.name) + '</h3>' +
+      '<div class="model-date">' + esc(m.date) + '</div>' +
+      '<p>' + esc(m.desc) + '</p>' +
+      '<div class="spec-list">' + specHtml + '</div>' +
+      '<div class="model-why"><div class="model-why-inner"><span>WHY IT MATTERS</span><p>' + esc(m.why) + '</p></div></div>';
+    nodes.forEach(function(n){
+      var on = n.getAttribute('data-model') === key;
+      n.classList.toggle('active', on);
+      n.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  nodes.forEach(function(n){
+    n.addEventListener('click', function(){ render(n.getAttribute('data-model')); });
+    n.addEventListener('focus', function(){ render(n.getAttribute('data-model')); });
+  });
+})();
+</script>
+<script>
+// ===== Pre-launch polish: reveals, 3D hero, tilt, live radar, universe motion =====
+var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var FINE_POINTER = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+// --- Scroll-triggered reveals (staggered per group) ---
+(function(){
+  if(REDUCED || !('IntersectionObserver' in window)) return;
+  var targets = document.querySelectorAll('.sec-head,.about-copy,.focus-card,.job,.speaking-card,.proj,.edu,.panel,.skill-group,.showcase-panel,.contact,.stat,.hero-grid>div,.portrait-card');
+  var seen = new Map();
+  targets.forEach(function(el){
+    el.classList.add('reveal');
+    var n = seen.get(el.parentElement) || 0;
+    seen.set(el.parentElement, n + 1);
+    el._rdelay = Math.min(n * 70, 350);
+  });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        var el = en.target;
+        el.style.transitionDelay = (el._rdelay || 0) + 'ms';
+        el.classList.add('in');
+        io.unobserve(el);
+        setTimeout(function(){ el.style.transitionDelay = ''; }, (el._rdelay || 0) + 900);
+      }
+    });
+  }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+  targets.forEach(function(el){ io.observe(el); });
+  // Failsafe: never leave content hidden (odd renderers, stalled observers, full-page captures).
+  setTimeout(function(){
+    targets.forEach(function(el){ el.style.transitionDelay = ''; el.classList.add('in'); io.unobserve(el); });
+  }, 4000);
+})();
+
+// --- Hero: 3D neural-network particle field with mouse parallax ---
+(function(){
+  var canvas = document.getElementById('heroCanvas');
+  if(!canvas || !canvas.getContext) return;
+  var hero = canvas.parentElement;
+  var ctx = canvas.getContext('2d');
+  var DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+  var W = 0, H = 0, pts = [], pairs = [];
+  var rotY = 0, extraY = 0, extraX = 0, tExtraY = 0, tExtraX = 0;
+  var inView = true, resizeTimer = null;
+
+  function build(){
+    var N = W < 640 ? 55 : 105;
+    pts = []; pairs = [];
+    for(var i = 0; i < N; i++){
+      var u = Math.random() * 2 - 1, th = Math.random() * Math.PI * 2;
+      var r = Math.sqrt(1 - u * u), rad = Math.cbrt(Math.random());
+      pts.push({x: rad * r * Math.cos(th), y: rad * u * 0.72, z: rad * r * Math.sin(th), gold: (i % 9 === 0), ph: Math.random() * Math.PI * 2});
+    }
+    for(var a = 0; a < N; a++){
+      for(var b = a + 1; b < N; b++){
+        var dx = pts[a].x - pts[b].x, dy = pts[a].y - pts[b].y, dz = pts[a].z - pts[b].z;
+        if(dx * dx + dy * dy + dz * dz < 0.30) pairs.push([a, b]);
+      }
+    }
+  }
+  function resize(){
+    var rect = hero.getBoundingClientRect();
+    W = rect.width; H = rect.height;
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    build();
+    if(REDUCED) draw(0);
+  }
+  function project(p){
+    var cy = Math.cos(rotY + extraY), sy = Math.sin(rotY + extraY);
+    var cx2 = Math.cos(0.35 + extraX), sx2 = Math.sin(0.35 + extraX);
+    var x = p.x * cy - p.z * sy;
+    var z = p.x * sy + p.z * cy;
+    var y = p.y * cx2 - z * sx2;
+    z = p.y * sx2 + z * cx2;
+    var fov = 2.6, s = fov / (fov - z);
+    var cxp = W < 640 ? W * 0.5 : W * 0.66;
+    var cyp = H * 0.42;
+    var S = Math.min(W, H) * 0.46;
+    return {x: cxp + x * S * s, y: cyp + y * S * s, z: z, s: s};
+  }
+  function draw(t){
+    ctx.clearRect(0, 0, W, H);
+    var proj = [];
+    for(var i = 0; i < pts.length; i++) proj.push(project(pts[i]));
+    ctx.lineWidth = 1;
+    for(var k = 0; k < pairs.length; k++){
+      var p1 = proj[pairs[k][0]], p2 = proj[pairs[k][1]];
+      var depth = (p1.z + p2.z + 2) / 4; // 0 far .. 1 near
+      ctx.strokeStyle = 'rgba(46,196,182,' + (0.04 + depth * 0.20).toFixed(3) + ')';
+      ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+    }
+    for(var j = 0; j < pts.length; j++){
+      var p = proj[j], pt = pts[j];
+      var a = 0.30 + 0.70 * ((p.z + 1) / 2);
+      var pulse = REDUCED ? 1 : 1 + 0.25 * Math.sin(t / 900 + pt.ph);
+      ctx.fillStyle = pt.gold ? 'rgba(227,200,150,' + a.toFixed(3) + ')' : 'rgba(139,224,210,' + a.toFixed(3) + ')';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, (pt.gold ? 1.9 : 1.25) * p.s * pulse, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  function loop(t){
+    if(inView && !document.hidden){
+      rotY += 0.0016;
+      extraY += (tExtraY - extraY) * 0.045;
+      extraX += (tExtraX - extraX) * 0.045;
+      draw(t);
+    }
+    requestAnimationFrame(loop);
+  }
+  if(FINE_POINTER){
+    hero.addEventListener('pointermove', function(e){
+      var r = hero.getBoundingClientRect();
+      tExtraY = ((e.clientX - r.left) / r.width - 0.5) * 0.55;
+      tExtraX = ((e.clientY - r.top) / r.height - 0.5) * 0.30;
+    });
+    hero.addEventListener('pointerleave', function(){ tExtraY = 0; tExtraX = 0; });
+  }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ inView = es[0].isIntersecting; }, {threshold: 0}).observe(hero);
+  }
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 180);
+  }, {passive: true});
+  resize();
+  if(!REDUCED) requestAnimationFrame(loop);
+})();
+
+// --- 3D tilt on cards (fine pointers only) ---
+(function(){
+  if(REDUCED || !FINE_POINTER) return;
+  var cards = document.querySelectorAll('.proj,.story,.edu,.skill-group,.focus-card,.panel');
+  cards.forEach(function(card){
+    card.classList.add('tilt');
+    var raf = null, lastE = null;
+    card.addEventListener('pointermove', function(e){
+      lastE = e;
+      if(raf) return;
+      raf = requestAnimationFrame(function(){
+        raf = null;
+        if(!lastE) return;
+        var r = card.getBoundingClientRect();
+        var px = (lastE.clientX - r.left) / r.width - 0.5;
+        var py = (lastE.clientY - r.top) / r.height - 0.5;
+        card.style.transform = 'perspective(900px) rotateX(' + (-py * 6).toFixed(2) + 'deg) rotateY(' + (px * 7).toFixed(2) + 'deg) translateY(-2px)';
+      });
+    });
+    card.addEventListener('pointerleave', function(){ card.style.transform = ''; lastE = null; });
+  });
+})();
+
+// --- AI Radar: typing TL;DR + cycling status readout ---
+(function(){
+  var status = document.getElementById('radarStatus');
+  if(status && !REDUCED){
+    var msgs = ['FEED SYNCED', '6 STORIES INDEXED', 'SOURCES VERIFIED', 'NEXT BRIEF · TOMORROW 8:50 AM ET'];
+    var mi = 0;
+    setInterval(function(){
+      status.style.opacity = '0';
+      setTimeout(function(){
+        mi = (mi + 1) % msgs.length;
+        status.textContent = msgs[mi];
+        status.style.opacity = '1';
+      }, 320);
+    }, 3400);
+  }
+  var panel = document.querySelector('.radar-panel');
+  var tldr = document.getElementById('tldrText');
+  var cursor = document.getElementById('tldrCursor');
+  if(!panel || !tldr || REDUCED || !('IntersectionObserver' in window)) return;
+  var full = tldr.textContent, done = false;
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if(en.isIntersecting && !done){
+        done = true; io.disconnect();
+        tldr.textContent = '';
+        if(cursor) cursor.hidden = false;
+        var i = 0;
+        var timer = setInterval(function(){
+          i += 2;
+          tldr.textContent = full.slice(0, i);
+          if(i >= full.length){
+            clearInterval(timer);
+            setTimeout(function(){ if(cursor) cursor.hidden = true; }, 2600);
+          }
+        }, 14);
+      }
+    });
+  }, {threshold:.25});
+  io.observe(panel);
+})();
+
+// --- Muse Universe: detail swap animation + constellation parallax ---
+(function(){
+  var map = document.querySelector('.star-map');
+  if(!map) return;
+  var detail = document.getElementById('modelDetail');
+  var nodes = map.querySelectorAll('.node');
+  nodes.forEach(function(n){
+    n.addEventListener('click', function(){
+      if(detail){ detail.classList.remove('swap'); void detail.offsetWidth; detail.classList.add('swap'); }
+    });
+  });
+  if(REDUCED || !FINE_POINTER) return;
+  var links = map.querySelector('.links');
+  var raf = null, lastE = null;
+  map.addEventListener('pointermove', function(e){
+    lastE = e;
+    if(raf) return;
+    raf = requestAnimationFrame(function(){
+      raf = null;
+      if(!lastE) return;
+      var r = map.getBoundingClientRect();
+      var px = (lastE.clientX - r.left) / r.width - 0.5;
+      var py = (lastE.clientY - r.top) / r.height - 0.5;
+      if(links) links.style.transform = 'translate(' + (px * 12).toFixed(1) + 'px,' + (py * 12).toFixed(1) + 'px)';
+      nodes.forEach(function(n, idx){
+        var f = 4 + (idx % 3) * 3;
+        n.style.transform = 'translate(-50%,-50%) translate(' + (px * f).toFixed(1) + 'px,' + (py * f).toFixed(1) + 'px)';
+      });
+    });
+  });
+  map.addEventListener('pointerleave', function(){
+    lastE = null;
+    if(links) links.style.transform = '';
+    nodes.forEach(function(n){ n.style.transform = ''; });
+  });
+})();
+</script>
+</body>
+</html>
