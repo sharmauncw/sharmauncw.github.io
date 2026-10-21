@@ -200,6 +200,15 @@ section.news{padding:8px 0 0}
   .reel-body{padding:22px}
 }
 
+/* TRAVEL ATLAS — companion strip under Radar Reels */
+.atlas-strip{margin-top:18px;display:flex;gap:16px;align-items:center;background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:20px 24px;text-decoration:none}
+.atlas-strip:hover{border-color:var(--teal)}
+.atlas-strip-label{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;font-weight:600;color:var(--teal);white-space:nowrap}
+.atlas-strip-text{font-size:15.5px;line-height:1.6;color:var(--text-2);flex:1}
+.atlas-strip-text strong{color:var(--text)}
+.atlas-strip-arrow{font-weight:800;color:var(--teal);flex:none}
+@media(max-width:600px){.atlas-strip{flex-wrap:wrap;gap:8px 12px}.atlas-strip-text{flex-basis:calc(100% - 32px)}}
+
 /* EDUCATION + CERTS */
 .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media(max-width:900px){.edu-grid{grid-template-columns:1fr}}
@@ -370,6 +379,7 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
       <a href="#projects">Projects</a>
       <a href="#ai-radar">AI Radar</a>
       <a href="#muse-universe">Muse Universe</a>
+      <a href="https://sharmauncw.github.io/atlas/" target="_blank" rel="noopener">Travel Atlas</a>
       <a href="#education">Education</a>
       <a href="#contact" class="navcta">Get in touch</a>
     </nav>
@@ -707,6 +717,11 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
           </div>
         </div>
       </article>
+      <a class="atlas-strip" href="https://sharmauncw.github.io/atlas/" target="_blank" rel="noopener">
+        <span class="atlas-strip-label">MAP · INTERACTIVE</span>
+        <span class="atlas-strip-text"><strong>The Travel Atlas</strong> — I turn institutional data into stories for a living. This is the same discipline, turned on my own life — fifteen years, three countries, 26 cities, every place sourced and mapped.</span>
+        <span class="atlas-strip-arrow" aria-hidden="true">↗</span>
+      </a>
     </div>
   </section>
 
