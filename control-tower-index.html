@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<link rel="icon" href="data:," />
+<title>IR Control Tower — IPEDS Outcomes Lab (Demo)</title>
+<style>
+  :root{
+    --bg:#0b0b0d;
+    --panel:#121215;
+    --panel-2:#17171b;
+    --line:#232329;
+    --line-soft:#1b1b20;
+    --text:#f2f2f4;
+    --muted:#a7a7b1;
+    --faint:#6f6f7a;
+    --red:#e63329;
+    --red-dim:rgba(230,51,41,.16);
+    --white:#f5f5f7;
+    --grey:#8e8e99;
+    --amber:#d9a441;
+    --radius:10px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;line-height:1.55;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 20px 56px}
+  a{color:var(--text);text-decoration-color:var(--red);text-underline-offset:3px}
+  a:hover{color:#fff}
+
+  /* ---------- header ---------- */
+  header.top{padding:10px 0 22px;border-bottom:1px solid var(--line)}
+  .title-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  h1{font-size:30px;line-height:1.15;margin:0;font-weight:700;letter-spacing:-.01em}
+  .demo-badge{
+    font-size:11px;font-weight:700;letter-spacing:.14em;color:#fff;background:var(--red);
+    padding:4px 9px 3px;border-radius:4px;transform:translateY(1px);
+  }
+  .subtitle{color:var(--muted);margin:8px 0 0;font-size:15px}
+  .subtitle strong{color:var(--text);font-weight:600}
+  .meta-row{display:flex;gap:8px 22px;flex-wrap:wrap;margin-top:14px;color:var(--faint);font-size:12.5px}
+  .meta-row span b{color:var(--muted);font-weight:600}
+
+  /* ---------- KPI row ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0 8px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px 14px}
+  .kpi .v{font-size:30px;font-weight:700;letter-spacing:-.01em;line-height:1.05;font-variant-numeric:tabular-nums}
+  .kpi .v small{font-size:16px;color:var(--muted);font-weight:600}
+  .kpi .l{color:var(--muted);font-size:13px;margin-top:6px;line-height:1.4}
+  .kpi .l b{color:var(--text);font-weight:600}
+  .kpi.accent{border-top:2px solid var(--red)}
+
+  /* ---------- sections & panels ---------- */
+  section{margin-top:34px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+  .sec-head h2{font-size:20px;margin:0;font-weight:700;letter-spacing:-.01em}
+  .sec-head .n{color:var(--red);font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+  .sec-sub{color:var(--muted);margin:0 0 14px;max-width:72ch}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 14px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid-6040{display:grid;grid-template-columns:3fr 2fr;gap:12px}
+  .panel h3{margin:0 0 4px;font-size:15px;font-weight:650}
+  .panel .cap{color:var(--faint);font-size:12.5px;margin:0 0 10px}
+  .note{color:var(--muted);font-size:13px;margin-top:12px}
+  .note b{color:var(--text)}
+
+  /* ---------- charts ---------- */
+  .chart-box{position:relative}
+  svg.chart{display:block;width:100%;height:auto}
+  .axis text{fill:var(--faint);font-size:11px;font-variant-numeric:tabular-nums}
+  .grid line{stroke:var(--line-soft);stroke-width:1}
+  .axis-line{stroke:var(--line);stroke-width:1}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin:2px 0 10px;font-size:13px;color:var(--muted)}
+  .legend .sw{display:inline-block;width:18px;height:3px;border-radius:2px;margin-right:7px;vertical-align:middle}
+  .legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:1px}
+  #tooltip{
+    position:fixed;z-index:50;pointer-events:none;background:#1e1e23;border:1px solid #34343d;
+    border-radius:8px;padding:8px 11px;font-size:12.5px;line-height:1.45;color:var(--text);
+    box-shadow:0 8px 24px rgba(0,0,0,.5);opacity:0;transition:opacity .08s;max-width:260px;
+  }
+  #tooltip .tt{font-weight:700}
+  #tooltip .tm{color:var(--muted)}
+  .hover-dot{cursor:pointer}
+
+  /* ---------- callout stats ---------- */
+  .big-gap{font-size:44px;font-weight:700;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .big-gap small{font-size:18px;color:var(--muted);font-weight:600}
+  .stat-list{margin:16px 0 0;padding:0;list-style:none}
+  .stat-list li{padding:11px 0;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+  .stat-list li:first-child{border-top:none;padding-top:4px}
+  .stat-list .k{color:var(--muted);font-size:13.5px}
+  .stat-list .val{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  /* ---------- bars ---------- */
+  .bar-row{display:grid;grid-template-columns:190px 1fr 74px;gap:12px;align-items:center;padding:7px 0;border-top:1px solid var(--line-soft)}
+  .bar-row:first-of-type{border-top:none}
+  .bar-row .name{font-size:13.5px;color:var(--text)}
+  .bar-row .name span{color:var(--faint);font-size:12px;display:block}
+  .track{background:#1d1d22;border-radius:5px;height:20px;overflow:hidden}
+  .fill{height:100%;background:var(--grey);border-radius:5px 0 0 5px}
+  .fill.red{background:var(--red)}
+  .fill.white{background:#d8d8de}
+  .bar-row .num{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+  .bar-row .num small{color:var(--faint);font-weight:500;font-size:11.5px;display:block}
+
+  .pair{margin:14px 0 4px}
+  .pair-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .pair-head .hname{font-weight:650;font-size:14.5px}
+  .pair-head .gap{color:var(--muted);font-size:13px}
+  .pair-head .gap b{color:var(--text)}
+  .pair-row{display:grid;grid-template-columns:64px 1fr 58px;gap:10px;align-items:center;margin-top:6px}
+  .pair-row .plabel{color:var(--muted);font-size:12.5px}
+  .pair-row .track{height:16px}
+  .pair-row .pnum{font-weight:650;text-align:right;font-variant-numeric:tabular-nums;font-size:13.5px}
+
+  /* ---------- clusters ---------- */
+  .clusters{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .cluster{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .cluster .chead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .cluster h3{margin:0;font-size:16px;font-weight:700}
+  .cluster .n{color:var(--faint);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .cluster .metrics{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+  .chip{border:1px solid var(--line);background:var(--panel-2);border-radius:6px;padding:6px 10px;font-size:12.5px;color:var(--muted)}
+  .chip b{color:var(--text);font-variant-numeric:tabular-nums}
+  .cluster p{margin:0;color:var(--muted);font-size:13.5px}
+  .cluster .examples{margin-top:12px;color:var(--faint);font-size:12px;line-height:1.5}
+  .cluster .examples b{color:var(--muted);font-weight:600}
+  .cluster .flag{margin-top:12px;border-left:3px solid var(--red);padding:7px 10px;background:var(--red-dim);color:var(--text);font-size:13px;border-radius:0 6px 6px 0}
+
+  /* ---------- footer ---------- */
+  footer{margin-top:44px;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:13px}
+  footer h2{color:var(--text);font-size:16px;margin:0 0 10px}
+  footer dl{margin:0;display:grid;grid-template-columns:170px 1fr;gap:6px 18px}
+  footer dt{color:var(--text);font-weight:600}
+  footer dd{margin:0}
+  .source{margin-top:18px;padding-top:14px;border-top:1px solid var(--line-soft);color:var(--faint);font-size:12.5px;line-height:1.6}
+
+  @media (max-width:860px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .grid-2,.grid-6040,.clusters{grid-template-columns:1fr}
+    .bar-row{grid-template-columns:130px 1fr 62px}
+    h1{font-size:25px}
+    footer dl{grid-template-columns:1fr}
+    footer dt{margin-top:8px}
+  }
+  @media (max-width:460px){
+    .kpis{grid-template-columns:1fr 1fr}
+    .kpi .v{font-size:24px}
+    .wrap{padding:20px 14px 44px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="title-row">
+      <h1>IR Control Tower</h1>
+      <span class="demo-badge">DEMO</span>
+    </div>
+    <p class="subtitle"><strong>IPEDS Outcomes Lab</strong> · U.S. Department of Education data · 2015–2023</p>
+    <div class="meta-row">
+      <span>Panel: <b>2015–2023</b></span>
+      <span>Coverage: <b>four-year institutions</b></span>
+      <span>Built from the lab&rsquo;s <b>saved outputs</b> — no live query behind this page</span>
+    </div>
+  </header>
+
+  <!-- KPI row -->
+  <div class="kpis" role="list">
+    <div class="kpi" role="listitem"><div class="v">8,670</div><div class="l">institutions in the full IPEDS panel</div></div>
+    <div class="kpi" role="listitem"><div class="v">60,885</div><div class="l">institution-years in the full panel, 2015–2023</div></div>
+    <div class="kpi" role="listitem"><div class="v">27,005</div><div class="l">four-year institution-years in the analysis set</div></div>
+    <div class="kpi" role="listitem"><div class="v">0.745</div><div class="l">model R² — predicting the 150% graduation rate out of sample</div></div>
+    <div class="kpi accent" role="listitem"><div class="v">7.15<small> pp</small></div><div class="l">model error (MAE) vs <b>16.3 pp</b> for a naive baseline</div></div>
+    <div class="kpi accent" role="listitem"><div class="v">16.4<small> pp</small></div><div class="l">Pell gap in 8-year award rates, latest entering cohort (2015)</div></div>
+  </div>
+
+  <!-- 2. Outcomes trend -->
+  <section>
+    <div class="sec-head"><span class="n">01</span><h2>Outcomes trend</h2></div>
+    <p class="sec-sub">Median 150% graduation rate across four-year institutions rose from <b>47.1%</b> in 2015 to <b>52.4%</b> in 2023. Median first-year retention barely moved, holding at roughly <b>74–75%</b> the whole period — graduation improved without retention leading it.</p>
+    <div class="panel">
+      <div class="legend">
+        <span><span class="sw" style="background:var(--red)"></span>Median 150% graduation rate</span>
+        <span><span class="sw" style="background:#d8d8de"></span>Median first-year retention rate</span>
+      </div>
+      <div class="chart-box"><svg class="chart" id="trendChart" viewBox="0 0 720 300" role="img" aria-label="Line chart: median graduation rate rising 47.1 to 52.4 percent from 2015 to 2023; median retention flat near 74 to 75 percent"></svg></div>
+      <p class="note">Institution medians across four-year institutions, by year. Hover any point for the exact value.</p>
+    </div>
+  </section>
+
+  <!-- 3. Equity gap -->
+  <section>
+    <div class="sec-head"><span class="n">02</span><h2>The equity gap</h2></div>
+    <p class="sec-sub">Eight-year award rates (IPEDS Outcome Measures, student-weighted) for Pell Grant recipients vs. non-recipients, by entering cohort. Both groups gained ground — Pell students faster — but a wide gap remains.</p>
+    <div class="grid-6040">
+      <div class="panel">
+        <h3>Pell vs. non-Pell, 8-year award rate</h3>
+        <p class="cap">Entering cohorts 2009–2015</p>
+        <div class="legend">
+          <span><span class="sw" style="background:var(--red)"></span>Pell recipients</span>
+          <span><span class="sw" style="background:#d8d8de"></span>Non-Pell</span>
+        </div>
+        <div class="chart-box"><svg class="chart" id="equityChart" viewBox="0 0 640 300" role="img" aria-label="Line chart: Pell 8-year award rate rising 38.9 to 45.9 percent across 2009 to 2015 entering cohorts; non-Pell rising 54.4 to 62.2 percent"></svg></div>
+      </div>
+      <div class="panel">
+        <h3>Latest cohort (entered 2015)</h3>
+        <p class="cap">Student-weighted 8-year award rates</p>
+        <div class="big-gap">16.4<small> pp gap</small></div>
+        <ul class="stat-list">
+          <li><span class="k">Pell recipients</span><span class="val">45.9%</span></li>
+          <li><span class="k">Non-Pell</span><span class="val">62.2%</span></li>
+          <li><span class="k">Median institution-level gap</span><span class="val">7.7 pp</span></li>
+          <li><span class="k">Institutions where Pell &ge; non-Pell</span><span class="val">16%</span></li>
+        </ul>
+        <p class="note">The headline gap is computed from the unrounded rates (45.89% vs. 62.24%). The typical single institution&rsquo;s own gap is smaller — 7.7 pp at the median — and at only 16% of institutions do Pell students finish at or above the non-Pell rate.</p>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:12px">
+      <h3>Completion by horizon — latest cohort</h3>
+      <p class="cap">Share of the 2015 entering cohort earning any credential within 4, 6, and 8 years</p>
+      <div id="horizons"></div>
+      <p class="note">More time lifts both groups — Pell +11.9 pp and non-Pell +13.6 pp between years 4 and 8 — so the gap does not close with time: 14.6 pp at four years, 16.6 pp at six, 16.3 pp at eight (horizon gaps from the rounded rates).</p>
+    </div>
+  </section>
+  <!-- 4. What predicts graduation -->
+  <section>
+    <div class="sec-head"><span class="n">03</span><h2>What predicts graduation</h2></div>
+    <p class="sec-sub">Mean absolute SHAP values from the Outcomes Lab model — the average impact each feature has on a predicted 150% graduation rate, in percentage points. One feature towers over everything else: <b>first-year retention, at 9.49 pp</b>. Who an institution enrolls and how selective it is matter far less than whether its first-years come back.</p>
+    <div class="panel">
+      <div id="shapBars"></div>
+      <p class="note">Model trained on <b>2015–2019</b>, tested on <b>2021–2023</b> (2020 excluded), <b>5,389</b> test institutions, cohorts of 50 or more. Test performance: R² <b>0.745</b>, MAE <b>7.15 pp</b>, RMSE 10.01 pp.</p>
+    </div>
+  </section>
+
+  <!-- 5. By sector -->
+  <section>
+    <div class="sec-head"><span class="n">04</span><h2>By sector</h2></div>
+    <p class="sec-sub">Cohort-weighted 150% graduation rates pooled across 2015–2023, four-year institutions. Private nonprofits lead; for-profits trail by more than 30 points — yet their internal Pell gaps are the smallest, because completion is low for everyone there.</p>
+    <div class="panel">
+      <div id="sectorBars"></div>
+      <p class="note">Median Pell gap (latest cohort, institution-level): Public <b>7.5 pp</b> · Private nonprofit <b>8.9 pp</b> · Private for-profit <b>3.1 pp</b>.</p>
+    </div>
+  </section>
+
+  <!-- 6. Race medians -->
+  <section>
+    <div class="sec-head"><span class="n">05</span><h2>Graduation medians by race</h2></div>
+    <p class="sec-sub">Median 150% graduation rates by student race/ethnicity, four-year institutions, 2015–2023. Every group rose over the period, but the ordering never changed. In 2023 the White–Black gap was <b>19.6 pp</b> and the White–Hispanic gap <b>11.3 pp</b>.</p>
+    <div class="panel">
+      <div class="legend">
+        <span><span class="sw" style="background:#d9a441"></span>Asian</span>
+        <span><span class="sw" style="background:#f5f5f7"></span>White</span>
+        <span><span class="sw" style="background:#8e8e99"></span>Hispanic</span>
+        <span><span class="sw" style="background:var(--red)"></span>Black</span>
+      </div>
+      <div class="chart-box"><svg class="chart" id="raceChart" viewBox="0 0 720 300" role="img" aria-label="Line chart of median graduation rates by race 2015 to 2023: Asian 56.8 to 66.7, White 55.9 to 61.3, Hispanic 46.9 to 50.0, Black 38.1 to 41.7 percent"></svg></div>
+      <ul class="stat-list">
+        <li><span class="k">2023 — Asian / White / Hispanic / Black medians</span><span class="val">66.7 / 61.3 / 50.0 / 41.7%</span></li>
+        <li><span class="k">2023 gap, White − Black</span><span class="val">19.6 pp</span></li>
+        <li><span class="k">2023 gap, White − Hispanic</span><span class="val">11.3 pp</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. Peer clusters -->
+  <section>
+    <div class="sec-head"><span class="n">06</span><h2>Peer clusters</h2></div>
+    <p class="sec-sub">Four peer groups from the lab&rsquo;s clustering of four-year institutions — similar missions and resources, very different outcomes. Graduation and retention are group medians; Pell share is the median share of undergraduates on Pell.</p>
+    <div class="clusters" id="clusters"></div>
+  </section>
+
+  <!-- 8. Scatter -->
+  <section>
+    <div class="sec-head"><span class="n">07</span><h2>Retention vs. graduation</h2></div>
+    <p class="sec-sub">Each dot is one four-year institution in 2023. The relationship the SHAP ranking keeps pointing at is visible to the eye: institutions that keep their first-years almost always graduate them — and almost nobody graduates students they don&rsquo;t retain.</p>
+    <div class="panel">
+      <div class="legend">
+        <span><span class="dot" style="background:#f5f5f7"></span>Public</span>
+        <span><span class="dot" style="background:var(--red)"></span>Private nonprofit</span>
+        <span><span class="dot" style="background:#8e8e99"></span>Private for-profit</span>
+      </div>
+      <div class="chart-box"><svg class="chart" id="scatterChart" viewBox="0 0 720 380" role="img" aria-label="Scatter plot of first-year retention (x axis) against 150 percent graduation rate (y axis) for a sample of 350 four-year institutions in 2023, colored by sector"></svg></div>
+      <p class="note">Sample of 350 institutions from the lab&rsquo;s saved 2023 scatter extract. Hover a dot for its exact rates. The stray dots at the extremes (0% retention with 100% graduation, and similar) are small-cohort reporting artifacts in the federal data — kept in, because a control tower shows the data as reported.</p>
+    </div>
+  </section>
+
+  <!-- 9. Spotlights -->
+  <section>
+    <div class="sec-head"><span class="n">08</span><h2>Spotlights</h2></div>
+    <p class="sec-sub">Eight-year award rates for three institutions, Pell vs. non-Pell, latest cohort in the lab&rsquo;s saved outputs. Same federal yardstick, three very different equity stories.</p>
+    <div class="panel">
+      <div class="legend">
+        <span><span class="sw" style="background:var(--red)"></span>Pell recipients</span>
+        <span><span class="sw" style="background:#d8d8de"></span>Non-Pell</span>
+      </div>
+      <div id="spotlights"></div>
+    </div>
+  </section>
+
+  <!-- 10. Methodology -->
+  <footer>
+    <h2>How to read this — methodology</h2>
+    <dl>
+      <dt>150% graduation rate</dt>
+      <dd>The share of a first-time, full-time entering cohort that graduates within 150% of normal time (six years for a bachelor&rsquo;s degree).</dd>
+      <dt>Award rate</dt>
+      <dd>From IPEDS Outcome Measures: the share of an entering cohort earning any credential within 4, 6, or 8 years. Cohort rates here are student-weighted, so large institutions count more.</dd>
+      <dt>Medians</dt>
+      <dd>Unless a figure says &ldquo;cohort-weighted,&rdquo; medians are institution medians across four-year institutions — the typical college, not the typical student.</dd>
+      <dt>SHAP values</dt>
+      <dd>The model&rsquo;s average impact per feature, in percentage points: how much knowing that feature typically moves a predicted graduation rate.</dd>
+      <dt>The model</dt>
+      <dd>Trained 2015–2019, tested 2021–2023 with 2020 excluded; 5,389 test institutions; cohorts of 50+ only. R² 0.745, MAE 7.15 pp against a 16.3 pp naive baseline.</dd>
+    </dl>
+    <p class="source">Source: U.S. Department of Education, IPEDS (NCES) · Analysis: IPEDS Outcomes Lab — <a href="https://github.com/sharmauncw/ipeds-outcomes-lab">github.com/sharmauncw/ipeds-outcomes-lab</a> · Demo dashboard; all figures reproduced from the lab&rsquo;s saved outputs. No institutional internal data.</p>
+  </footer>
+
+</div>
+<div id="tooltip" role="status"></div>
+
+<script>
+/* ============ data — transcribed verbatim from dashboard-data-final.json ============ */
+var DATA = {
+  gradTrend: [[2015,47.1],[2016,48.2],[2017,49.4],[2018,50.0],[2019,51.4],[2020,52.0],[2021,53.1],[2022,52.6],[2023,52.4]],
+  retTrend:  [[2015,74.0],[2016,75.0],[2017,75.0],[2018,75.0],[2019,75.0],[2020,75.0],[2021,74.0],[2022,74.0],[2023,75.0]],
+  equity: [ /* cohort, pell, nonpell */
+    [2009,38.87,54.40],[2010,39.24,56.56],[2011,39.52,58.97],[2012,41.33,60.27],
+    [2013,42.69,61.65],[2014,44.01,62.29],[2015,45.89,62.24]
+  ],
+  horizons: [ /* years, pell, nonpell */
+    [4,34.0,48.6],[6,44.3,60.9],[8,45.9,62.2]
+  ],
+  shap: [
+    ["First-year retention rate",9.49],["Private nonprofit control",2.09],["Admission rate",1.69],
+    ["Pell share of undergraduates",1.63],["Black share of undergraduates",1.61],["Median SAT total",1.47],
+    ["Enrollment (log)",0.97],["Instructional spending per FTE (log)",0.93]
+  ],
+  sector: [ /* name, grad rate, institutions, median pell gap */
+    ["Private nonprofit",65.9,1439,8.9],["Public",58.1,812,7.5],["Private for-profit",34.4,623,3.1]
+  ],
+  race: {
+    "Asian":   [[2015,56.8],[2016,60.0],[2017,60.0],[2018,62.5],[2019,65.8],[2020,65.0],[2021,66.7],[2022,66.7],[2023,66.7]],
+    "White":   [[2015,55.9],[2016,56.6],[2017,57.4],[2018,59.6],[2019,60.8],[2020,61.1],[2021,61.4],[2022,61.3],[2023,61.3]],
+    "Hispanic":[[2015,46.9],[2016,47.5],[2017,48.2],[2018,50.0],[2019,50.0],[2020,50.0],[2021,51.2],[2022,52.0],[2023,50.0]],
+    "Black":   [[2015,38.1],[2016,40.0],[2017,40.0],[2018,41.9],[2019,43.4],[2020,42.5],[2021,44.3],[2022,42.3],[2023,41.7]]
+  },
+  clusters: [
+    {label:"Small access colleges", n:357, grad:39.2, ret:64.0, pell:48.0, adm:73.3,
+     examples:"Newberry College; North Carolina Wesleyan University; Greensboro College; Guilford College",
+     desc:"Small (median ~850 students), mostly private, thin resources (~$7.8K instructional spend per FTE). Serve the highest-need students outside the large-access sector (median 48% Pell) with the weakest outcomes in the selective sector: 64% retention, 39% graduation."},
+    {label:"Large access-serving institutions", n:127, grad:52.2, ret:76.0, pell:55.0, adm:84.5,
+     examples:"California State University-Bakersfield; Saint Xavier University; California State University-Stanislaus; University of California-Merced",
+     desc:"Big, open-door, majority-public systems (median ~4,100 students, 85% admission rate, 18:1 student-faculty ratio). The access workhorses: median 55% Pell, 52% graduation — scale on a budget."},
+    {label:"The mainstream middle", n:1028, grad:57.9, ret:76.0, pell:30.0, adm:81.8,
+     examples:"Seton Hill University; Westfield State University; Saint Ambrose University; Mercyhurst University",
+     desc:"The broad center of American four-year higher ed (n=1,028): mid-size comprehensives and private colleges, 82% admission, 30% Pell, 58% graduation.",
+     flag:"UNC Wilmington and Trine University both land here."},
+    {label:"Selective and well-resourced", n:241, grad:84.3, ret:91.0, pell:17.0, adm:38.9,
+     examples:"Lehigh University; Brandeis University; Pratt Institute-Main; Clark University",
+     desc:"The resource-rich tier: 39% admission rate, ~$22.2K instructional spend per FTE, 9:1 student-faculty ratio, 91% retention, 84% graduation, 17% Pell. Harvard sits here — alongside Lehigh, Brandeis and Clark."}
+  ],
+  spotlights: [ /* name, pell, nonpell, gap, pell cohort n */
+    ["UNC Wilmington",67.3,74.6,7.3,492],["Trine University",52.5,68.1,15.6,160],["Harvard University",96.6,98.6,2.0,266]
+  ],
+  scatter: [{"x":63.0,"y":48.58757062146893,"c":"Private nonprofit"},{"x":79.0,"y":50.24232633279483,"c":"Public"},{"x":33.0,"y":12.0,"c":"Public"},{"x":89.0,"y":79.47658402203857,"c":"Private nonprofit"},{"x":89.0,"y":83.16295850871919,"c":"Private nonprofit"},{"x":92.0,"y":84.11899313501145,"c":"Private nonprofit"},{"x":80.0,"y":61.575466025255565,"c":"Public"},{"x":84.0,"y":12.0,"c":"Private nonprofit"},{"x":84.0,"y":69.35779816513762,"c":"Private nonprofit"},{"x":76.0,"y":65.4485049833887,"c":"Private nonprofit"},{"x":48.0,"y":16.037735849056602,"c":"Public"},{"x":90.0,"y":80.64591621811374,"c":"Public"},{"x":75.0,"y":62.53951527924131,"c":"Public"},{"x":76.0,"y":69.62025316455697,"c":"Private nonprofit"},{"x":96.0,"y":78.41269841269842,"c":"Private nonprofit"},{"x":81.0,"y":61.91187453323376,"c":"Public"},{"x":80.0,"y":75.52870090634441,"c":"Public"},{"x":85.0,"y":82.53968253968253,"c":"Private nonprofit"},{"x":77.0,"y":58.21596244131455,"c":"Private nonprofit"},{"x":82.0,"y":71.38643067846607,"c":"Private nonprofit"},{"x":96.0,"y":18.181818181818183,"c":"Private nonprofit"},{"x":64.0,"y":49.75113122171946,"c":"Private for-profit"},{"x":76.0,"y":63.725490196078425,"c":"Private nonprofit"},{"x":68.0,"y":43.20987654320987,"c":"Private nonprofit"},{"x":76.0,"y":47.29064039408867,"c":"Private nonprofit"},{"x":73.0,"y":51.55555555555556,"c":"Private for-profit"},{"x":78.0,"y":61.12570356472795,"c":"Public"},{"x":70.0,"y":38.75968992248063,"c":"Private nonprofit"},{"x":79.0,"y":49.13294797687861,"c":"Private nonprofit"},{"x":89.0,"y":10.869565217391305,"c":"Private nonprofit"},{"x":100.0,"y":100.0,"c":"Private for-profit"},{"x":84.0,"y":75.46777546777547,"c":"Private nonprofit"},{"x":90.0,"y":80.6083650190114,"c":"Public"},{"x":94.0,"y":41.33064516129033,"c":"Private for-profit"},{"x":20.0,"y":16.363636363636363,"c":"Private for-profit"},{"x":65.0,"y":35.42319749216301,"c":"Public"},{"x":75.0,"y":63.63636363636363,"c":"Private for-profit"},{"x":70.0,"y":59.63302752293578,"c":"Private nonprofit"},{"x":67.0,"y":46.66666666666666,"c":"Private nonprofit"},{"x":69.0,"y":58.04721030042919,"c":"Private nonprofit"},{"x":78.0,"y":39.130434782608695,"c":"Private nonprofit"},{"x":77.0,"y":47.61904761904761,"c":"Private nonprofit"},{"x":75.0,"y":62.149532710280376,"c":"Private nonprofit"},{"x":24.0,"y":57.47126436781609,"c":"Private nonprofit"},{"x":49.0,"y":42.05607476635514,"c":"Public"},{"x":72.0,"y":51.19122257053292,"c":"Public"},{"x":87.0,"y":70.83333333333334,"c":"Private nonprofit"},{"x":100.0,"y":31.856796116504853,"c":"Public"},{"x":79.0,"y":69.5955369595537,"c":"Private nonprofit"},{"x":38.0,"y":20.588235294117645,"c":"Private nonprofit"},{"x":84.0,"y":67.55117513267626,"c":"Public"},{"x":82.0,"y":66.44649933949802,"c":"Public"},{"x":64.0,"y":48.463687150837984,"c":"Private nonprofit"},{"x":85.0,"y":67.63040238450074,"c":"Public"},{"x":73.0,"y":43.47826086956522,"c":"Private nonprofit"},{"x":89.0,"y":65.69832402234637,"c":"Private nonprofit"},{"x":57.0,"y":37.03703703703704,"c":"Private nonprofit"},{"x":94.0,"y":75.96330275229359,"c":"Private nonprofit"},{"x":84.0,"y":75.64432989690721,"c":"Private nonprofit"},{"x":76.0,"y":38.70967741935484,"c":"Private nonprofit"},{"x":86.0,"y":64.65277777777779,"c":"Public"},{"x":63.0,"y":52.80898876404494,"c":"Private nonprofit"},{"x":73.0,"y":56.42811906269791,"c":"Public"},{"x":84.0,"y":76.61691542288557,"c":"Private nonprofit"},{"x":74.0,"y":46.1839530332681,"c":"Public"},{"x":65.0,"y":61.80904522613066,"c":"Public"},{"x":84.0,"y":75.44123169357867,"c":"Private nonprofit"},{"x":67.0,"y":57.61316872427984,"c":"Private nonprofit"},{"x":93.0,"y":70.35040431266847,"c":"Private nonprofit"},{"x":86.0,"y":75.0,"c":"Private nonprofit"},{"x":53.0,"y":23.66412213740458,"c":"Public"},{"x":98.0,"y":94.7745595700209,"c":"Private nonprofit"},{"x":79.0,"y":78.71794871794872,"c":"Public"},{"x":76.0,"y":70.7037643207856,"c":"Private nonprofit"},{"x":77.0,"y":62.290502793296085,"c":"Private nonprofit"},{"x":33.0,"y":5.494505494505495,"c":"Public"},{"x":100.0,"y":75.0,"c":"Private nonprofit"},{"x":77.0,"y":59.0,"c":"Private nonprofit"},{"x":71.0,"y":61.38613861386138,"c":"Private nonprofit"},{"x":54.0,"y":23.045267489711936,"c":"Private nonprofit"},{"x":67.0,"y":32.30769230769231,"c":"Private nonprofit"},{"x":67.0,"y":40.76433121019109,"c":"Private nonprofit"},{"x":74.0,"y":4.25531914893617,"c":"Private nonprofit"},{"x":100.0,"y":100.0,"c":"Private nonprofit"},{"x":99.0,"y":92.22222222222224,"c":"Private nonprofit"},{"x":88.0,"y":7.6923076923076925,"c":"Private nonprofit"},{"x":67.0,"y":55.04807692307693,"c":"Private nonprofit"},{"x":76.0,"y":28.195488721804512,"c":"Public"},{"x":84.0,"y":69.76401179941003,"c":"Private nonprofit"},{"x":72.0,"y":21.11650485436893,"c":"Public"},{"x":51.0,"y":0.6329113924050633,"c":"Public"},{"x":69.0,"y":49.72972972972973,"c":"Private nonprofit"},{"x":61.0,"y":16.792929292929294,"c":"Public"},{"x":94.0,"y":77.77777777777779,"c":"Private nonprofit"},{"x":100.0,"y":27.27272727272727,"c":"Private nonprofit"},{"x":70.0,"y":29.52503209242619,"c":"Private nonprofit"},{"x":63.0,"y":64.18338108882521,"c":"Private nonprofit"},{"x":56.0,"y":29.136690647482016,"c":"Private nonprofit"},{"x":89.0,"y":81.48314606741573,"c":"Private nonprofit"},{"x":81.0,"y":72.50996015936255,"c":"Private nonprofit"},{"x":80.0,"y":36.016949152542374,"c":"Private nonprofit"},{"x":100.0,"y":100.0,"c":"Private nonprofit"},{"x":67.0,"y":38.372093023255815,"c":"Private for-profit"},{"x":68.0,"y":49.45355191256831,"c":"Private nonprofit"},{"x":86.0,"y":27.27272727272727,"c":"Private nonprofit"},{"x":65.0,"y":19.26605504587156,"c":"Public"},{"x":78.0,"y":61.41732283464568,"c":"Public"},{"x":82.0,"y":60.71428571428571,"c":"Private nonprofit"},{"x":77.0,"y":72.29813664596273,"c":"Private nonprofit"},{"x":69.0,"y":55.95854922279793,"c":"Private nonprofit"},{"x":71.0,"y":44.52054794520548,"c":"Public"},{"x":83.0,"y":68.19221967963387,"c":"Private nonprofit"},{"x":66.0,"y":47.66081871345029,"c":"Private nonprofit"},{"x":89.0,"y":79.59558823529412,"c":"Private nonprofit"},{"x":53.0,"y":54.54545454545454,"c":"Private nonprofit"},{"x":75.0,"y":63.1578947368421,"c":"Private nonprofit"},{"x":0.0,"y":100.0,"c":"Private nonprofit"},{"x":69.0,"y":49.23857868020304,"c":"Public"},{"x":74.0,"y":54.99075785582255,"c":"Public"},{"x":58.0,"y":40.18691588785047,"c":"Private nonprofit"},{"x":61.0,"y":36.66666666666666,"c":"Private nonprofit"},{"x":78.0,"y":29.069767441860467,"c":"Public"},{"x":94.0,"y":84.83273357323738,"c":"Public"},{"x":90.0,"y":85.59322033898306,"c":"Private nonprofit"},{"x":74.0,"y":59.07172995780591,"c":"Private nonprofit"},{"x":0.0,"y":100.0,"c":"Private for-profit"},{"x":80.0,"y":67.94425087108013,"c":"Private nonprofit"},{"x":72.0,"y":63.1336405529954,"c":"Private nonprofit"},{"x":81.0,"y":63.89380530973451,"c":"Private nonprofit"},{"x":68.0,"y":68.36734693877551,"c":"Private nonprofit"},{"x":0.0,"y":55.93952483801296,"c":"Private for-profit"},{"x":90.0,"y":80.7717041800643,"c":"Public"},{"x":79.0,"y":48.0007878668505,"c":"Public"},{"x":82.0,"y":68.1912681912682,"c":"Private nonprofit"},{"x":79.0,"y":39.33333333333333,"c":"Private nonprofit"},{"x":88.0,"y":60.0,"c":"Private for-profit"},{"x":33.0,"y":10.0,"c":"Private for-profit"},{"x":71.0,"y":33.33333333333333,"c":"Private nonprofit"},{"x":61.0,"y":19.55128205128205,"c":"Public"},{"x":85.0,"y":72.5531914893617,"c":"Private nonprofit"},{"x":97.0,"y":92.85714285714286,"c":"Private nonprofit"},{"x":79.0,"y":70.75928917609046,"c":"Private nonprofit"},{"x":60.0,"y":5.454545454545454,"c":"Public"},{"x":93.0,"y":83.93548387096774,"c":"Private nonprofit"},{"x":80.0,"y":68.25396825396825,"c":"Private nonprofit"},{"x":73.0,"y":52.52525252525253,"c":"Public"},{"x":37.0,"y":11.76470588235294,"c":"Private nonprofit"},{"x":84.0,"y":70.06953223767383,"c":"Public"},{"x":80.0,"y":69.19540229885057,"c":"Private nonprofit"},{"x":83.0,"y":63.76811594202898,"c":"Private nonprofit"},{"x":71.0,"y":46.15384615384615,"c":"Private nonprofit"},{"x":91.0,"y":83.70755750273823,"c":"Public"},{"x":76.0,"y":9.090909090909092,"c":"Private for-profit"},{"x":75.0,"y":60.52338530066815,"c":"Public"},{"x":69.0,"y":46.84014869888476,"c":"Public"},{"x":81.0,"y":68.03519061583577,"c":"Public"},{"x":81.0,"y":71.02137767220903,"c":"Private nonprofit"},{"x":83.0,"y":55.88923556942278,"c":"Public"},{"x":88.0,"y":18.33333333333333,"c":"Private nonprofit"},{"x":63.0,"y":38.07531380753138,"c":"Public"},{"x":68.0,"y":39.53488372093023,"c":"Public"},{"x":74.0,"y":51.31332082551595,"c":"Public"},{"x":79.0,"y":43.717277486910994,"c":"Private nonprofit"},{"x":100.0,"y":86.8421052631579,"c":"Private nonprofit"},{"x":77.0,"y":65.83333333333333,"c":"Private nonprofit"},{"x":82.0,"y":45.44582933844679,"c":"Public"},{"x":84.0,"y":71.51819322459222,"c":"Private nonprofit"},{"x":79.0,"y":63.87434554973822,"c":"Private nonprofit"},{"x":66.0,"y":35.338345864661655,"c":"Private nonprofit"},{"x":48.0,"y":19.18819188191882,"c":"Private nonprofit"},{"x":67.0,"y":49.8360655737705,"c":"Private nonprofit"},{"x":83.0,"y":78.57142857142857,"c":"Private nonprofit"},{"x":50.0,"y":15.384615384615383,"c":"Private for-profit"},{"x":75.0,"y":25.0,"c":"Private for-profit"},{"x":94.0,"y":88.45331432644333,"c":"Private nonprofit"},{"x":60.0,"y":30.76923076923077,"c":"Private nonprofit"},{"x":64.0,"y":48.747152619589976,"c":"Public"},{"x":64.0,"y":59.61538461538461,"c":"Private for-profit"},{"x":65.0,"y":41.04803493449782,"c":"Private nonprofit"},{"x":61.0,"y":25.352112676056336,"c":"Private nonprofit"},{"x":70.0,"y":29.65250965250965,"c":"Private nonprofit"},{"x":81.0,"y":55.48880393227744,"c":"Public"},{"x":61.0,"y":45.70135746606335,"c":"Private nonprofit"},{"x":77.0,"y":11.552346570397113,"c":"Public"},{"x":57.0,"y":32.743362831858406,"c":"Public"},{"x":67.0,"y":47.755102040816325,"c":"Private nonprofit"},{"x":92.0,"y":34.18079096045198,"c":"Public"},{"x":83.0,"y":71.88841201716738,"c":"Private nonprofit"},{"x":75.0,"y":49.03846153846153,"c":"Private nonprofit"},{"x":0.0,"y":40.0,"c":"Private nonprofit"},{"x":42.0,"y":100.0,"c":"Private nonprofit"},{"x":39.0,"y":25.0,"c":"Private nonprofit"},{"x":73.0,"y":50.67264573991032,"c":"Public"},{"x":63.0,"y":34.61538461538461,"c":"Private nonprofit"},{"x":90.0,"y":82.15661103979461,"c":"Private nonprofit"},{"x":83.0,"y":65.44117647058823,"c":"Private nonprofit"},{"x":98.0,"y":92.04903677758318,"c":"Public"},{"x":86.0,"y":71.68141592920354,"c":"Private for-profit"},{"x":67.0,"y":52.67175572519084,"c":"Private nonprofit"},{"x":70.0,"y":43.15068493150685,"c":"Private nonprofit"},{"x":85.0,"y":71.03825136612022,"c":"Private nonprofit"},{"x":89.0,"y":80.06482982171799,"c":"Private nonprofit"},{"x":74.0,"y":62.676056338028175,"c":"Private nonprofit"},{"x":95.0,"y":85.19366533104369,"c":"Public"},{"x":88.0,"y":83.04431599229287,"c":"Private nonprofit"},{"x":60.0,"y":48.4304932735426,"c":"Private nonprofit"},{"x":55.0,"y":30.991735537190085,"c":"Private nonprofit"},{"x":40.0,"y":28.09917355371901,"c":"Private nonprofit"},{"x":79.0,"y":26.84210526315789,"c":"Private nonprofit"},{"x":95.0,"y":91.32720105124837,"c":"Private nonprofit"},{"x":23.0,"y":25.0,"c":"Private for-profit"},{"x":80.0,"y":65.06849315068493,"c":"Private nonprofit"},{"x":100.0,"y":33.33333333333333,"c":"Private nonprofit"},{"x":89.0,"y":52.17391304347826,"c":"Private nonprofit"},{"x":71.0,"y":31.28205128205128,"c":"Private nonprofit"},{"x":49.0,"y":28.673835125448026,"c":"Private nonprofit"},{"x":77.0,"y":54.607046070460704,"c":"Public"},{"x":80.0,"y":62.5886524822695,"c":"Private nonprofit"},{"x":79.0,"y":62.358276643990926,"c":"Private nonprofit"},{"x":70.0,"y":57.3170731707317,"c":"Private nonprofit"},{"x":70.0,"y":51.33333333333333,"c":"Private nonprofit"},{"x":50.0,"y":35.78512396694215,"c":"Private for-profit"},{"x":67.0,"y":24.285714285714285,"c":"Private nonprofit"},{"x":78.0,"y":64.27289048473968,"c":"Private nonprofit"},{"x":76.0,"y":14.0625,"c":"Public"},{"x":85.0,"y":71.15839243498819,"c":"Private nonprofit"},{"x":93.0,"y":87.84461152882206,"c":"Private nonprofit"},{"x":86.0,"y":73.6357481381178,"c":"Public"},{"x":100.0,"y":55.73770491803278,"c":"Private nonprofit"},{"x":41.0,"y":14.085470085470089,"c":"Private for-profit"},{"x":78.0,"y":52.86439448875997,"c":"Public"},{"x":70.0,"y":44.32739059967585,"c":"Public"},{"x":56.0,"y":27.829787234042552,"c":"Private nonprofit"},{"x":84.0,"y":72.1311475409836,"c":"Private nonprofit"},{"x":79.0,"y":34.93975903614458,"c":"Private for-profit"},{"x":77.0,"y":61.28064032016008,"c":"Private nonprofit"},{"x":79.0,"y":22.35294117647059,"c":"Public"},{"x":81.0,"y":68.24534161490683,"c":"Public"},{"x":76.0,"y":52.03426124197003,"c":"Public"},{"x":75.0,"y":53.77668308702791,"c":"Public"},{"x":81.0,"y":74.59893048128342,"c":"Private nonprofit"},{"x":88.0,"y":65.45454545454545,"c":"Private nonprofit"},{"x":81.0,"y":66.27662766276627,"c":"Public"},{"x":70.0,"y":40.74074074074074,"c":"Private nonprofit"},{"x":92.0,"y":86.91588785046729,"c":"Private nonprofit"},{"x":65.0,"y":85.0,"c":"Private nonprofit"},{"x":71.0,"y":40.97087378640777,"c":"Private nonprofit"},{"x":87.0,"y":77.27967396841568,"c":"Private nonprofit"},{"x":69.0,"y":42.41733181299886,"c":"Public"},{"x":75.0,"y":54.11471321695761,"c":"Public"},{"x":83.0,"y":62.87215411558669,"c":"Public"},{"x":68.0,"y":39.8876404494382,"c":"Public"},{"x":63.0,"y":45.93023255813954,"c":"Public"},{"x":61.0,"y":26.33451957295373,"c":"Public"},{"x":81.0,"y":70.3872437357631,"c":"Private nonprofit"},{"x":86.0,"y":69.6969696969697,"c":"Private nonprofit"},{"x":91.0,"y":69.86301369863014,"c":"Private for-profit"},{"x":85.0,"y":68.66879137043394,"c":"Public"},{"x":71.0,"y":40.7202216066482,"c":"Public"},{"x":64.0,"y":11.188811188811188,"c":"Public"},{"x":87.0,"y":65.11627906976744,"c":"Private nonprofit"},{"x":86.0,"y":67.53246753246754,"c":"Private nonprofit"},{"x":60.0,"y":47.823261858349575,"c":"Private nonprofit"},{"x":82.0,"y":68.09701492537313,"c":"Private nonprofit"},{"x":64.0,"y":28.98550724637681,"c":"Private nonprofit"},{"x":79.0,"y":67.03841387856258,"c":"Private nonprofit"},{"x":56.0,"y":50.79365079365079,"c":"Private nonprofit"},{"x":78.0,"y":49.843260188087775,"c":"Private nonprofit"},{"x":80.0,"y":57.44186046511628,"c":"Private nonprofit"},{"x":86.0,"y":76.70954637779282,"c":"Public"},{"x":79.0,"y":16.0,"c":"Public"},{"x":60.0,"y":47.368421052631575,"c":"Private nonprofit"},{"x":71.0,"y":19.607843137254903,"c":"Private nonprofit"},{"x":69.0,"y":49.70344009489917,"c":"Public"},{"x":90.0,"y":79.92700729927007,"c":"Private nonprofit"},{"x":94.0,"y":32.142857142857146,"c":"Public"},{"x":69.0,"y":53.81132075471699,"c":"Public"},{"x":88.0,"y":79.69661610268378,"c":"Private nonprofit"},{"x":95.0,"y":89.32848264362589,"c":"Public"},{"x":69.0,"y":47.368421052631575,"c":"Private nonprofit"},{"x":84.0,"y":75.85034013605441,"c":"Private nonprofit"},{"x":65.0,"y":51.741293532338304,"c":"Private nonprofit"},{"x":74.0,"y":46.85534591194968,"c":"Public"},{"x":69.0,"y":50.95238095238095,"c":"Private nonprofit"},{"x":68.0,"y":57.417582417582416,"c":"Private nonprofit"},{"x":80.0,"y":67.79661016949152,"c":"Private nonprofit"},{"x":70.0,"y":42.5531914893617,"c":"Public"},{"x":72.0,"y":62.5,"c":"Private for-profit"},{"x":50.0,"y":41.46341463414634,"c":"Private nonprofit"},{"x":83.0,"y":63.04347826086957,"c":"Private nonprofit"},{"x":77.0,"y":45.45454545454545,"c":"Private nonprofit"},{"x":75.0,"y":77.77777777777779,"c":"Private for-profit"},{"x":71.0,"y":53.170731707317074,"c":"Private nonprofit"},{"x":30.0,"y":30.76923076923077,"c":"Private nonprofit"},{"x":79.0,"y":63.96648044692738,"c":"Private nonprofit"},{"x":80.0,"y":51.87793427230047,"c":"Public"},{"x":79.0,"y":63.33333333333333,"c":"Private nonprofit"},{"x":65.0,"y":51.51515151515152,"c":"Private nonprofit"},{"x":65.0,"y":54.44444444444444,"c":"Private nonprofit"},{"x":88.0,"y":76.7479674796748,"c":"Private nonprofit"},{"x":50.0,"y":14.285714285714285,"c":"Private nonprofit"},{"x":68.0,"y":55.62444641275464,"c":"Private nonprofit"},{"x":67.0,"y":25.0,"c":"Private nonprofit"},{"x":77.0,"y":22.904191616766468,"c":"Public"},{"x":78.0,"y":50.07411067193676,"c":"Public"},{"x":87.0,"y":69.97635933806147,"c":"Private nonprofit"},{"x":73.0,"y":55.47445255474452,"c":"Private nonprofit"},{"x":67.0,"y":41.37931034482759,"c":"Private for-profit"},{"x":0.0,"y":50.0,"c":"Private for-profit"},{"x":81.0,"y":60.24165707710012,"c":"Public"},{"x":69.0,"y":45.52845528455284,"c":"Private nonprofit"},{"x":71.0,"y":50.78740157480315,"c":"Private nonprofit"},{"x":36.0,"y":46.73913043478261,"c":"Private nonprofit"},{"x":57.0,"y":36.92946058091287,"c":"Private nonprofit"},{"x":79.0,"y":54.66428995840761,"c":"Public"},{"x":83.0,"y":53.84615384615385,"c":"Private nonprofit"},{"x":91.0,"y":74.56158448524862,"c":"Public"},{"x":94.0,"y":89.39828080229226,"c":"Private nonprofit"},{"x":60.0,"y":33.52394567548249,"c":"Public"},{"x":75.0,"y":75.29411764705883,"c":"Private nonprofit"},{"x":74.0,"y":46.56716417910447,"c":"Private nonprofit"},{"x":77.0,"y":61.74142480211082,"c":"Private nonprofit"},{"x":72.0,"y":51.301115241635685,"c":"Private nonprofit"},{"x":100.0,"y":4.3478260869565215,"c":"Private nonprofit"},{"x":73.0,"y":47.70992366412214,"c":"Public"},{"x":69.0,"y":40.67599067599068,"c":"Public"},{"x":72.0,"y":54.45026178010471,"c":"Public"},{"x":76.0,"y":47.08994708994709,"c":"Private nonprofit"},{"x":70.0,"y":15.966386554621849,"c":"Private nonprofit"},{"x":80.0,"y":33.33333333333333,"c":"Private nonprofit"},{"x":77.0,"y":52.71336951159349,"c":"Public"},{"x":65.0,"y":38.61788617886179,"c":"Private nonprofit"},{"x":62.0,"y":47.05882352941176,"c":"Private nonprofit"},{"x":76.0,"y":51.61290322580645,"c":"Public"},{"x":81.0,"y":53.97727272727273,"c":"Private nonprofit"},{"x":85.0,"y":78.49624060150376,"c":"Private nonprofit"},{"x":77.0,"y":43.03797468354431,"c":"Private nonprofit"},{"x":81.0,"y":60.763888888888886,"c":"Private nonprofit"},{"x":58.0,"y":52.41379310344828,"c":"Private nonprofit"},{"x":64.0,"y":44.05594405594406,"c":"Private nonprofit"},{"x":50.0,"y":33.33333333333333,"c":"Public"},{"x":72.0,"y":32.81653746770026,"c":"Public"},{"x":53.0,"y":53.459119496855344,"c":"Private nonprofit"},{"x":68.0,"y":51.26498002663116,"c":"Public"},{"x":81.0,"y":49.193548387096776,"c":"Private for-profit"},{"x":53.0,"y":27.95275590551181,"c":"Private nonprofit"},{"x":78.0,"y":60.46511627906976,"c":"Private nonprofit"},{"x":67.0,"y":33.33333333333333,"c":"Private for-profit"},{"x":64.0,"y":46.15384615384615,"c":"Private nonprofit"},{"x":67.0,"y":20.072992700729927,"c":"Public"}]
+};
+
+/* ============ tooltip ============ */
+var tip = document.getElementById('tooltip');
+function showTip(html, x, y){
+  tip.innerHTML = html; tip.style.opacity = 1;
+  var w = tip.offsetWidth, h = tip.offsetHeight;
+  var nx = x + 14, ny = y + 14;
+  if (nx + w > window.innerWidth - 8) nx = x - w - 10;
+  if (ny + h > window.innerHeight - 8) ny = y - h - 10;
+  tip.style.left = nx + 'px'; tip.style.top = ny + 'px';
+}
+function hideTip(){ tip.style.opacity = 0; }
+function bindTip(el, html){
+  el.addEventListener('mousemove', function(e){ showTip(html, e.clientX, e.clientY); });
+  el.addEventListener('mouseleave', hideTip);
+  el.addEventListener('touchstart', function(e){ var t = e.touches[0]; showTip(html, t.clientX, t.clientY); }, {passive:true});
+}
+
+/* ============ line chart builder (SVG) ============ */
+function lineChart(svgId, series, opt){
+  var svg = document.getElementById(svgId);
+  var W = opt.w, H = opt.h, L = 44, R = 14, T = 12, B = 30;
+  var iw = W - L - R, ih = H - T - B;
+  var xs = series[0].points.map(function(p){ return p[0]; });
+  var xMin = Math.min.apply(null, xs), xMax = Math.max.apply(null, xs);
+  var yMin = opt.yMin, yMax = opt.yMax;
+  function X(x){ return L + (x - xMin) / (xMax - xMin) * iw; }
+  function Y(y){ return T + (yMax - y) / (yMax - yMin) * ih; }
+  var s = '';
+  s += '<g class="grid">';
+  opt.yTicks.forEach(function(t){ s += '<line x1="'+L+'" y1="'+Y(t)+'" x2="'+(W-R)+'" y2="'+Y(t)+'"/>'; });
+  s += '</g><g class="axis">';
+  opt.yTicks.forEach(function(t){ s += '<text x="'+(L-8)+'" y="'+(Y(t)+4)+'" text-anchor="end">'+t+'%</text>'; });
+  xs.forEach(function(x){ s += '<text x="'+X(x)+'" y="'+(H-8)+'" text-anchor="middle">'+x+'</text>'; });
+  s += '</g><line class="axis-line" x1="'+L+'" y1="'+(T+ih)+'" x2="'+(W-R)+'" y2="'+(T+ih)+'"/>';
+  series.forEach(function(sr){
+    var d = sr.points.map(function(p,i){ return (i? 'L':'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1); }).join(' ');
+    s += '<path d="'+d+'" fill="none" stroke="'+sr.color+'" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>';
+  });
+  svg.innerHTML = s;
+  series.forEach(function(sr){
+    sr.points.forEach(function(p){
+      var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx', X(p[0])); c.setAttribute('cy', Y(p[1])); c.setAttribute('r', 9);
+      c.setAttribute('fill', 'transparent'); c.setAttribute('class','hover-dot');
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('cx', X(p[0])); dot.setAttribute('cy', Y(p[1])); dot.setAttribute('r', 3.4);
+      dot.setAttribute('fill', sr.color); dot.setAttribute('pointer-events','none');
+      svg.appendChild(c); svg.appendChild(dot);
+      bindTip(c, '<span class="tt">' + sr.name + '</span><br>' + p[0] + ' · <b>' + opt.fmt(p[1]) + '</b>');
+    });
+  });
+}
+
+lineChart('trendChart', [
+  {name:'Median 150% graduation rate', color:'#e63329', points: DATA.gradTrend},
+  {name:'Median first-year retention rate', color:'#d8d8de', points: DATA.retTrend}
+], {w:720, h:300, yMin:40, yMax:80, yTicks:[40,50,60,70,80], fmt:function(v){ return v.toFixed(1)+'%'; }});
+
+lineChart('equityChart', [
+  {name:'Non-Pell — 8-year award rate', color:'#d8d8de', points: DATA.equity.map(function(r){ return [r[0], r[2]]; })},
+  {name:'Pell — 8-year award rate', color:'#e63329', points: DATA.equity.map(function(r){ return [r[0], r[1]]; })}
+], {w:640, h:300, yMin:30, yMax:70, yTicks:[30,40,50,60,70], fmt:function(v){ return v.toFixed(2)+'%'; }});
+
+(function(){
+  var order = ['Asian','White','Hispanic','Black'];
+  var colors = {'Asian':'#d9a441','White':'#f5f5f7','Hispanic':'#8e8e99','Black':'#e63329'};
+  lineChart('raceChart', order.map(function(k){
+    return {name:k+' median graduation rate', color:colors[k], points: DATA.race[k]};
+  }), {w:720, h:300, yMin:30, yMax:75, yTicks:[30,40,50,60,70], fmt:function(v){ return v.toFixed(1)+'%'; }});
+})();
+
+/* ============ scatter ============ */
+(function(){
+  var svg = document.getElementById('scatterChart');
+  var W = 720, H = 380, L = 44, R = 24, T = 12, B = 34;
+  var iw = W - L - R, ih = H - T - B;
+  function X(x){ return L + x / 100 * iw; }
+  function Y(y){ return T + (100 - y) / 100 * ih; }
+  var s = '<g class="grid">';
+  [0,25,50,75,100].forEach(function(t){
+    s += '<line x1="'+L+'" y1="'+Y(t)+'" x2="'+(W-R)+'" y2="'+Y(t)+'"/>';
+    s += '<line x1="'+X(t)+'" y1="'+T+'" x2="'+X(t)+'" y2="'+(T+ih)+'"/>';
+  });
+  s += '</g><g class="axis">';
+  [0,25,50,75,100].forEach(function(t){
+    s += '<text x="'+(L-8)+'" y="'+(Y(t)+4)+'" text-anchor="end">'+t+'%</text>';
+    s += '<text x="'+X(t)+'" y="'+(H-20)+'" text-anchor="middle">'+t+'%</text>';
+  });
+  s += '<text x="'+(L+iw/2)+'" y="'+(H-2)+'" text-anchor="middle">First-year retention rate →</text>';
+  s += '</g><line class="axis-line" x1="'+L+'" y1="'+(T+ih)+'" x2="'+(W-R)+'" y2="'+(T+ih)+'"/>';
+  svg.innerHTML = s;
+  var colors = {'Public':'#f5f5f7','Private nonprofit':'#e63329','Private for-profit':'#8e8e99'};
+  DATA.scatter.forEach(function(p){
+    var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx', X(p.x)); c.setAttribute('cy', Y(p.y)); c.setAttribute('r', 3.1);
+    c.setAttribute('fill', colors[p.c]); c.setAttribute('fill-opacity', .78);
+    c.setAttribute('class','hover-dot');
+    svg.appendChild(c);
+    bindTip(c, '<span class="tt">' + p.c + '</span><br><span class="tm">Retention</span> <b>' + p.x.toFixed(0) + '%</b> · <span class="tm">Graduation</span> <b>' + p.y.toFixed(1) + '%</b><br><span class="tm">2023 · four-year institution</span>');
+  });
+})();
+
+/* ============ HTML bar groups ============ */
+function pct(v){ return v.toFixed(1); }
+
+(function(){ /* horizons grouped bars */
+  var el = document.getElementById('horizons');
+  var html = '';
+  DATA.horizons.forEach(function(h){
+    html += '<div class="pair"><div class="pair-head"><span class="hname">Within ' + h[0] + ' years</span></div>'
+      + '<div class="pair-row"><span class="plabel">Pell</span><div class="track"><div class="fill red" style="width:' + h[1] + '%"></div></div><span class="pnum">' + pct(h[1]) + '%</span></div>'
+      + '<div class="pair-row"><span class="plabel">Non-Pell</span><div class="track"><div class="fill white" style="width:' + h[2] + '%"></div></div><span class="pnum">' + pct(h[2]) + '%</span></div></div>';
+  });
+  el.innerHTML = html;
+})();
+
+(function(){ /* SHAP bars */
+  var el = document.getElementById('shapBars');
+  var max = DATA.shap[0][1];
+  el.innerHTML = DATA.shap.map(function(r, i){
+    return '<div class="bar-row"><div class="name">' + r[0] + '</div>'
+      + '<div class="track"><div class="fill ' + (i === 0 ? 'red' : '') + '" style="width:' + (r[1] / max * 100).toFixed(1) + '%"></div></div>'
+      + '<div class="num">' + r[1].toFixed(2) + '<small>pp impact</small></div></div>';
+  }).join('');
+})();
+
+(function(){ /* sector bars */
+  var el = document.getElementById('sectorBars');
+  el.innerHTML = DATA.sector.map(function(r, i){
+    return '<div class="bar-row"><div class="name">' + r[0] + '<span>' + r[2].toLocaleString('en-US') + ' institutions · median Pell gap ' + r[3].toFixed(1) + ' pp</span></div>'
+      + '<div class="track"><div class="fill ' + (i === 0 ? 'red' : (i === 1 ? 'white' : '')) + '" style="width:' + r[1] + '%"></div></div>'
+      + '<div class="num">' + pct(r[1]) + '%<small>grad rate</small></div></div>';
+  }).join('');
+})();
+
+(function(){ /* clusters */
+  var el = document.getElementById('clusters');
+  el.innerHTML = DATA.clusters.map(function(c){
+    var flag = c.flag ? '<div class="flag">' + c.flag + '</div>' : '';
+    return '<article class="cluster"><div class="chead"><h3>' + c.label + '</h3><span class="n">n = ' + c.n.toLocaleString('en-US') + ' institutions</span></div>'
+      + '<div class="metrics">'
+      + '<span class="chip">Graduation <b>' + pct(c.grad) + '%</b></span>'
+      + '<span class="chip">Retention <b>' + pct(c.ret) + '%</b></span>'
+      + '<span class="chip">Pell share <b>' + pct(c.pell) + '%</b></span>'
+      + '<span class="chip">Admission <b>' + pct(c.adm) + '%</b></span>'
+      + '</div><p>' + c.desc + '</p>' + flag
+      + '<div class="examples"><b>Examples:</b> ' + c.examples + '</div></article>';
+  }).join('');
+})();
+
+(function(){ /* spotlights */
+  var el = document.getElementById('spotlights');
+  el.innerHTML = DATA.spotlights.map(function(sp){
+    return '<div class="pair"><div class="pair-head"><span class="hname">' + sp[0] + '</span><span class="gap">Gap <b>' + sp[3].toFixed(1) + ' pp</b> · Pell cohort n = ' + sp[4] + '</span></div>'
+      + '<div class="pair-row"><span class="plabel">Pell</span><div class="track"><div class="fill red" style="width:' + sp[1] + '%"></div></div><span class="pnum">' + pct(sp[1]) + '%</span></div>'
+      + '<div class="pair-row"><span class="plabel">Non-Pell</span><div class="track"><div class="fill white" style="width:' + sp[2] + '%"></div></div><span class="pnum">' + pct(sp[2]) + '%</span></div></div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>
