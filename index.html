@@ -211,6 +211,15 @@ section.news{padding:8px 0 0}
 .atlas-strip-arrow{font-weight:800;color:var(--teal);flex:none}
 @media(max-width:600px){.atlas-strip{flex-wrap:wrap;gap:8px 12px}.atlas-strip-text{flex-basis:calc(100% - 32px)}}
 
+/* CONTROL TOWER */
+.tower-head{max-width:720px;margin-bottom:32px}
+.tower-head h2{font-size:clamp(30px,4vw,42px);line-height:1.05;letter-spacing:-.03em;margin:0}
+.tower-card{background:var(--bg-teal);color:#eaf6f3;border-radius:22px;padding:32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.tower-card p{color:#c2ded9;margin:0;line-height:1.7;font-size:16px;max-width:640px}
+.tower-btn{background:#fff;color:#0c2b2e;display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:700;font-size:14px;padding:13px 18px;border-radius:999px;white-space:nowrap;flex:none}
+.tower-btn:hover{transform:translateY(-1px)}
+@media(max-width:760px){.tower-card{padding:26px}}
+
 /* EDUCATION + CERTS */
 .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media(max-width:900px){.edu-grid{grid-template-columns:1fr}}
@@ -719,6 +728,20 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
         <span class="atlas-strip-text"><strong>The Travel Atlas</strong> — I turn institutional data into stories for a living. This is the same discipline, turned on my own life — fifteen years, three countries, 26 cities, every place sourced and mapped.</span>
         <span class="atlas-strip-arrow" aria-hidden="true">↗</span>
       </a>
+    </div>
+  </section>
+
+  <!-- IR CONTROL TOWER -->
+  <section id="control-tower">
+    <div class="wrap">
+      <div class="tower-head">
+        <div class="kicker">IPEDS Outcomes Lab · Live Dashboard</div>
+        <h2>The IR Control Tower</h2>
+      </div>
+      <div class="tower-card">
+        <p>The IPEDS Outcomes Lab, live in one dashboard — 8,670 institutions, the Pell completion gap, and the one factor that predicts graduation better than money.</p>
+        <a class="tower-btn" href="https://sharmauncw.github.io/control-tower/" target="_blank" rel="noopener">Open the dashboard ↗</a>
+      </div>
     </div>
   </section>
 
