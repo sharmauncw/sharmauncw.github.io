@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sitemap for sharmauncw.github.io — prepared 2026-10-28.
+     Add as a standalone file at the repo root (sitemap.xml).
+     Only URLs verified live (HTTP 200) on 2026-10-28 are listed.
+     The site is one long page published daily; if new standalone
+     pages are added later, add a <url> block per page and bump lastmod. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://sharmauncw.github.io/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://sharmauncw.github.io/atlas/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
