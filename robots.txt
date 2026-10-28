@@ -1,0 +1,6 @@
+# robots.txt for sharmauncw.github.io — prepared 2026-10-28.
+# Add as a standalone file at the repo root (robots.txt).
+User-agent: *
+Allow: /
+
+Sitemap: https://sharmauncw.github.io/sitemap.xml
