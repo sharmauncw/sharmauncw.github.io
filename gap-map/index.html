@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gap Map — Every Campus in America. One Dot. One Gap.</title>
+<style>
+  :root{
+    --bg:#06182e; --panel:#0a2138; --panel2:#0d2a45; --line:#1d425f;
+    --ink:#eaf2f8; --muted:#9db8cc; --faint:#7e97ab;
+    --gold:#D9A441; --bright:#ffd34d; --teal:#0E7C7B; --sand:#f3e5c0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;}
+  a{color:var(--bright)}
+  header{padding:20px 26px 6px}
+  h1{margin:0;font-size:clamp(26px,4.2vw,44px);letter-spacing:.14em;font-weight:800}
+  .tagline{margin:2px 0 0;color:var(--gold);font-family:Georgia,"Times New Roman",serif;
+    font-style:italic;font-size:clamp(14px,2vw,19px)}
+  /* ---------- lenses ---------- */
+  .lenses{padding:12px 26px 2px}
+  .lenses .lab{font-size:11px;letter-spacing:.22em;color:var(--faint);margin-bottom:7px}
+  .lens-row{display:flex;gap:8px;flex-wrap:wrap}
+  .lens{border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer;text-align:left;line-height:1.25}
+  .lens small{display:block;color:var(--muted);font-size:11px}
+  .lens.active{border-color:var(--gold);background:var(--panel2);
+    box-shadow:0 0 0 1px var(--gold) inset, 0 0 18px rgba(217,164,65,.18)}
+  .lens.active small{color:var(--bright)}
+  .lens.soon{opacity:.48;cursor:not-allowed;border-style:dashed}
+  .lens .tag{display:inline-block;margin-left:7px;padding:1px 6px;border:1px solid var(--faint);
+    border-radius:4px;color:var(--faint);font-size:9px;letter-spacing:.12em;vertical-align:2px}
+  #lensNote{padding:6px 26px 0;color:var(--bright);font-size:13px;min-height:0}
+  /* ---------- explainer ---------- */
+  .explainer{margin:10px 26px 0;background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:11px 15px;font-size:14px;line-height:1.5;color:#d7e5ef}
+  .explainer b{color:#fff}
+  .explainer .hide{float:right;background:none;border:1px solid var(--line);color:var(--muted);
+    border-radius:6px;font-size:11px;padding:2px 8px;cursor:pointer}
+  /* ---------- layout ---------- */
+  main{display:flex;gap:14px;padding:14px 26px 8px;align-items:stretch}
+  #mapWrap{position:relative;flex:1 1 auto;min-height:480px;background:var(--bg);
+    border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  #map{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+  #map.dragging{cursor:grabbing}
+  .zoomctl{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;z-index:5}
+  .zoomctl button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);
+    background:rgba(10,33,56,.92);color:var(--ink);font-size:18px;cursor:pointer;line-height:1}
+  aside{flex:0 0 308px;display:flex;flex-direction:column;gap:12px}
+  .box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+  .box h2{margin:0 0 8px;font-size:11px;letter-spacing:.2em;color:var(--faint);font-weight:700}
+  .box p{margin:6px 0;font-size:13px;color:#d7e5ef;line-height:1.45}
+  /* search */
+  #q{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);
+    background:var(--panel2);color:var(--ink);font-size:15px;outline:none}
+  #q:focus{border-color:var(--gold)}
+  #ac{list-style:none;margin:6px 0 0;padding:0;max-height:264px;overflow:auto}
+  #ac li{padding:8px 10px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1.3}
+  #ac li small{color:var(--muted)}
+  #ac li:hover,#ac li.sel{background:var(--panel2)}
+  /* filters */
+  .frow{display:flex;gap:8px}
+  .frow label{flex:1;font-size:12px;color:var(--muted);display:block}
+  select{width:100%;margin-top:4px;padding:8px;border-radius:8px;border:1px solid var(--line);
+    background:var(--panel2);color:var(--ink);font-size:14px}
+  .check{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;cursor:pointer}
+  .check input{width:17px;height:17px;accent-color:var(--gold)}
+  /* gold hunt + year */
+  .bigbtn{width:100%;padding:11px;border-radius:9px;border:1px solid var(--gold);
+    background:transparent;color:var(--bright);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.02em}
+  .bigbtn[aria-pressed="true"]{background:var(--gold);color:#23180a}
+  #goldCount{font-size:13.5px;color:#d7e5ef;line-height:1.45;margin-top:8px}
+  #goldCount b{color:var(--bright);font-size:16px}
+  input[type=range]{width:100%;accent-color:var(--gold)}
+  .yearrow{display:flex;align-items:center;gap:9px}
+  .yearrow output{font-size:19px;font-weight:800;min-width:52px;text-align:center;color:#fff}
+  #playBtn{border:1px solid var(--line);background:var(--panel2);color:var(--ink);
+    border-radius:8px;width:36px;height:32px;cursor:pointer;font-size:14px}
+  #yearCaption{font-size:13px;color:var(--muted);line-height:1.45}
+  #yearCaption b{color:var(--ink)}
+  /* legend */
+  #legendBar{width:100%;height:12px;border-radius:6px;display:block}
+  .ticks{position:relative;height:16px;font-size:10.5px;color:var(--muted);margin-top:2px}
+  .ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+  .ticks .med{color:var(--bright)}
+  /* game */
+  #gamePanel{display:none}
+  #gamePanel.on{display:block}
+  #gName{font-size:16.5px;font-weight:700;line-height:1.3}
+  #gWhere{color:var(--muted);font-size:13px;margin-bottom:6px}
+  #gGuessVal{font-size:15px;color:var(--bright);font-weight:700}
+  #gVerdict{font-size:14px;line-height:1.5;margin-top:9px}
+  #gVerdict .big{font-size:17px;font-weight:800}
+  .rowbtns{display:flex;gap:8px;margin-top:10px}
+  .rowbtns button{flex:1;padding:9px;border-radius:8px;border:1px solid var(--line);
+    background:var(--panel2);color:var(--ink);font-size:14px;cursor:pointer}
+  .rowbtns button.primary{border-color:var(--gold);color:var(--bright);font-weight:700}
+  #gScore{font-size:12.5px;color:var(--muted);margin-top:8px}
+  /* ---------- campus card ---------- */
+  #card{position:absolute;left:14px;bottom:14px;width:308px;max-width:calc(100% - 28px);
+    background:rgba(10,33,56,.97);border:1px solid var(--gold);border-radius:12px;
+    padding:15px 16px 12px;z-index:6;display:none;box-shadow:0 14px 44px rgba(0,0,0,.5)}
+  #card.on{display:block}
+  #card h3{margin:0 22px 2px 0;font-size:17.5px;line-height:1.25}
+  #card .sub{color:var(--muted);font-size:13px}
+  #cardClose{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--muted);
+    font-size:19px;cursor:pointer}
+  #card .gapline{margin:10px 0 8px;font-size:15px}
+  #card .gapline .n{font-size:27px;font-weight:800}
+  #card .ahead{color:var(--bright)} #card .behind{color:#8fd0cb}
+  .bar{margin:5px 0}
+  .bar .bl{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+  .bar .bl b{color:var(--ink)}
+  .bar .track{height:7px;background:#12334f;border-radius:4px;margin-top:2px}
+  .bar .fill{height:100%;border-radius:4px}
+  .fill.p{background:var(--gold)} .fill.n{background:var(--teal)}
+  #card .ctx{font-size:12.5px;color:#d7e5ef;margin:10px 0 2px;line-height:1.45}
+  #card .note{font-size:12px;color:var(--bright);margin-top:6px;line-height:1.4}
+  #card .src{font-size:11px;color:var(--faint);margin-top:7px}
+  footer{padding:4px 26px 22px;color:var(--faint);font-size:12px;line-height:1.5}
+  /* ---------- mobile ---------- */
+  @media (max-width:820px){
+    header,.lenses,#lensNote,footer{padding-left:15px;padding-right:15px}
+    .lens-row{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+    .lens{flex:0 0 auto;max-width:78vw}
+    .explainer{margin-left:15px;margin-right:15px}
+    main{flex-direction:column;padding:12px 15px 6px}
+    #mapWrap{min-height:54vh;flex:none;height:54vh}
+    aside{flex:none}
+    #card{position:fixed;left:0;right:0;bottom:0;width:auto;max-width:none;max-height:52vh;
+      overflow:auto;border-radius:16px 16px 0 0;border-left:none;border-right:none;border-bottom:none}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>THE GAP MAP</h1>
+  <p class="tagline">Every campus in America. One dot. One gap.</p>
+</header>
+
+<section class="lenses" aria-label="Map lenses">
+  <div class="lab">LENSES</div>
+  <div class="lens-row" id="lensRow">
+    <button class="lens active" data-lens="pell" aria-pressed="true">The Pell Gap
+      <small>who finishes, by campus</small></button>
+    <button class="lens soon" data-lens="earnings" aria-disabled="true">Earnings vs Debt
+      <span class="tag">DATA IN VALIDATION</span><small>College Scorecard</small></button>
+    <button class="lens soon" data-lens="price" aria-disabled="true">The Price Lie
+      <span class="tag">DATA IN VALIDATION</span><small>net price by income · IPEDS SFA</small></button>
+    <button class="lens soon" data-lens="transfer" aria-disabled="true">Transfer Students
+      <span class="tag">DATA IN VALIDATION</span><small>IPEDS OM transfer cohorts</small></button>
+    <button class="lens soon" data-lens="deserts" aria-disabled="true">Education Deserts
+      <span class="tag">DATA IN VALIDATION</span><small>distance to the nearest campus</small></button>
+    <button class="lens soon" data-lens="odds" aria-disabled="true">Beating the Odds
+      <span class="tag">DATA IN VALIDATION</span><small>mobility campuses · HBCU + community college spotlights</small></button>
+  </div>
+</section>
+<div id="lensNote" role="status"></div>
+
+<div class="explainer" id="explainer">
+  <button class="hide" id="explainerHide" aria-label="Hide explanation">hide</button>
+  <b>What am I looking at?</b> The gap is the difference in 8-year award rates between
+  students who received a Pell Grant and students who didn&rsquo;t &mdash; one dot per campus,
+  colored by that campus&rsquo;s own gap. Every rate is recomputed from federal counts, for
+  campuses where both groups had at least 50 students. <b>Averages hide campuses:</b> the
+  national gap is 16.4 points; the median campus gap is 7.7. One map, many lenses &mdash;
+  new lenses land only when their numbers reconcile like these did.
+</div>
+
+<main>
+  <div id="mapWrap">
+    <canvas id="map"></canvas>
+    <div class="zoomctl">
+      <button id="zin" aria-label="Zoom in">+</button>
+      <button id="zout" aria-label="Zoom out">&minus;</button>
+      <button id="zreset" aria-label="Reset view" title="Reset view">&#8962;</button>
+    </div>
+    <div id="card" role="dialog" aria-label="Campus details">
+      <button id="cardClose" aria-label="Close campus card">&times;</button>
+      <h3 id="cName"></h3>
+      <div class="sub" id="cSub"></div>
+      <div class="gapline" id="cGap"></div>
+      <div class="bar"><div class="bl"><span>Pell recipients</span><b id="cPellV"></b></div>
+        <div class="track"><div class="fill p" id="cPellBar"></div></div></div>
+      <div class="bar"><div class="bl"><span>Non-Pell students</span><b id="cNonV"></b></div>
+        <div class="track"><div class="fill n" id="cNonBar"></div></div></div>
+      <p class="ctx" id="cCtx"></p>
+      <p class="note" id="cNote" style="display:none"></p>
+      <p class="src">Source: IPEDS Outcome Measures (NCES)</p>
+    </div>
+  </div>
+
+  <aside>
+    <div class="box">
+      <h2>FIND YOUR COLLEGE</h2>
+      <input id="q" type="search" placeholder="Start typing a college name&hellip;"
+             autocomplete="off" aria-label="Search for a college">
+      <ul id="ac"></ul>
+    </div>
+
+    <div class="box">
+      <h2>FILTER</h2>
+      <div class="frow">
+        <label>State<select id="fState"></select></label>
+        <label>Control<select id="fCtrl">
+          <option value="ALL">All</option><option value="PUBLIC">Public</option>
+          <option value="PRIVATE">Private</option></select></label>
+      </div>
+      <label class="check"><input type="checkbox" id="fGold"> Pell-ahead campuses only</label>
+    </div>
+
+    <div class="box">
+      <h2>GOLD HUNT</h2>
+      <button class="bigbtn" id="goldBtn" aria-pressed="false">&#10022; Light up the gold</button>
+      <p id="goldCount"></p>
+    </div>
+
+    <div class="box">
+      <h2>ENTERING CLASS</h2>
+      <div class="yearrow">
+        <button id="playBtn" aria-label="Play the years">&#9654;</button>
+        <input type="range" id="year" min="2009" max="2015" step="1" value="2015"
+               aria-label="Entering class year">
+        <output id="yearOut">2015</output>
+      </div>
+      <p id="yearCaption"></p>
+    </div>
+
+    <div class="box">
+      <h2>GUESS THE GAP</h2>
+      <p>A random campus. Its name, its town &mdash; but not its gap. How wide is it?</p>
+      <div class="rowbtns"><button class="primary" id="gameBtn">&#127919; Play Guess the Gap</button></div>
+      <div id="gamePanel">
+        <div id="gName"></div>
+        <div id="gWhere"></div>
+        <label for="gSlider" style="font-size:13px;color:var(--muted)">Your guess (points)</label>
+        <input type="range" id="gSlider" min="-20" max="40" step="0.5" value="8">
+        <div id="gGuessVal"></div>
+        <div id="gVerdict"></div>
+        <div class="rowbtns">
+          <button class="primary" id="gLock">Lock in my guess</button>
+          <button id="gNext" style="display:none">Next campus &rarr;</button>
+        </div>
+        <div class="rowbtns"><button id="gExit">Exit game</button></div>
+        <p id="gScore"></p>
+      </div>
+    </div>
+
+    <div class="box">
+      <h2>HOW TO READ THE COLORS</h2>
+      <canvas id="legendBar" width="560" height="24"></canvas>
+      <div class="ticks" id="legendTicks"></div>
+      <p style="margin-top:4px">Gold means Pell students finish <b>ahead</b>. Deep teal means a
+        wide gap. The bright tick marks the median campus, 7.7.</p>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  Rates: IPEDS Outcome Measures (NCES), U.S. Department of Education &mdash; full-time,
+  first-time entering cohorts followed for 8 years; campus gaps shown only where both the
+  Pell and non-Pell cohorts numbered at least 50 students. Campus locations: IPEDS HD2023.
+  State outlines: U.S. Census (public domain). Puerto Rico, Guam and the U.S. Virgin Islands
+  campuses appear in search; the map frame covers the 50 states + DC.
+</footer>
+
+<script src="data.js"></script>
+<script>
+"use strict";
+/* ================= data ================= */
+const D = window.GAPMAP_DATA;
+const CTRL_NAMES = ["Public","Private nonprofit","Private for-profit"];
+const CTRL_SHORT = ["Public","Private","Private"];
+function regionOf(state){ if(state==="AK")return "ak"; if(state==="HI")return "hi";
+  if(state==="PR"||state==="GU"||state==="VI")return null; return "conus"; }
+const campuses = D.meta.map(m=>({unitid:m[0],name:m[1],city:m[2],state:m[3],ctrl:m[4],
+  lat:m[5],lon:m[6],region:regionOf(m[3])}));
+const byId = new Map(campuses.map(c=>[c.unitid,c]));
+function yearData(c, year){ const yd = D.years[String(year)]; const v = yd && yd[c.unitid];
+  return v ? {pell:v[0], nonpell:v[1], gap:v[2]} : null; }
+const YEARS = Object.keys(D.stats).map(Number).sort((a,b)=>a-b);
+
+/* ================= color scale (hero ramp, TwoSlope -20/0/+40) ================= */
+const STOPS = [[0,"#ffd34d"],[0.25,"#f3e5c0"],[0.5,"#7fb5ae"],[0.75,"#0E7C7B"],[1,"#0a4f52"]];
+function hx(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
+const STOPRGB = STOPS.map(s=>[s[0],hx(s[1])]);
+function gapColor(g){
+  const u = g<=0 ? 0.5*(g+20)/20 : 0.5 + 0.5*g/40;
+  const x = Math.min(1, Math.max(0, u));
+  for(let i=1;i<STOPRGB.length;i++){
+    if(x<=STOPRGB[i][0]){
+      const [x0,c0]=STOPRGB[i-1], [x1,c1]=STOPRGB[i];
+      const t=(x-x0)/(x1-x0);
+      const r=Math.round(c0[0]+(c1[0]-c0[0])*t), gg=Math.round(c0[1]+(c1[1]-c0[1])*t),
+            b=Math.round(c0[2]+(c1[2]-c0[2])*t);
+      return `rgb(${r},${gg},${b})`;
+    }
+  }
+  return "#0a4f52";
+}
+
+/* ================= projection: composite Albers (CONUS + AK/HI insets) ================= */
+const rad = d=>d*Math.PI/180;
+function albers(p1,p2,lon0,lat0){
+  const s1=Math.sin(rad(p1)), s2=Math.sin(rad(p2));
+  const n=0.5*(s1+s2), C=Math.cos(rad(p1))**2 + 2*n*s1;
+  const rho0=Math.sqrt(C-2*n*Math.sin(rad(lat0)))/n;
+  return (lon,lat)=>{
+    const rho=Math.sqrt(Math.max(0,C-2*n*Math.sin(rad(lat))))/n;
+    const th=n*(rad(lon)-rad(lon0));
+    return [rho*Math.sin(th), rho0-rho*Math.cos(th)];
+  };
+}
+const _akProj = albers(55,65,-152,63);
+const PROJ = { conus: albers(29.5,45.5,-96,37.5),
+  /* Aleutian chain crosses the antimeridian: wrap +lon to -lon-360 side */
+  ak: (lon,lat)=>_akProj(lon>0 ? lon-360 : lon, lat),
+  hi: albers(8,18,-157,19.9) };
+const VB = {w:1000, h:640};
+const RECT = { conus:{x:2,y:4,w:996,h:632}, ak:{x:8,y:428,w:292,h:204}, hi:{x:312,y:516,w:190,h:116} };
+/* projected content bounds: union of the region rects (CONUS frame; AK/HI insets lie inside it) */
+const CONTENT = (()=>{ let x1=1e9,y1=1e9,x2=-1e9,y2=-1e9;
+  for(const r in RECT){ const R=RECT[r];
+    x1=Math.min(x1,R.x); y1=Math.min(y1,R.y);
+    x2=Math.max(x2,R.x+R.w); y2=Math.max(y2,R.y+R.h); }
+  return {x:x1, y:y1, w:x2-x1, h:y2-y1, cx:(x1+x2)/2, cy:(y1+y2)/2}; })();
+const STATE_REGION = {}; // state name -> region
+(function(){
+  const abbr={Alabama:"AL",Alaska:"AK",Arizona:"AZ",Arkansas:"AR",California:"CA",Colorado:"CO",
+    Connecticut:"CT",Delaware:"DE","District of Columbia":"DC",Florida:"FL",Georgia:"GA",
+    Hawaii:"HI",Idaho:"ID",Illinois:"IL",Indiana:"IN",Iowa:"IA",Kansas:"KS",Kentucky:"KY",
+    Louisiana:"LA",Maine:"ME",Maryland:"MD",Massachusetts:"MA",Michigan:"MI",Minnesota:"MN",
+    Mississippi:"MS",Missouri:"MO",Montana:"MT",Nebraska:"NE",Nevada:"NV","New Hampshire":"NH",
+    "New Jersey":"NJ","New Mexico":"NM","New York":"NY","North Carolina":"NC",
+    "North Dakota":"ND",Ohio:"OH",Oklahoma:"OK",Oregon:"OR",Pennsylvania:"PA",
+    "Rhode Island":"RI","South Carolina":"SC","South Dakota":"SD",Tennessee:"TN",Texas:"TX",
+    Utah:"UT",Vermont:"VT",Virginia:"VA",Washington:"WA","West Virginia":"WV",Wisconsin:"WI",
+    Wyoming:"WY","Puerto Rico":"PR"};
+  for(const k in abbr) STATE_REGION[k]=regionOf(abbr[k]);
+})();
+/* fit each region's polygons into its rect */
+const regionFit = {};
+let landPath = null;
+function buildLand(){
+  const feats = D.states.features.filter(f=>STATE_REGION[f.properties.name]);
+  const byRegion = {conus:[], ak:[], hi:[]};
+  for(const f of feats){ const r=STATE_REGION[f.properties.name]; if(r) byRegion[r].push(f); }
+  /* Hawai'i: crop to the main islands (the NW chain would shrink them to specks) */
+  function polysOf(f,r){
+    const polys = f.geometry.type==="Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates;
+    if(r!=="hi") return polys;
+    return polys.filter(poly=>{ let mnx=1e9,mxx=-1e9,mny=1e9,mxy=-1e9;
+      for(const pt of poly[0]){ mnx=Math.min(mnx,pt[0]); mxx=Math.max(mxx,pt[0]);
+        mny=Math.min(mny,pt[1]); mxy=Math.max(mxy,pt[1]); }
+      return mxx>=-162.5 && mnx<=-154.5 && mxy>=18.2 && mny<=23.5; });
+  }
+  for(const r of ["conus","ak","hi"]){
+    let minx=1e9,miny=1e9,maxx=-1e9,maxy=-1e9;
+    const proj=PROJ[r];
+    const walk=(f,fn)=>{
+      for(const poly of polysOf(f,r)) for(const ring of poly) for(const pt of ring) fn(pt);
+    };
+    for(const f of byRegion[r]) walk(f, pt=>{
+      const [x,y]=proj(pt[0],pt[1]);
+      if(x<minx)minx=x; if(x>maxx)maxx=x; if(y<miny)miny=y; if(y>maxy)maxy=y;
+    });
+    const R=RECT[r], pad=5;
+    const s=Math.min((R.w-2*pad)/(maxx-minx),(R.h-2*pad)/(maxy-miny));
+    regionFit[r]={s, ox:R.x+R.w/2-(minx+maxx)/2*s, oy:R.y+R.h/2+(miny+maxy)/2*s};
+  }
+  landPath = new Path2D();
+  const pt2=(r,lon,lat)=>{ const [x,y]=PROJ[r](lon,lat); const f=regionFit[r];
+    return [x*f.s+f.ox, -y*f.s+f.oy]; };
+  for(const f of feats){
+    const r=STATE_REGION[f.properties.name]; if(!r) continue;
+    for(const poly of polysOf(f,r)) for(const ring of poly){
+      ring.forEach((pt,i)=>{ const [x,y]=pt2(r,pt[0],pt[1]);
+        if(i===0) landPath.moveTo(x,y); else landPath.lineTo(x,y); });
+      landPath.closePath();
+    }
+  }
+  for(const c of campuses){ if(!c.region) continue;
+    const [x,y]=pt2(c.region,c.lon,c.lat); c.vx=x; c.vy=y; }
+}
+buildLand();
+
+/* ================= app state ================= */
+const S = { year:2015, stateFilter:"ALL", ctrlFilter:"ALL", gold:false,
+  selected:null, view:{k:1,cx:VB.w/2,cy:VB.h/2},
+  game:{active:false,target:null,streak:0,rounds:0,best:0,locked:false},
+  pulse:null };
+const $ = id=>document.getElementById(id);
+const canvas=$("map"), ctx=canvas.getContext("2d");
+let CW=0, CH=0, DPR=1, fitK=1;
+
+/* initial ("home") framing. Wide screens keep the original fit exactly:
+   view k=1 centered on the virtual box. On narrow screens (the stacked
+   layout, <=820px) the zero-margin VB fit leaves the projected content
+   edge-to-edge, clipping West-Coast dots and their halos at the canvas
+   edge — so there the home view is computed from the canvas aspect:
+   fit the projected content bounds with a small margin instead. */
+let homeView={k:1,cx:VB.w/2,cy:VB.h/2}, viewInit=false;
+function computeHome(){
+  if(!CW || !CH || !window.matchMedia("(max-width:820px)").matches)
+    return {k:1,cx:VB.w/2,cy:VB.h/2};
+  const M=Math.max(8, Math.min(16, CW*0.03));
+  const s=Math.min((CW-2*M)/CONTENT.w, (CH-2*M)/CONTENT.h);
+  return {k:s/fitK, cx:CONTENT.cx, cy:CONTENT.cy};
+}
+
+function resize(){
+  const r=canvas.parentElement.getBoundingClientRect();
+  DPR=Math.min(2, window.devicePixelRatio||1);
+  CW=r.width; CH=r.height;
+  canvas.width=Math.round(CW*DPR); canvas.height=Math.round(CH*DPR);
+  fitK=Math.min(CW/VB.w, CH/VB.h);
+  homeView=computeHome();
+  if(!viewInit){ S.view={k:homeView.k,cx:homeView.cx,cy:homeView.cy}; viewInit=true; }
+  draw();
+}
+new ResizeObserver(resize).observe($("mapWrap"));
+
+function toScreen(vx,vy){ const k=fitK*S.view.k;
+  return [CW/2+(vx-S.view.cx)*k, CH/2+(vy-S.view.cy)*k]; }
+function toVB(sx,sy){ const k=fitK*S.view.k;
+  return [S.view.cx+(sx-CW/2)/k, S.view.cy+(sy-CH/2)/k]; }
+
+function passesFilters(c){
+  if(S.stateFilter!=="ALL" && c.state!==S.stateFilter) return false;
+  if(S.ctrlFilter==="PUBLIC" && c.ctrl!==0) return false;
+  if(S.ctrlFilter==="PRIVATE" && c.ctrl===0) return false;
+  return true;
+}
+function visibleCampuses(){ return campuses.filter(passesFilters); }
+function goldCount(year){ return D.stats[String(year)].gold; }
+
+let pulseAnim=null, flyAnim=null;
+function draw(now){
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  ctx.fillStyle="#06182e"; ctx.fillRect(0,0,CW,CH);
+  const k=fitK*S.view.k;
+  ctx.save();
+  ctx.translate(CW/2,CH/2); ctx.scale(k,k); ctx.translate(-S.view.cx,-S.view.cy);
+  /* inset frames behind AK / HI, like the hero poster */
+  for(const r of ["ak","hi"]){ const R=RECT[r];
+    ctx.fillStyle="rgba(6,24,46,0.88)";
+    ctx.strokeStyle="#2e587a"; ctx.lineWidth=1/Math.sqrt(S.view.k);
+    ctx.beginPath(); ctx.rect(R.x,R.y,R.w,R.h); ctx.fill(); ctx.stroke(); }
+  ctx.fillStyle="#10324f"; ctx.fill(landPath);
+  ctx.strokeStyle="#2e587a"; ctx.lineWidth=0.7/Math.sqrt(S.view.k); ctx.stroke(landPath);
+  ctx.restore();
+  /* inset labels, screen space so they track the frames */
+  ctx.fillStyle="#9db8cc"; ctx.font="600 10px 'Segoe UI',system-ui,sans-serif";
+  for(const [r,label] of [["ak","ALASKA"],["hi","HAWAI\u02BBI"]]){
+    const [lx,ly]=toScreen(RECT[r].x+7,RECT[r].y+13);
+    if(lx>-60&&ly>-10&&lx<CW&&ly<CH) ctx.fillText(label,lx,ly); }
+  const goldSet = S.gold;
+  const g = S.game;
+  const list = visibleCampuses();
+  const dotR = Math.max(1.6, Math.min(6.5, 2.1*Math.pow(S.view.k,0.4)));
+  /* ghosts: in-universe campuses with no qualifying cohort this year */
+  ctx.fillStyle="rgba(127,181,174,0.08)";
+  for(const c of list){ if(!c.region) continue;
+    if(yearData(c,S.year)) continue;
+    const [x,y]=toScreen(c.vx,c.vy);
+    if(x<-8||y<-8||x>CW+8||y>CH+8) continue;
+    ctx.beginPath(); ctx.arc(x,y,dotR*0.8,0,7); ctx.fill();
+  }
+  /* gold halos first */
+  for(const c of list){ if(!c.region) continue;
+    const d=yearData(c,S.year); if(!d||d.gap>0) continue;
+    const [x,y]=toScreen(c.vx,c.vy);
+    if(x<-20||y<-20||x>CW+20||y>CH+20) continue;
+    ctx.beginPath(); ctx.arc(x,y,dotR*3.1,0,7);
+    ctx.fillStyle="rgba(255,211,77,0.15)"; ctx.fill();
+  }
+  /* main dots */
+  for(const c of list){ if(!c.region) continue;
+    const d=yearData(c,S.year); if(!d) continue;
+    const [x,y]=toScreen(c.vx,c.vy);
+    if(x<-10||y<-10||x>CW+10||y>CH+10) continue;
+    const isGold=d.gap<=0;
+    ctx.globalAlpha = (goldSet && !isGold) ? 0.05 : 0.92;
+    ctx.beginPath(); ctx.arc(x,y,isGold?dotR*1.2:dotR,0,7);
+    ctx.fillStyle=gapColor(d.gap); ctx.fill();
+  }
+  ctx.globalAlpha=1;
+  /* game target ring */
+  if(g.active && g.target && g.target.region){
+    const [x,y]=toScreen(g.target.vx,g.target.vy);
+    const rr=dotR*2.6+2.2*Math.sin((now||performance.now())/280);
+    ctx.beginPath(); ctx.arc(x,y,Math.max(6,rr),0,7);
+    ctx.strokeStyle="#ffd34d"; ctx.lineWidth=2; ctx.stroke();
+  }
+  /* selected ring + pulse */
+  if(S.selected && S.selected.region){
+    const [x,y]=toScreen(S.selected.vx,S.selected.vy);
+    ctx.beginPath(); ctx.arc(x,y,dotR*2.1,0,7);
+    ctx.strokeStyle="#ffffff"; ctx.lineWidth=1.6; ctx.stroke();
+    if(S.pulse){
+      const t=(performance.now()-S.pulse)/1600;
+      if(t<1){ ctx.beginPath(); ctx.arc(x,y,dotR*2.1+t*26,0,7);
+        ctx.strokeStyle=`rgba(255,211,77,${0.75*(1-t)})`; ctx.lineWidth=2.4; ctx.stroke(); }
+      else S.pulse=null;
+    }
+  }
+}
+function needsTick(){ return (S.game.active&&S.game.target)||S.pulse||flyAnim; }
+let loopOn=false;
+function loop(now){ draw(now);
+  if(needsTick()) requestAnimationFrame(loop); else loopOn=false; }
+function poke(){ if(!loopOn){ loopOn=true; requestAnimationFrame(loop); } }
+poke();
+
+/* ---------- pan / zoom ---------- */
+let drag=null; const pointers=new Map(); let pinch=null;
+canvas.addEventListener("pointerdown",e=>{
+  canvas.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId,{x:e.offsetX,y:e.offsetY});
+  if(pointers.size===2){ const p=[...pointers.values()];
+    pinch={d:Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y), k:S.view.k}; drag=null; }
+  else { drag={x:e.offsetX,y:e.offsetY,moved:false}; canvas.classList.add("dragging"); }
+});
+canvas.addEventListener("pointermove",e=>{
+  if(!pointers.has(e.pointerId)) return;
+  pointers.set(e.pointerId,{x:e.offsetX,y:e.offsetY});
+  if(pinch && pointers.size===2){ const p=[...pointers.values()];
+    const d=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);
+    const mx=(p[0].x+p[1].x)/2, my=(p[0].y+p[1].y)/2;
+    zoomAt(mx,my,pinch.k*(d/pinch.d)/S.view.k);
+    return;
+  }
+  if(drag){ const dx=e.offsetX-drag.x, dy=e.offsetY-drag.y;
+    if(Math.abs(dx)+Math.abs(dy)>3) drag.moved=true;
+    const k=fitK*S.view.k; S.view.cx-=dx/k; S.view.cy-=dy/k;
+    drag.x=e.offsetX; drag.y=e.offsetY; clampView(); draw();
+  }
+});
+function endPointer(e){
+  pointers.delete(e.pointerId);
+  if(pointers.size<2) pinch=null;
+  if(drag && !drag.moved) handleClick(e.offsetX,e.offsetY);
+  drag=null; canvas.classList.remove("dragging"); draw();
+}
+canvas.addEventListener("pointerup",endPointer);
+canvas.addEventListener("pointercancel",endPointer);
+canvas.addEventListener("wheel",e=>{ e.preventDefault(); zoomAt(e.offsetX,e.offsetY, e.deltaY<0?1.13:1/1.13); },{passive:false});
+function zoomAt(sx,sy,factor){
+  const [vx,vy]=toVB(sx,sy);
+  S.view.k=Math.min(16,Math.max(0.92,S.view.k*factor));
+  const [nx,ny]=toVB(sx,sy); S.view.cx+=vx-nx; S.view.cy+=vy-ny; clampView(); draw();
+}
+function clampView(){
+  const m=190/S.view.k;
+  S.view.cx=Math.min(VB.w-40+m, Math.max(40-m, S.view.cx));
+  S.view.cy=Math.min(VB.h-30+m, Math.max(30-m, S.view.cy));
+}
+$("zin").onclick=()=>zoomAt(CW/2,CH/2,1.35);
+$("zout").onclick=()=>zoomAt(CW/2,CH/2,1/1.35);
+$("zreset").onclick=()=>flyTo(null,1);
+
+function flyTo(campus, targetK, done){
+  const from={k:S.view.k,cx:S.view.cx,cy:S.view.cy};
+  const to = campus ? {k:Math.max(S.view.k,targetK||3.1), cx:campus.vx, cy:campus.vy}
+                    : {k:homeView.k, cx:homeView.cx, cy:homeView.cy};
+  const t0=performance.now(), dur=900;
+  if(flyAnim) cancelAnimationFrame(flyAnim);
+  const step=(now)=>{ const t=Math.min(1,(now-t0)/dur);
+    const e=t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+    S.view.k=from.k+(to.k-from.k)*e; S.view.cx=from.cx+(to.cx-from.cx)*e;
+    S.view.cy=from.cy+(to.cy-from.cy)*e; clampView(); draw();
+    if(t<1) flyAnim=requestAnimationFrame(step);
+    else { flyAnim=null; if(done) done(); } };
+  flyAnim=requestAnimationFrame(step);
+}
+
+/* ---------- campus card ---------- */
+function fmtGap(g){ return (g>0?"+":"")+g.toFixed(1); }
+function openCard(c){
+  S.selected=c;
+  let d=yearData(c,S.year), usedYear=S.year, note="";
+  if(!d){ d=yearData(c,2015); usedYear=2015;
+    note=`No qualifying cohort entered in ${S.year} (both groups need 50+ students) — showing the entering class of 2015.`; }
+  $("cName").textContent=c.name;
+  $("cSub").textContent=`${c.city}, ${c.state} · ${CTRL_NAMES[c.ctrl]}`;
+  const ahead=d.gap<=0;
+  $("cGap").innerHTML=`<span class="n ${ahead?"ahead":"behind"}">${fmtGap(d.gap)} pts</span> `+
+    (ahead?`<span class="ahead">— Pell students finish <b>ahead</b></span>`
+          :`<span>— the Pell gap at this campus</span>`);
+  $("cPellV").textContent=d.pell.toFixed(1)+"%"; $("cNonV").textContent=d.nonpell.toFixed(1)+"%";
+  $("cPellBar").style.width=d.pell+"%"; $("cNonBar").style.width=d.nonpell+"%";
+  $("cCtx").textContent=`Students who entered in ${usedYear}, followed for 8 years: `+
+    `${d.pell.toFixed(1)}% of Pell recipients earned an award, vs ${d.nonpell.toFixed(1)}% of non-Pell students.`;
+  if(!c.region) note=(note?note+" ":"")+`${c.state==="PR"?"Puerto Rico":c.state} campuses appear in search; the map frame covers the 50 states + DC.`;
+  const nEl=$("cNote"); if(note){ nEl.textContent=note; nEl.style.display="block"; }
+  else nEl.style.display="none";
+  $("card").classList.add("on"); draw();
+}
+function closeCard(){ S.selected=null; $("card").classList.remove("on"); draw(); }
+$("cardClose").onclick=closeCard;
+
+function selectCampus(c, fly=true){
+  if(!passesFilters(c)){ S.stateFilter="ALL"; S.ctrlFilter="ALL";
+    $("fState").value="ALL"; $("fCtrl").value="ALL"; }
+  openCard(c);
+  if(fly && c.region) flyTo(c, 3.1, ()=>{ S.pulse=performance.now(); poke(); });
+  else if(c.region){ S.pulse=performance.now(); poke(); }
+}
+function handleClick(sx,sy){
+  const list=visibleCampuses(); let best=null, bd=14;
+  for(const c of list){ if(!c.region||!yearData(c,S.year)) continue;
+    const [x,y]=toScreen(c.vx,c.vy); const d=Math.hypot(x-sx,y-sy);
+    if(d<bd){ bd=d; best=c; } }
+  if(best) openCard(best); else closeCard();
+}
+
+/* ---------- search ---------- */
+const qEl=$("q"), acEl=$("ac"); let acItems=[], acSel=-1;
+function runSearch(){
+  const q=qEl.value.trim().toLowerCase(); acItems=[]; acSel=-1; acEl.innerHTML="";
+  if(q.length<2) return;
+  const hits=campuses.filter(c=>c.name.toLowerCase().includes(q));
+  hits.sort((a,b)=> (b.name.toLowerCase().startsWith(q)-a.name.toLowerCase().startsWith(q))
+    || a.name.localeCompare(b.name));
+  acItems=hits.slice(0,8);
+  for(const c of acItems){ const li=document.createElement("li");
+    li.innerHTML=""; li.textContent=c.name;
+    const sm=document.createElement("small"); sm.textContent=` — ${c.city}, ${c.state}`;
+    li.appendChild(sm); li.onclick=()=>{ qEl.value=c.name; acEl.innerHTML=""; selectCampus(c); };
+    acEl.appendChild(li); }
+}
+qEl.addEventListener("input",runSearch);
+qEl.addEventListener("keydown",e=>{
+  if(e.key==="Enter" && acItems.length){ const c=acItems[Math.max(0,acSel)];
+    qEl.value=c.name; acEl.innerHTML=""; selectCampus(c); }
+  if(e.key==="ArrowDown"||e.key==="ArrowUp"){ e.preventDefault();
+    acSel=e.key==="ArrowDown" ? Math.min(acItems.length-1,acSel+1) : Math.max(0,acSel-1);
+    [...acEl.children].forEach((li,i)=>li.classList.toggle("sel",i===acSel)); }
+});
+
+/* ---------- filters ---------- */
+(function(){
+  const sel=$("fState");
+  sel.innerHTML=`<option value="ALL">All states</option>`+
+    [...new Set(campuses.map(c=>c.state))].sort().map(s=>`<option value="${s}">${s}</option>`).join("");
+  sel.onchange=()=>{ S.stateFilter=sel.value; draw(); };
+  $("fCtrl").onchange=e=>{ S.ctrlFilter=e.target.value; draw(); };
+})();
+
+/* ---------- gold hunt (shared toggle) ---------- */
+function setGold(on){
+  S.gold=on;
+  $("goldBtn").setAttribute("aria-pressed",String(on));
+  $("goldBtn").innerHTML= on ? "&#10022; Gold lit — tap to reset" : "&#10022; Light up the gold";
+  $("fGold").checked=on;
+  updateGoldCount(); draw();
+}
+function updateGoldCount(){
+  const n=goldCount(S.year);
+  $("goldCount").innerHTML = S.gold
+    ? `<b>${n} campuses</b> where Pell students finish at or ahead of their classmates — entering class of ${S.year}.`
+    : `In the entering class of ${S.year}, <b>${n} campuses</b> have Pell students finishing at or ahead. Light them up.`;
+}
+$("goldBtn").onclick=()=>setGold(!S.gold);
+$("fGold").onchange=e=>setGold(e.target.checked);
+
+/* ---------- year slider ---------- */
+function setYear(y, fromPlay){
+  S.year=y; $("year").value=y; $("yearOut").textContent=y;
+  const st=D.stats[String(y)];
+  $("yearCaption").innerHTML=
+    `Entering class of <b>${y}</b> — median campus gap <b>${st.median.toFixed(1)} pts</b> · ${st.n.toLocaleString()} campuses`;
+  updateGoldCount(); draw();
+}
+$("year").addEventListener("input",e=>setYear(Number(e.target.value)));
+let playTimer=null;
+$("playBtn").onclick=()=>{
+  if(playTimer){ clearInterval(playTimer); playTimer=null; $("playBtn").innerHTML="&#9654;"; return; }
+  $("playBtn").innerHTML="&#10073;&#10073;";
+  let y = S.year>=2015 ? 2009 : S.year;
+  setYear(y);
+  playTimer=setInterval(()=>{ y+=1; if(y>2015){ clearInterval(playTimer); playTimer=null;
+      $("playBtn").innerHTML="&#9654;"; return; } setYear(y); },850);
+};
+
+/* ---------- legend ---------- */
+(function(){
+  const lc=$("legendBar"), lctx=lc.getContext("2d");
+  for(let x=0;x<lc.width;x++){ const g=-20+60*x/lc.width;
+    lctx.fillStyle=gapColor(g); lctx.fillRect(x,0,1,lc.height); }
+  const ticks=$("legendTicks");
+  const marks=[[-20,"−20"],[0,"0"],[7.7,"7.7 median","med"],[20,"20"],[40,"+40"]];
+  for(const [v,label,cls] of marks){ const s=document.createElement("span");
+    s.textContent=label; if(cls) s.className=cls;
+    s.style.left=((v+20)/60*100)+"%"; ticks.appendChild(s); }
+})();
+
+/* ---------- lenses ---------- */
+$("lensRow").addEventListener("click",e=>{
+  const btn=e.target.closest(".lens"); if(!btn||btn.classList.contains("active")) return;
+  if(btn.classList.contains("soon")){
+    const name=btn.childNodes[0].textContent.trim();
+    $("lensNote").textContent=`"${name}" is still in validation — new lenses land only when their numbers reconcile like these did.`;
+  }
+});
+$("explainerHide").onclick=()=>{ $("explainer").style.display="none"; };
+
+/* ---------- guess the gap ---------- */
+const g=$("gamePanel");
+function fmtSigned(v){ return (v>0?"+":"")+Number(v).toFixed(1); }
+function gameScoreText(){
+  $("gScore").textContent = S.game.rounds
+    ? `Rounds: ${S.game.rounds} · Current streak: ${S.game.streak} · Best streak: ${S.game.best}` : "";
+}
+function newRound(){
+  const pool=visibleCampuses().filter(c=>c.region&&yearData(c,S.year));
+  const c=pool[Math.floor(Math.random()*pool.length)];
+  S.game.target=c; S.game.locked=false;
+  $("gName").textContent=c.name;
+  $("gWhere").textContent=`${c.city}, ${c.state} · ${CTRL_SHORT[c.ctrl]} · entering class of ${S.year}`;
+  $("gSlider").value=8; $("gGuessVal").textContent="Your guess: +8.0 pts";
+  $("gVerdict").innerHTML=""; $("gLock").style.display=""; $("gNext").style.display="none";
+  flyTo(c,2.4); poke();
+}
+$("gameBtn").onclick=()=>{ S.game.active=true; g.classList.add("on");
+  $("gameBtn").style.display="none"; newRound(); };
+$("gSlider").addEventListener("input",e=>{
+  $("gGuessVal").textContent=`Your guess: ${fmtSigned(e.target.value)} pts`; });
+$("gLock").onclick=()=>{
+  const c=S.game.target; if(!c||S.game.locked) return;
+  const d=yearData(c,S.year); const guess=Number($("gSlider").value);
+  const diff=Math.abs(guess-d.gap); S.game.locked=true; S.game.rounds+=1;
+  const good=diff<=5; S.game.streak= good ? S.game.streak+1 : 0;
+  S.game.best=Math.max(S.game.best,S.game.streak);
+  let head, cls;
+  if(diff<=2){ head="&#127919; Sharpshooter!"; }
+  else if(diff<=5){ head="Close!"; }
+  else { head="Not quite —"; }
+  $("gVerdict").innerHTML=
+    `<span class="big">${head}</span> The real gap at ${c.name} is <b>${fmtSigned(d.gap)} pts</b> `+
+    `(you said ${fmtSigned(guess)}).<br>Pell recipients finished at <b>${d.pell.toFixed(1)}%</b>, `+
+    `their non-Pell classmates at <b>${d.nonpell.toFixed(1)}%</b> — students who entered in ${S.year}, followed for 8 years.`;
+  $("gLock").style.display="none"; $("gNext").style.display="";
+  gameScoreText(); draw();
+};
+$("gNext").onclick=newRound;
+$("gExit").onclick=()=>{ S.game.active=false; S.game.target=null;
+  g.classList.remove("on"); $("gameBtn").style.display=""; draw(); };
+
+/* ---------- public API (also used by QA) ---------- */
+window.GapMap = {
+  state:S, campuses, yearData,
+  selectUnitid(uid){ const c=byId.get(uid); if(c) selectCampus(c); return c||null; },
+  setYear, setGold,
+  goldCountNow(){ return goldCount(S.year); },
+  openCardFor(uid){ const c=byId.get(uid); if(c) openCard(c); return c||null; },
+  cardText(){ return $("card").innerText; },
+  startGame(){ $("gameBtn").click(); },
+  gameTarget(){ return S.game.target; },
+  lockGuess(v){ $("gSlider").value=v; $("gLock").click(); },
+  verdictText(){ return $("gVerdict").innerText; },
+  yearCaption(){ return $("yearCaption").innerText; },
+  goldCountText(){ return $("goldCount").innerText; },
+};
+
+/* ---------- init ---------- */
+setYear(2015);
+resize();
+</script>
+</body>
+</html>
+
