@@ -312,7 +312,7 @@ section.news{padding:8px 0 0}
 .chip{font-size:13px;font-weight:600;padding:7px 10px;border-radius:999px;background:var(--bg-soft);border:1px solid var(--line);color:var(--text)}
 .chip strong{color:var(--teal)}
 
-/* AI SHOWCASE — RADAR + MUSE UNIVERSE */
+/* AI SHOWCASE — RADAR + AI BENCH */
 .showcase-panel{background:linear-gradient(165deg,#08282c 0%,#051a1f 55%,#03141a 100%);border:1px solid #14524c;border-radius:24px;color:#e8f6f3;position:relative;overflow:hidden;box-shadow:0 24px 60px rgba(4,30,34,.35)}
 .showcase-panel h3{color:#fff}
 .mono{font-family:"IBM Plex Mono",monospace}
@@ -450,7 +450,7 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#ai-radar">AI Radar</a>
-      <a href="#muse-universe">Muse Universe</a>
+      <a href="#ai-bench">AI Bench</a>
       <a href="https://sharmauncw.github.io/atlas/" target="_blank" rel="noopener">Travel Atlas</a>
       <a href="#education">Education</a>
       <a href="#contact" class="navcta">Get in touch</a>
@@ -830,49 +830,43 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
     </div>
   </section>
 
-  <!-- MUSE UNIVERSE -->
-  <section id="muse-universe" class="alt">
+  <!-- AI BENCH -->
+  <section id="ai-bench" class="alt">
     <div class="wrap">
       <div class="sec-head">
-        <div class="kicker">Muse Universe · Interactive</div>
-        <h2>Meet the <em>Muse family</em></h2>
-        <p>Meta has been quietly releasing a whole constellation of AI models this year. Here’s every star in it — what it is, what it does, and why it matters. Tap a star to explore.</p>
+        <div class="kicker">The AI Bench · Interactive</div>
+        <h2>Meet the <em>AI bench</em></h2>
+        <p>I don’t hand one AI the whole answer. Serious work runs across a bench — the same brief, several models, and the best result wins. These are the four on mine. Tap a star to see what each one does.</p>
       </div>
       <div class="showcase-panel universe-body">
         <div class="universe-grid">
-          <div class="star-map" role="group" aria-label="Muse model constellation map">
+          <div class="star-map" role="group" aria-label="AI bench constellation map">
             <svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
               <g stroke="rgba(125,211,200,.35)" stroke-width=".35" stroke-dasharray="1.4 1.2">
-                <line x1="16" y1="58" x2="36" y2="38"/>
                 <line x1="36" y1="38" x2="60" y2="56"/>
-                <line x1="36" y1="38" x2="52" y2="16"/>
-                <line x1="52" y1="16" x2="76" y2="26"/>
+                <line x1="36" y1="38" x2="76" y2="26"/>
                 <line x1="60" y1="56" x2="76" y2="26"/>
-                <line x1="60" y1="56" x2="81" y2="68"/>
                 <line x1="36" y1="38" x2="26" y2="84"/>
                 <line x1="60" y1="56" x2="26" y2="84"/>
               </g>
             </svg>
-            <button type="button" class="node" style="left:16%;top:58%" data-model="spark" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Muse Spark</span></button>
-            <button type="button" class="node big" style="left:36%;top:38%" data-model="spark13" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Spark 1.3</span></button>
-            <button type="button" class="node big" style="left:60%;top:56%" data-model="open" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Spark Open</span></button>
-            <button type="button" class="node big" style="left:52%;top:16%" data-model="wonder" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Wonder</span></button>
-            <button type="button" class="node" style="left:76%;top:26%" data-model="wonderfull" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Wonder Full</span></button>
-            <button type="button" class="node" style="left:81%;top:68%" data-model="code" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Muse Code</span></button>
+            <button type="button" class="node big" style="left:36%;top:38%" data-model="chatgpt" aria-pressed="false"><span class="node-dot"></span><span class="node-label">ChatGPT</span></button>
+            <button type="button" class="node big" style="left:60%;top:56%" data-model="gemini" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Gemini</span></button>
+            <button type="button" class="node" style="left:76%;top:26%" data-model="copilot" aria-pressed="false"><span class="node-dot"></span><span class="node-label">Copilot</span></button>
             <button type="button" class="node here active" style="left:26%;top:84%" data-model="muse" aria-pressed="true"><span class="node-dot"></span><span class="node-label">Muse · You are here</span></button>
-            <span class="map-hint">CONSTELLATION MAP · MUSE FAMILY · 2026</span>
+            <span class="map-hint">CONSTELLATION MAP · THE AI BENCH</span>
           </div>
           <div class="model-detail" id="modelDetail" aria-live="polite">
             <span class="model-tag">THE PERSONAL AGENT</span>
-            <h3>Muse — the personal agent</h3>
+            <h3>Muse — my personal agent</h3>
             <div class="model-date">BUILT ON MUSE SPARK 1.3 · YOU ARE HERE</div>
-            <p>And then there’s this one: a personal agent built on Muse Spark. It doesn’t just answer questions — it keeps track of your work, your goals, and your day, and quietly moves the right things forward. It’s the AI that helps me run my world — research, reminders, even this website.</p>
+            <p>This one lives with me. My Muse agent keeps track of my work, my goals and my day, and quietly moves the right things forward — research, reminders, applications, even this website. Every other tool on this bench answers to her process.</p>
             <div class="spec-list">
               <div class="spec-row"><span>Built on</span><b>Muse Spark 1.3</b></div>
-              <div class="spec-row"><span>Lives in</span><b>Your apps &amp; chats</b></div>
+              <div class="spec-row"><span>Lives in</span><b>My apps &amp; chats</b></div>
               <div class="spec-row"><span>Job</span><b>Remember · plan · get things done</b></div>
             </div>
-            <div class="model-why"><div class="model-why-inner"><span>WHY IT MATTERS</span><p>This is where all of it is heading: not AI you visit once in a while, but AI that lives with you.</p></div></div>
+            <div class="model-why"><div class="model-why-inner"><span>WHY IT MATTERS</span><p>Not AI you visit once in a while — AI that lives with you, and is accountable for the follow-through.</p></div></div>
           </div>
         </div>
       </div>
@@ -1017,7 +1011,7 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
 (function(){
   var links = document.querySelectorAll('.navlinks a[href^="#"]');
   function onScroll(){
-    var ids = ['about','experience','projects','ai-radar','muse-universe','education','contact'];
+    var ids = ['about','experience','projects','ai-radar','ai-bench','education','contact'];
     var current = '';
     for(var i=0;i<ids.length;i++){
       var el = document.getElementById(ids[i]);
@@ -1031,52 +1025,34 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
   onScroll();
 })();
 
-// Muse Universe: click / focus a star to explore that model.
+// AI Bench: click / focus a star to explore that tool.
 (function(){
   var MODELS = {
-    spark: {
-      tag: 'THE ORIGINAL', name: 'Muse Spark', date: 'APRIL 2026 · META SUPERINTELLIGENCE LABS',
-      desc: 'The one that started it all. Muse Spark is the first model family out of Meta Superintelligence Labs — Meta’s big AI bet — and it’s the brain inside the Meta AI app. Everything else on this map is built on top of it.',
-      specs: [['Released','April 2026'],['Home','Meta AI app'],['Lab','Meta Superintelligence Labs']],
-      why: 'Every Muse since traces back to this one. It’s the trunk of the tree.'
-    },
-    spark13: {
-      tag: 'CURRENT GENERATION', name: 'Muse Spark 1.3', date: '2026 · THE LATEST SPARK',
-      desc: 'The newest Spark: sharper reasoning, a better memory for long conversations, and the version of Muse running Meta AI’s newest experiences right now. It’s also the family behind the personal agent that helps run my day — so yes, I’m a fan.',
-      specs: [['Status','Current generation'],['Powers','Meta AI assistant experiences'],['Known for','Reasoning + long conversations']],
-      why: 'If you’ve talked to Meta AI lately, you’ve talked to this.'
-    },
-    open: {
-      tag: 'OPEN WEIGHTS', name: 'Muse Spark Open', date: 'OCT 15, 2026 · FREE TO DOWNLOAD',
-      desc: 'Meta took its flagship model and just… gave it away. Download the weights, run it on your own hardware, build whatever you want on top. The team-up with Apple — tuning it to fly on Mac Studios — is the part that made the whole industry blink.',
-      specs: [['Parameters','816B'],['Context','1M tokens'],['License','Open weights · free'],['Runs on','Incl. Apple Mac Studio']],
-      why: 'Open weights at this level change who gets to build the future of AI. Basically everyone.'
-    },
-    wonder: {
-      tag: 'FRONTIER MODEL', name: 'Muse Wonder', date: 'OCT 12, 2026 · FRONTIER TIER',
-      desc: 'Meta’s new top-end model, aimed squarely at the best AI in the world. Active Memory means it actually remembers you between conversations; Active Focus means when a task gets hard, it doesn’t stall — it finds another way through.',
-      specs: [['Tier','Frontier'],['Active Memory','Remembers across chats'],['Active Focus','Pushes through blockers']],
-      why: 'This is personal AI growing up: not just answering, but remembering and persisting — like a real assistant.'
-    },
-    wonderfull: {
-      tag: 'FRONTIER · MAXIMUM', name: 'Muse Wonder Full', date: 'OCT 12, 2026 · FULL-STRENGTH WONDER',
-      desc: 'Wonder, turned all the way up. The full-strength version, built for the heaviest jobs: deep research, complex multi-step work — the stuff you’d hand to your very best person and say, “take your time, get it right.”',
-      specs: [['Tier','Frontier — maximum capability'],['Built for','Hardest reasoning + longest tasks'],['Sibling','Muse Wonder']],
-      why: 'When “good enough” isn’t, this is the one you call.'
-    },
-    code: {
-      tag: 'CODING AGENT', name: 'Muse Code', date: 'OCT 2026 · SUBSCRIPTION',
-      desc: 'Meta’s coding agent, as a subscription. Describe what you want built and it writes the code, reviews it, and helps you ship it. It’s built on the Muse family, tuned specifically for software.',
-      specs: [['Type','Coding agent'],['Price','$50–$200 / month tiers'],['Does','Writes · reviews · ships code']],
-      why: 'Tools like this are why a one-person team can now ship like a five-person team.'
-    },
     muse: {
-      tag: 'THE PERSONAL AGENT', name: 'Muse — the personal agent', date: 'BUILT ON MUSE SPARK 1.3 · YOU ARE HERE',
-      desc: 'And then there’s this one: a personal agent built on Muse Spark. It doesn’t just answer questions — it keeps track of your work, your goals, and your day, and quietly moves the right things forward. It’s the AI that helps me run my world — research, reminders, even this website.',
-      specs: [['Built on','Muse Spark 1.3'],['Lives in','Your apps & chats'],['Job','Remember · plan · get things done']],
-      why: 'This is where all of it is heading: not AI you visit once in a while, but AI that lives with you.'
+      tag: 'THE PERSONAL AGENT', name: 'Muse — my personal agent', date: 'BUILT ON MUSE SPARK 1.3 · YOU ARE HERE',
+      desc: 'This one lives with me. My Muse agent keeps track of my work, my goals and my day, and quietly moves the right things forward — research, reminders, applications, even this website. Every other tool on this bench answers to her process.',
+      specs: [['Built on','Muse Spark 1.3'],['Lives in','My apps & chats'],['Job','Remember · plan · get things done']],
+      why: 'Not AI you visit once in a while — AI that lives with you, and is accountable for the follow-through.'
+    },
+    chatgpt: {
+      tag: 'THE SECOND MIND', name: 'ChatGPT', date: 'OPENAI · CHATGPT EDU AT UNCW',
+      desc: 'My work-documents partner. Drafts, analyses and anything I have to present get built or challenged here — through UNCW’s ChatGPT Edu — before they go anywhere near a meeting.',
+      specs: [['Access','UNCW ChatGPT Edu'],['Bench role','Drafts + work documents'],['Known for','Document reasoning']],
+      why: 'A second mind on anything with my name on it. If two AIs disagree, the work isn’t finished.'
+    },
+    gemini: {
+      tag: 'THE VERIFIER', name: 'Gemini', date: 'GOOGLE · GEMINI AI PRO',
+      desc: 'The skeptic on the bench. Big claims — money, numbers, anything public — get sent to Gemini as a short excerpt with one instruction: prove this wrong. It also runs the deep-research dives, and pulls the credit data my finance decisions stand on.',
+      specs: [['Access','Gemini AI Pro'],['Bench role','Research + adversarial checks'],['Known for','Long-context research']],
+      why: 'Every important number gets challenged by a mind that didn’t produce it. That’s the rule.'
+    },
+    copilot: {
+      tag: 'THE OFFICE INSIDER', name: 'Copilot', date: 'MICROSOFT · M365 + GITHUB',
+      desc: 'The one inside the tools themselves. M365 Copilot sits in the Office apps I work in all day, and GitHub Copilot backs my code — a checker that lives exactly where the work happens.',
+      specs: [['Access','M365 Copilot · GitHub Copilot'],['Bench role','In-flow help in Office + code'],['Known for','Meeting the work where it lives']],
+      why: 'Fresh eyes are good. Fresh eyes inside the document are better.'
     }
-  };
+  }
   var detail = document.getElementById('modelDetail');
   var nodes = document.querySelectorAll('.node[data-model]');
   function esc(s){ return s; }
