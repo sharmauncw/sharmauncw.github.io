@@ -154,6 +154,20 @@
     .kpi .v{font-size:24px}
     .wrap{padding:20px 14px 44px}
   }
+
+  /* ---------- Ask the Control Tower (hackathon integration, Oct 31) ---------- */
+  .ask-box{background:var(--panel);border:1px solid var(--line);border-top:2px solid var(--red);border-radius:var(--radius);padding:18px}
+  .ask-box form{display:flex;gap:8px;margin:12px 0 10px}
+  .ask-box input[type="text"]{flex:1;min-width:0;padding:11px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);font-size:15px}
+  .ask-box button{padding:10px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);cursor:pointer;font-size:14px}
+  .ask-box button:hover{border-color:var(--red)}
+  #suggested{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+  #suggested button{font-size:12.5px;color:var(--muted)}
+  #trustee{border-color:var(--red);color:#fff;margin-bottom:14px}
+  #answer{white-space:pre-wrap;background:var(--panel-2);border:1px solid var(--line-soft);border-radius:8px;padding:14px 16px;min-height:84px;line-height:1.6}
+  .panel-flash{animation:panelFlash 2.6s ease-out}
+  @keyframes panelFlash{0%{outline:2px solid var(--red);outline-offset:3px}70%{outline:2px solid var(--red);outline-offset:3px}100%{outline:2px solid transparent;outline-offset:3px}}
+  @media (max-width:460px){ .ask-box form{flex-direction:column} .ask-box form button{width:100%} }
 </style>
 </head>
 <body>
@@ -173,7 +187,7 @@
   </header>
 
   <!-- KPI row -->
-  <div class="kpis" role="list">
+  <div class="kpis" role="list" data-panel="Header KPIs">
     <div class="kpi" role="listitem"><div class="v">8,670</div><div class="l">institutions in the full IPEDS panel</div></div>
     <div class="kpi" role="listitem"><div class="v">60,885</div><div class="l">institution-years in the full panel, 2015–2023</div></div>
     <div class="kpi" role="listitem"><div class="v">27,005</div><div class="l">four-year institution-years in the analysis set</div></div>
@@ -182,8 +196,23 @@
     <div class="kpi accent" role="listitem"><div class="v">16.4<small> pp</small></div><div class="l">Pell gap in 8-year award rates, latest entering cohort (2015)</div></div>
   </div>
 
-  <!-- 2. Outcomes trend -->
-  <section>
+  
+  <!-- Ask the Control Tower — hackathon assistant (integrated Oct 31, 2026) -->
+  <section aria-label="Ask the Control Tower">
+    <div class="sec-head"><span class="n">✦</span><h2>Ask the Control Tower</h2></div>
+    <p class="sec-sub">Plain-language answers from the public IPEDS Outcomes Lab data on this page. Every figure is cited — and if a question falls outside the verified fact set, the assistant says so instead of guessing.</p>
+    <div class="ask-box">
+      <form id="ask-form">
+        <input id="ask-input" type="text" placeholder="Ask about graduation, equity gaps, peer groups…" autocomplete="off" aria-label="Your question">
+        <button type="submit">Ask</button>
+      </form>
+      <div id="suggested" aria-label="Suggested questions"></div>
+      <button id="trustee" type="button">Explain it like I&rsquo;m a trustee</button>
+      <div id="answer" role="status">Pick a suggested question, or type your own. When an answer matches a chart below, the page scrolls to it and highlights it.</div>
+    </div>
+  </section>
+<!-- 2. Outcomes trend -->
+  <section data-panel="Outcomes trend">
     <div class="sec-head"><span class="n">01</span><h2>Outcomes trend</h2></div>
     <p class="sec-sub">Median 150% graduation rate across four-year institutions rose from <b>47.1%</b> in 2015 to <b>52.4%</b> in 2023. Median first-year retention barely moved, holding at roughly <b>74–75%</b> the whole period — graduation improved without retention leading it.</p>
     <div class="panel">
@@ -197,7 +226,7 @@
   </section>
 
   <!-- 3. Equity gap -->
-  <section>
+  <section data-panel="Equity gap">
     <div class="sec-head"><span class="n">02</span><h2>The equity gap</h2></div>
     <p class="sec-sub">Eight-year award rates (IPEDS Outcome Measures, student-weighted) for Pell Grant recipients vs. non-recipients, by entering cohort. Both groups gained ground — Pell students faster — but a wide gap remains.</p>
     <div class="grid-6040">
@@ -223,7 +252,7 @@
         <p class="note">The headline gap is computed from the unrounded rates (45.89% vs. 62.24%). The typical single institution&rsquo;s own gap is smaller — 7.7 pp at the median — and at only 16% of institutions do Pell students finish at or above the non-Pell rate.</p>
       </div>
     </div>
-    <div class="panel" style="margin-top:12px">
+    <div class="panel" style="margin-top:12px" data-panel="Equity gap (completion by horizon)">
       <h3>Completion by horizon — latest cohort</h3>
       <p class="cap">Share of the 2015 entering cohort earning any credential within 4, 6, and 8 years</p>
       <div id="horizons"></div>
@@ -231,7 +260,7 @@
     </div>
   </section>
   <!-- 4. What predicts graduation -->
-  <section>
+  <section data-panel="What predicts graduation">
     <div class="sec-head"><span class="n">03</span><h2>What predicts graduation</h2></div>
     <p class="sec-sub">Mean absolute SHAP values from the Outcomes Lab model — the average impact each feature has on a predicted 150% graduation rate, in percentage points. One feature towers over everything else: <b>first-year retention, at 9.49 pp</b>. Who an institution enrolls and how selective it is matter far less than whether its first-years come back.</p>
     <div class="panel">
@@ -241,7 +270,7 @@
   </section>
 
   <!-- 5. By sector -->
-  <section>
+  <section data-panel="By sector">
     <div class="sec-head"><span class="n">04</span><h2>By sector</h2></div>
     <p class="sec-sub">Cohort-weighted 150% graduation rates pooled across 2015–2023, four-year institutions. Private nonprofits lead; for-profits trail by more than 30 points — yet their internal Pell gaps are the smallest, because completion is low for everyone there.</p>
     <div class="panel">
@@ -251,7 +280,7 @@
   </section>
 
   <!-- 6. Race medians -->
-  <section>
+  <section data-panel="Graduation medians by race">
     <div class="sec-head"><span class="n">05</span><h2>Graduation medians by race</h2></div>
     <p class="sec-sub">Median 150% graduation rates by student race/ethnicity, four-year institutions, 2015–2023. Every group rose over the period, but the ordering never changed. In 2023 the White–Black gap was <b>19.6 pp</b> and the White–Hispanic gap <b>11.3 pp</b>.</p>
     <div class="panel">
@@ -271,7 +300,7 @@
   </section>
 
   <!-- 7. Peer clusters -->
-  <section>
+  <section data-panel="Peer clusters">
     <div class="sec-head"><span class="n">06</span><h2>Peer clusters</h2></div>
     <p class="sec-sub">Four peer groups from the lab&rsquo;s clustering of four-year institutions — similar missions and resources, very different outcomes. Graduation and retention are group medians; Pell share is the median share of undergraduates on Pell.</p>
     <div class="clusters" id="clusters"></div>
@@ -293,7 +322,7 @@
   </section>
 
   <!-- 9. Spotlights -->
-  <section>
+  <section data-panel="Spotlights / Peer clusters">
     <div class="sec-head"><span class="n">08</span><h2>Spotlights</h2></div>
     <p class="sec-sub">Eight-year award rates for three institutions, Pell vs. non-Pell, latest cohort in the lab&rsquo;s saved outputs. Same federal yardstick, three very different equity stories.</p>
     <div class="panel">
@@ -531,6 +560,552 @@ function pct(v){ return v.toFixed(1); }
       + '<div class="pair-row"><span class="plabel">Non-Pell</span><div class="track"><div class="fill white" style="width:' + sp[2] + '%"></div></div><span class="pnum">' + pct(sp[2]) + '%</span></div></div>';
   }).join('');
 })();
+</script>
+
+<script type="application/json" id="fact-store-data">{"_provenance":{"coverage":"outputs/coverage.json — per-year panel_rows sum to 60885 (computed 2026-10-26)","dashboard_json":"~/workspace/career/dashboard-demo/dashboard-data-final.json","lab_repo":"~/workspace/github-projects/ipeds-outcomes-lab","run_log":"RUN_LOG.md — panel build: 60,885 rows x 74 cols, 8,670 institutions, 2015-2023"},"banned":{"retired_pair":"62% vs 79% Pell/non-Pell — WRONG, retired Oct 2026, never use.","wrong_gap":"16.3 as the headline Pell gap — superseded by settled 16.4 (see equity_headline.gap_derivation). Exception: 16.3 is legitimately the naive-baseline MAE in model.naive_baseline_mae_pp — a different number that happens to share digits."},"by_sector":{"grad_rate":{"Private for-profit":34.4,"Private nonprofit":65.9,"Public":58.1},"measure":"Cohort-weighted 150% graduation rate, pooled 2015-2023","median_pell_gap_note":"For-profit gap is smallest because completion is low for everyone there — not an equity win.","median_pell_gap_pp":{"Private for-profit":3.1,"Private nonprofit":8.9,"Public":7.5},"trace":"dashboard by_control; headline.gap_by_control_latest."},"citation_format":"Source: IPEDS Outcomes Lab panel, 2015–2023 — [measure definition].","equity_by_horizon":{"gain_4_to_8_years":{"nonpell_pp":13.6,"pell_pp":11.9},"horizons":{"4":{"gap_pp":14.6,"nonpell":48.6,"pell":34.0},"6":{"gap_pp":16.6,"nonpell":60.9,"pell":44.3},"8":{"gap_note":"Unrounded-derived (16.35 -> 16.4); the stored horizons_latest gap of 16.3 is the rounded-rate subtraction and is superseded by the settled headline gap.","gap_pp":16.4,"nonpell":62.2,"pell":45.9}},"measure":"Award rates by years since entry, latest (2015) cohort","trace":"headline.horizons_latest (rates); gains computed 45.9-34.0 and 62.2-48.6."},"equity_headline":{"gap_derivation":"SETTLED 2026-10-26: 62.24 - 45.89 = 16.35, which rounds to 16.4. Source: headline.equity_trend_saved[2023] (pell_rate_8 45.89, nonpell_rate_8 62.24, stored gap_pp 16.35). The dashboard equity_latest.gap field stores 16.3 (from subtracting rounded rates 62.2 - 45.9) — DO NOT USE 16.3.","gap_pp":16.4,"measure":"8-year award rates, 2015 entering cohort, student-weighted","median_institution_gap_pp":7.7,"nonpell_rate":62.2,"nonpell_rate_unrounded":62.24,"pell_rate":45.9,"pell_rate_unrounded":45.89,"share_institutions_pell_ge_nonpell_pct":16.0,"trace":"headline.inst_gap_median_pp = 7.7; headline.share_pell_ge_nonpell_pct = 16.0"},"model":{"mae_pp":7.15,"n_test":5389,"naive_baseline_mae_pp":16.3,"r2":0.745,"rmse_pp":10.01,"target":"150% graduation rate (four-year institutions, cohorts >= 50)","test_years":"2021-2023 (2020 excluded)","top_predictors_shap":[{"feature":"First-year retention rate","shap":9.49},{"feature":"Private nonprofit control","shap":2.09},{"feature":"Admission rate","shap":1.69},{"feature":"Pell share of undergraduates","shap":1.63}],"trace":"headline.model; shap_top[0..3] in dashboard JSON.","train_years":"2015-2019"},"peer_clusters":[{"grad_rate":39.2,"label":"Small access colleges","n":357,"pell_share":48.0,"retention":64.0},{"grad_rate":52.2,"label":"Large access-serving institutions","n":127,"pell_share":55.0,"retention":76.0},{"grad_rate":57.9,"label":"The mainstream middle","members_note":"UNC Wilmington and Trine University both sit in this cluster.","n":1028,"pell_share":30.0,"retention":76.0},{"grad_rate":84.3,"label":"Selective and well-resourced","n":241,"pell_share":17.0,"retention":91.0}],"project":"Ask the Control Tower","race_medians_2023":{"Asian":66.7,"Black":41.7,"Hispanic":50.0,"White":61.3,"gap_white_minus_black_pp":19.6,"gap_white_minus_hispanic_pp":11.3,"measure":"Median institution-level 150% graduation rates, 2023","trace":"headline.race_medians[2023]; headline.race_gaps_2023."},"rule":"The assistant may state ONLY numbers in this file. Every answer must carry its citation.","scope":{"analysis_set":{"definition":"Four-year, degree-granting institutions with entering cohorts of 50 or more — the set used for the predictive model and equity rates.","institution_years":27005,"institutions":3638,"trace":"27,005 = fact_institution_year rows (README/RUN_LOG) and dashboard headline.analysis_rows; 3,638 = dashboard kpi.institutions. NEVER present these as the full panel."},"full_panel":{"definition":"Full IPEDS panel, all institutions, 74 harmonized variables.","institution_years":60885,"institutions":8670,"trace":"60,885 = sum of per-year panel_rows in outputs/coverage.json (computed); 8,670 = dim_institution rows per README/RUN_LOG and dashboard headline.panel_institutions.","years":"2015-2023"}},"settled_by":"Re-computation from source files on disk (see _provenance). This file supersedes all draft fact stores.","settled_on":"2026-10-26","spotlights":{"Harvard":{"gap_pp":2.0,"nonpell":98.6,"pell":96.6,"pell_cohort_n":266},"Trine University":{"gap_pp":15.6,"nonpell":68.1,"pell":52.5,"pell_cohort_n":160},"UNC Wilmington":{"gap_pp":7.3,"nonpell":74.6,"pell":67.3,"pell_cohort_n":492},"measure":"8-year award rates, latest cohort (public IPEDS data)","trace":"headline.spotlights."},"trends":{"median_grad_rate_150":{"2015":47.1,"2023":52.4,"note":"Median institution-level 150% graduation rate, four-year institutions."},"median_retention":{"2015":74.0,"2023":75.0,"range":"74-75%"},"trace":"headline.median_grad_trend / median_retention_trend."}}</script>
+<script type="application/json" id="question-bank-data">{"_note":"Question bank for Ask the Control Tower. Each entry maps a suggested question to fact-store keys; the engine assembles answers ONLY from fact-store.json values. Drafted Oct 24, 2026; gap figures updated to the settled 16.4 on Oct 26, 2026.","questions":[{"citation":"8-year award rates, 2015 entering cohort, student-weighted.","fact_keys":["equity_headline","scope"],"id":"pell-gap","panel_hook":"Equity gap","question":"What's the Pell graduation gap?","template":"For the 2015 entering cohort, {equity_headline.pell_rate}% of Pell recipients earned a credential within eight years, vs {equity_headline.nonpell_rate}% of non-Pell students — a {equity_headline.gap_pp}-point gap. The typical single institution's own gap is smaller: {equity_headline.median_institution_gap_pp} points at the median."},{"citation":"Gradient-boosted model of 150% graduation rate; SHAP feature importance, test period 2021–2023.","fact_keys":["model"],"id":"top-predictor","panel_hook":"What predicts graduation","question":"What predicts graduation most?","template":"First-year retention, by a wide margin. In the lab's model it carries more than four times the weight of the next factor (SHAP {model.top_predictor_shap} vs {model.second_predictor_shap} for private nonprofit control). Institutions that keep their first-years graduate them."},{"citation":"Model trained 2015–2019, tested out of sample 2021–2023 (2020 excluded), 5,389 test institutions.","fact_keys":["model"],"id":"model-accuracy","panel_hook":"What predicts graduation","question":"How accurate is the model?","template":"It predicts an institution's 150% graduation rate to within about {model.mae_pp} points on average (MAE {model.mae_pp} pp, R² {model.r2}), tested out of sample — against {model.naive_baseline_mae_pp} points for a naive baseline."},{"citation":"8-year award rates by institution, latest cohort; public IPEDS data.","fact_keys":["spotlights.uncw","equity_headline","peer_clusters"],"id":"uncw-compare","panel_hook":"Spotlights / Peer clusters","question":"How does UNC Wilmington compare to the national picture?","template":"UNC Wilmington's Pell students finish at {spotlights.uncw.pell}% within eight years vs {equity_headline.pell_rate}% nationally, and its Pell gap is {spotlights.uncw.gap_pp} points — less than half the national {equity_headline.gap_pp}. It sits in the mainstream-middle peer cluster."},{"citation":"Cohort-weighted 150% graduation rates pooled 2015–2023; median institution-level Pell gaps by sector.","fact_keys":["by_sector"],"id":"sectors","panel_hook":"By sector","question":"Which sector graduates the most students — and which has the smallest Pell gap?","template":"Private nonprofits lead on completion ({by_sector.grad_private_nonprofit}%), then publics ({by_sector.grad_public}%), then for-profits ({by_sector.grad_for_profit}%). The smallest median Pell gap is in for-profits ({by_sector.gap_for_profit} points) — not an equity win: completion there is low for everyone."},{"citation":"Median institution-level 150% graduation and retention rates, 2015 vs 2023.","fact_keys":["trends"],"id":"trend","panel_hook":"Outcomes trend","question":"Has graduation improved over time?","template":"Yes — the median four-year institution's 150% graduation rate rose from {trends.grad_2015}% in 2015 to {trends.grad_2023}% in 2023. Retention, oddly, barely moved: about {trends.retention_range} the whole period."},{"citation":"Award rates at 4, 6 and 8 years after entry, latest cohort.","fact_keys":["equity_by_horizon"],"id":"horizons","panel_hook":"Equity gap (completion by horizon)","question":"Does giving students more time close the Pell gap?","template":"No. Between years 4 and 8, Pell completion rises {equity_by_horizon.pell_gain} points and non-Pell {equity_by_horizon.nonpell_gain} — both groups gain, and the gap barely moves: {horizons.gap_4} points at year 4, {equity_headline.gap_pp} at year 8."},{"citation":"Cluster medians from the lab's four-cluster peer grouping of four-year institutions.","fact_keys":["peer_clusters"],"id":"clusters","panel_hook":"Peer clusters","question":"What do peer institutions look like?","template":"Four clusters: small access colleges ({clusters.small_access.grad}% graduation, {clusters.small_access.pell}% Pell), large access-serving institutions ({clusters.large_access.grad}%, {clusters.large_access.pell}% Pell), the mainstream middle ({clusters.mainstream.grad}%, {clusters.mainstream.pell}% Pell), and selective, well-resourced colleges ({clusters.selective.grad}%, {clusters.selective.pell}% Pell). Similar missions, very different resources and outcomes."},{"citation":"Median institution-level 150% graduation rates by race/ethnicity, 2023.","fact_keys":["race_medians_2023"],"id":"race-gaps","panel_hook":"Graduation medians by race","question":"How big are the racial graduation gaps?","template":"In 2023, median graduation rates were {race.asian}% for Asian students, {race.white}% White, {race.hispanic}% Hispanic, and {race.black}% Black — a White–Black gap of {race.gap_wb} points."},{"citation":"Panel coverage: full IPEDS panel vs four-year analysis set, 2015–2023.","fact_keys":["scope"],"id":"scope","panel_hook":"Header KPIs","question":"How much data is this based on?","template":"The full panel covers {scope.full_institution_years} institution-years from {scope.full_institutions} institutions, 2015–2023. The predictive analysis uses the four-year subset: {scope.analysis_institution_years} institution-years from {scope.analysis_institutions} institutions with cohorts of 50 or more."}],"trustee_summary":{"citation":"Headline findings, IPEDS Outcomes Lab panel, 2015–2023.","id":"trustee","text":"Across 8,670 colleges, whether students finish depends most on whether they come back for year two. Low-income (Pell) students finish at 45.9% vs 62.2% for others — a 16.4-point gap that extra time does not close. Graduation rates are improving nationally (47.1% → 52.4% median), and the model can predict an institution's rate to within 7.15 points on average. Every figure here is federal IPEDS data, cited."}}</script>
+<script>
+/* Ask the Control Tower engine — integrated build (Oct 31, 2026).
+   Source of record: files/build/app.js in the hackathon goal workspace;
+   identical logic, with fact store + question bank embedded above
+   (single-file page) instead of fetched. */
+/* Ask the Control Tower — Q&A engine v1 (hardened Mon Oct 26, 2026;
+ * the Wed Oct 28 "engine v1" milestone, pulled forward).
+ *
+ * ACCURACY BY CONSTRUCTION:
+ *  - Answers are assembled ONLY from fact-store.json values (settled
+ *    2026-10-26). Templates reference placeholders resolved by buildView();
+ *    if any placeholder cannot be resolved, the engine REFUSES rather
+ *    than improvising a number.
+ *  - Every answer carries a Source line AND a Scope line (panel vs
+ *    analysis set, cohort, years) — no number ships without its scope.
+ *  - Out-of-set questions are refused, never improvised.
+ *
+ * MATCHING (v1 hardening over the scaffold's keyword counter):
+ *  - Normalization: case/punctuation/hyphen variants collapse; institution
+ *    name variants fold to canonical tokens ("UNC Wilmington",
+ *    "UNC-Wilmington", "University of North Carolina Wilmington" -> "uncw").
+ *  - Weighted intent scoring with synonyms (gap/difference/disparity/
+ *    divide; drives/factors/predicts; ...). Exact bank questions keep a
+ *    fast path.
+ *  - Multi-part questions: clauses split on "?" / ";" / " and <question
+ *    word>"; each strongly-matched clause is answered separately, each
+ *    part with its own Source + Scope lines.
+ *  - Near-miss questions: a weak-but-unique match, a spotlight institution
+ *    (Harvard / Trine), a sector-specific Pell gap, or a year-specific
+ *    horizon gap is answered with the closest supported fact, prefaced by
+ *    a notice that names what is and isn't covered. Questions naming
+ *    unsupported metrics (tuition, salary, debt, enrollment size),
+ *    future values, unknown institutions, or institutional trivia are
+ *    refused cleanly.
+ *
+ * META MODEL API LAYER (per verified event requirements — building with
+ * Meta AI products is the event premise and 25% of the score):
+ *  - phraseWithMeta() is the integration point. It receives ONLY the
+ *    user's question + the already-assembled, fact-store-only answer, and
+ *    may rephrase it. Its system prompt forbids introducing any number
+ *    that is not in the supplied text.
+ *  - STUB STATUS: disabled by default. It activates only when
+ *    META_API_CONFIG is injected at deploy time (endpoint + key from the
+ *    claimed participant credits). No key is ever committed to this repo.
+ *    On ANY failure the deterministic answer ships unchanged — the demo
+ *    can never break live.
+ */
+
+const META_API_CONFIG = window.META_API_CONFIG || { enabled: false, endpoint: "", apiKey: "" };
+
+let FACTS = null;
+let BANK = null;
+
+/* Resolve every placeholder used in templates from the settled fact
+ * store. This map is the audit trail: placeholder -> fact path. */
+function buildView(fs) {
+  const sh = fs.model.top_predictors_shap;
+  const cl = Object.fromEntries(fs.peer_clusters.map(c => [c.label, c]));
+  const hz = fs.equity_by_horizon.horizons;
+  return {
+    "equity_headline.pell_rate": fs.equity_headline.pell_rate,
+    "equity_headline.nonpell_rate": fs.equity_headline.nonpell_rate,
+    "equity_headline.gap_pp": fs.equity_headline.gap_pp,
+    "equity_headline.median_institution_gap_pp": fs.equity_headline.median_institution_gap_pp,
+    "model.top_predictor_shap": sh[0].shap,
+    "model.second_predictor_shap": sh[1].shap,
+    "model.mae_pp": fs.model.mae_pp,
+    "model.r2": fs.model.r2,
+    "model.naive_baseline_mae_pp": fs.model.naive_baseline_mae_pp,
+    "spotlights.uncw.pell": fs.spotlights["UNC Wilmington"].pell,
+    "spotlights.uncw.nonpell": fs.spotlights["UNC Wilmington"].nonpell,
+    "spotlights.uncw.gap_pp": fs.spotlights["UNC Wilmington"].gap_pp,
+    "spotlights.harvard.pell": fs.spotlights["Harvard"].pell,
+    "spotlights.harvard.nonpell": fs.spotlights["Harvard"].nonpell,
+    "spotlights.harvard.gap_pp": fs.spotlights["Harvard"].gap_pp,
+    "spotlights.trine.pell": fs.spotlights["Trine University"].pell,
+    "spotlights.trine.nonpell": fs.spotlights["Trine University"].nonpell,
+    "spotlights.trine.gap_pp": fs.spotlights["Trine University"].gap_pp,
+    "by_sector.grad_private_nonprofit": fs.by_sector.grad_rate["Private nonprofit"],
+    "by_sector.grad_public": fs.by_sector.grad_rate["Public"],
+    "by_sector.grad_for_profit": fs.by_sector.grad_rate["Private for-profit"],
+    "by_sector.gap_for_profit": fs.by_sector.median_pell_gap_pp["Private for-profit"],
+    "by_sector.gap_public": fs.by_sector.median_pell_gap_pp["Public"],
+    "by_sector.gap_nonprofit": fs.by_sector.median_pell_gap_pp["Private nonprofit"],
+    "trends.grad_2015": fs.trends.median_grad_rate_150["2015"],
+    "trends.grad_2023": fs.trends.median_grad_rate_150["2023"],
+    "trends.retention_range": fs.trends.median_retention.range,
+    "equity_by_horizon.pell_gain": fs.equity_by_horizon.gain_4_to_8_years.pell_pp,
+    "equity_by_horizon.nonpell_gain": fs.equity_by_horizon.gain_4_to_8_years.nonpell_pp,
+    "horizons.gap_4": hz["4"].gap_pp,
+    "horizons.pell_4": hz["4"].pell,
+    "horizons.nonpell_4": hz["4"].nonpell,
+    "clusters.small_access.grad": cl["Small access colleges"].grad_rate,
+    "clusters.small_access.pell": cl["Small access colleges"].pell_share,
+    "clusters.large_access.grad": cl["Large access-serving institutions"].grad_rate,
+    "clusters.large_access.pell": cl["Large access-serving institutions"].pell_share,
+    "clusters.mainstream.grad": cl["The mainstream middle"].grad_rate,
+    "clusters.mainstream.pell": cl["The mainstream middle"].pell_share,
+    "clusters.selective.grad": cl["Selective and well-resourced"].grad_rate,
+    "clusters.selective.pell": cl["Selective and well-resourced"].pell_share,
+    "race.asian": fs.race_medians_2023.Asian,
+    "race.white": fs.race_medians_2023.White,
+    "race.hispanic": fs.race_medians_2023.Hispanic,
+    "race.black": fs.race_medians_2023.Black,
+    "race.gap_wb": fs.race_medians_2023.gap_white_minus_black_pp,
+    "scope.full_institution_years": fs.scope.full_panel.institution_years.toLocaleString("en-US"),
+    "scope.full_institutions": fs.scope.full_panel.institutions.toLocaleString("en-US"),
+    "scope.analysis_institution_years": fs.scope.analysis_set.institution_years.toLocaleString("en-US"),
+    "scope.analysis_institutions": fs.scope.analysis_set.institutions.toLocaleString("en-US")
+  };
+}
+
+function fillTemplate(template, view) {
+  let missing = null;
+  const out = template.replace(/\{([^}]+)\}/g, (m, key) => {
+    if (!(key in view)) { missing = key; return m; }
+    return String(view[key]);
+  });
+  return missing ? null : out;
+}
+
+/* ---------------- normalization ---------------- */
+
+/* Stage 1: lowercase + fold institution variants + dashes to spaces.
+ * Keeps "?" and ";" so clauses can be split before punctuation goes. */
+function foldInstitutions(text) {
+  let t = " " + text.toLowerCase() + " ";
+  t = t.replace(/university of north carolina( at)? wilmington/g, " uncw ");
+  t = t.replace(/unc[\s-]+wilmington/g, " uncw ");
+  t = t.replace(/harvard university/g, " harvard ");
+  t = t.replace(/trine university/g, " trine ");
+  t = t.replace(/[–—-]+/g, " ");
+  return t.replace(/\s+/g, " ");
+}
+
+/* Stage 2: strip remaining punctuation from one clause. */
+function cleanClause(text) {
+  return text.replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function normalize(text) {
+  return cleanClause(foldInstitutions(text));
+}
+
+/* ---------------- intent definitions ----------------
+ * Terms are [phrase, weight] matched as substrings of the normalized
+ * clause. STRONG is the score at which an intent answers outright;
+ * below it, a unique best match is answered as a near-miss with a
+ * closest-fact preface. Derived intents (spotlight, sector-gap,
+ * horizons-detail) answer supported facts that have no bank question;
+ * their templates live here and are filled through the same audited
+ * buildView()/fillTemplate() path as the bank. */
+
+const STRONG = 3;
+
+const BANK_TERMS = {
+  "pell-gap": [["pell gap", 4], ["pell", 2], ["non pell", 1], ["low income", 2], ["gap", 1], ["difference", 1], ["dispar", 1], ["divide", 1]],
+  "top-predictor": [["predicts", 2], ["predict", 2], ["driver", 2], ["drives graduation", 3], ["drives", 2], ["factor", 2], ["influence", 2], ["matters most", 3], ["most important", 3], ["biggest", 2], ["retention", 2], ["come back", 2], ["second year", 2]],
+  "model-accuracy": [["accurate", 3], ["accuracy", 3], ["error", 2], ["mae", 3], ["trust", 2], ["reliable", 2], ["believe", 1], ["prediction", 1], ["model", 1], ["off by", 2], ["how good", 2]],
+  "uncw-compare": [["uncw", 4], ["wilmington", 3], ["compare", 2], ["compared", 2], ["stack up", 3], ["stacks up", 3], ["national picture", 2], ["rest of the country", 2], ["nationally", 1], ["other colleges", 1]],
+  "sectors": [["sector", 3], ["sectors", 3], ["for profit", 3], ["nonprofit", 3], ["public", 1], ["private", 1], ["type of college", 2], ["types of colleges", 2], ["kind of school", 2], ["graduates the most", 3], ["graduate the most", 3], ["graduates more", 2], ["graduate more", 2], ["most students", 1]],
+  "trend": [["trend", 3], ["improv", 3], ["over time", 3], ["over the years", 3], ["changed", 2], ["change", 1], ["better", 2], ["worse", 2], ["since 2015", 2], ["progress", 2], ["risen", 2], ["rose", 2]],
+  "horizons": [["more time", 3], ["extra time", 3], ["longer", 2], ["horizon", 3], ["catch up", 3], ["close the gap", 3], ["more years", 2], ["given time", 2], ["wait longer", 2], ["eventually", 1]],
+  "clusters": [["peer", 3], ["cluster", 3], ["clusters", 3], ["similar", 3], ["comparable", 2], ["groups of colleges", 2], ["types of institutions", 2], ["grouping", 2]],
+  "race-gaps": [["race", 3], ["racial", 3], ["ethnic", 3], ["black", 3], ["hispanic", 3], ["asian", 3], ["white", 1], ["dispar", 1], ["minority", 2], ["students of color", 3]],
+  "scope": [["how much data", 3], ["dataset", 3], ["data set", 3], ["sample", 2], ["based on", 2], ["how many institutions", 3], ["how many colleges", 3], ["data behind", 3], ["coverage", 2], ["panel", 1], ["data", 1]]
+};
+
+/* Per-intent scope lines: panel vs analysis set, cohort, years. Every
+ * number in these strings also appears in the settled fact store. */
+const SCOPE_LINES = {
+  "pell-gap": "Scope: analysis set (four-year institutions, entering cohorts of 50 or more) — 2015 entering cohort, 8-year award rates, student-weighted.",
+  "top-predictor": "Scope: analysis set — gradient-boosted model of 150% graduation rate; trained 2015–2019, tested 2021–2023.",
+  "model-accuracy": "Scope: analysis set — gradient-boosted model of 150% graduation rate; trained 2015–2019, tested out of sample 2021–2023.",
+  "uncw-compare": "Scope: institution spotlight — 8-year award rates, latest cohort, public IPEDS data; national figures from the analysis set, 2015 entering cohort.",
+  "sectors": "Scope: pooled 2015–2023 — cohort-weighted 150% graduation rates; median institution-level Pell gaps by sector.",
+  "trend": "Scope: median institution-level rates, four-year institutions — 2015 vs 2023.",
+  "horizons": "Scope: analysis set — latest (2015) cohort, award rates at 4, 6 and 8 years after entry.",
+  "clusters": "Scope: peer-cluster medians across four-year institutions in the panel.",
+  "race-gaps": "Scope: median institution-level 150% graduation rates by race/ethnicity, 2023.",
+  "scope": "Scope: full IPEDS panel vs four-year analysis set, 2015–2023.",
+  "spotlight": "Scope: institution spotlight — 8-year award rates, latest cohort; public IPEDS data.",
+  "sector-gap": "Scope: median institution-level Pell gaps by sector, pooled 2015–2023.",
+  "horizons-detail": "Scope: analysis set — latest (2015) cohort, award rates by years since entry."
+};
+
+const PANEL_HOOKS = {
+  "spotlight": "Spotlights / Peer clusters",
+  "sector-gap": "By sector",
+  "horizons-detail": "Equity gap (completion by horizon)"
+};
+
+/* Tie-break order when scores are equal: derived (more specific)
+ * intents first, then bank intents in this order. */
+const PRIORITY = ["spotlight", "sector-gap", "horizons-detail", "pell-gap", "race-gaps", "uncw-compare", "sectors", "horizons", "clusters", "top-predictor", "model-accuracy", "trend", "scope"];
+
+/* Derived intents, keyed by institution token for spotlights. */
+const SPOTLIGHT_INSTITUTIONS = {
+  "harvard": { name: "Harvard", key: "harvard" },
+  "trine": { name: "Trine University", key: "trine" }
+};
+const SPOTLIGHT_CONTEXT = [["pell", 1], ["gap", 1], ["graduation", 1], ["graduate", 1], ["finish", 1], ["award", 1], ["rate", 1], ["compare", 1], ["completion", 1]];
+const SECTOR_ANCHORS = [["public", 2], ["nonprofit", 2], ["for profit", 2], ["private", 1], ["by sector", 2], ["sector", 2]];
+const SECTOR_CONTEXT = [["pell", 1], ["gap", 1], ["smallest", 1], ["difference", 1], ["pell gap", 4]];
+const HORIZON_ANCHORS = [["four years", 3], ["4 years", 3], ["year 4", 3], ["after four", 3], ["six years", 2], ["6 years", 2], ["year 6", 2]];
+const HORIZON_CONTEXT = [["gap", 1], ["pell", 1]];
+
+const DERIVED_TEMPLATES = {
+  "sector-gap": "Median institution-level Pell gaps by sector: public institutions {by_sector.gap_public} points, private nonprofits {by_sector.gap_nonprofit}, and for-profits {by_sector.gap_for_profit} — smallest in for-profits, and not an equity win: completion there is low for everyone.",
+  "horizons-detail": "The gap is there from the start. Four years after entry it stands at {horizons.gap_4} points (Pell {horizons.pell_4}% vs non-Pell {horizons.nonpell_4}%); by year eight it is {equity_headline.gap_pp} points ({equity_headline.pell_rate}% vs {equity_headline.nonpell_rate}%)."
+};
+const DERIVED_CITATIONS = {
+  "sector-gap": "Median institution-level Pell gaps by sector, pooled 2015–2023.",
+  "horizons-detail": "Award rates at 4 and 8 years after entry, latest (2015) cohort."
+};
+
+function spotlightTemplate(inst) {
+  const k = SPOTLIGHT_INSTITUTIONS[inst].key;
+  const name = SPOTLIGHT_INSTITUTIONS[inst].name;
+  return name + " is one of the lab's spotlight institutions. Its Pell students finish at {spotlights." + k + ".pell}% within eight years, vs {spotlights." + k + ".nonpell}% for non-Pell students — a gap of {spotlights." + k + ".gap_pp} points.";
+}
+
+/* ---------------- guards: clean refusals ----------------
+ * Checked before scoring. Refusals state no answer figures; the only
+ * numbers a refusal may name are the covered period itself (2015–2023),
+ * which is a settled fact-store value. */
+
+const UNSUPPORTED_PATTERNS = [
+  "tuition", "salary", "salaries", "starting pay", "debt", "football",
+  "basketball", "cost to attend", "how much does it cost",
+  "how many students", "students attend", "students are enrolled",
+  "acceptance rate at", "admission rate at", "endowment",
+  "president of", "who is the president", "mascot", "founded", "located"
+];
+
+const OTHER_INSTITUTIONS = [
+  "duke", "stanford", "yale", "princeton", "columbia", "dartmouth",
+  "cornell", "nc state", "north carolina state", "chapel hill",
+  "east carolina", "appalachian", "elon", "wake forest", "caltech",
+  "oxford", "cambridge", "mit"
+];
+
+function guardCheck(rawText, normText) {
+  for (const p of UNSUPPORTED_PATTERNS) {
+    if (normText.includes(p)) {
+      return "That asks for something the verified fact set doesn't contain — it covers graduation outcomes, equity gaps, sectors, peer groups and data scope, not tuition, costs, earnings, enrollment counts or institutional trivia. That question is outside the verified fact set, so I won't improvise an answer.";
+    }
+  }
+  if (/\b(202[7-9]|20[3-9][0-9])\b/.test(normText) || normText.includes("next year") || normText.includes("in the future") || normText.includes("forecast")) {
+    return "That asks for a future value. The verified fact set covers 2015–2023 outcomes only, so that question is outside the verified fact set and I won't forecast beyond it.";
+  }
+  for (const name of OTHER_INSTITUTIONS) {
+    if (normText.includes(name)) {
+      return "That institution isn't one of the lab's spotlights, so it is outside the verified fact set. The set carries spotlights for Harvard, Trine University and UNC Wilmington, alongside national, sector and peer-cluster figures — I won't improvise beyond it.";
+    }
+  }
+  const m = rawText.match(/(?:at|for|about|of)\s+([A-Z][A-Za-z&]+(?:\s+[A-Z][A-Za-z&]+){0,3})\s+(University|College|Institute)\b/);
+  if (m) {
+    const name = m[1].toLowerCase();
+    if (!name.includes("north carolina") && !name.includes("harvard") && !name.includes("trine")) {
+      return "That institution isn't one of the lab's spotlights, so it is outside the verified fact set. The set carries spotlights for Harvard, Trine University and UNC Wilmington, alongside national, sector and peer-cluster figures — I won't improvise beyond it.";
+    }
+  }
+  return null;
+}
+
+/* ---------------- scoring ---------------- */
+
+function termScore(clause, terms) {
+  let score = 0, firstPos = Infinity;
+  for (const [term, w] of terms) {
+    const i = clause.indexOf(term);
+    if (i >= 0) { score += w; if (i < firstPos) firstPos = i; }
+  }
+  return { score, firstPos };
+}
+
+/* Score one clause against every intent. Returns candidate objects:
+ * { id, score, firstPos, derived, eligible, contextScore } */
+function scoreClause(clause) {
+  const out = [];
+  for (const id of Object.keys(BANK_TERMS)) {
+    const s = termScore(clause, BANK_TERMS[id]);
+    if (s.score > 0) out.push({ id, score: s.score, firstPos: s.firstPos, derived: false, eligible: true });
+  }
+  // Spotlight derived intent: needs a spotlight institution token.
+  for (const inst of Object.keys(SPOTLIGHT_INSTITUTIONS)) {
+    const i = clause.indexOf(inst);
+    if (i >= 0) {
+      const ctx = termScore(clause, SPOTLIGHT_CONTEXT);
+      out.push({ id: "spotlight", inst, score: 6 + ctx.score, firstPos: i, derived: true, eligible: true, contextScore: ctx.score });
+    }
+  }
+  // Sector-gap derived intent: needs a sector anchor + gap context.
+  {
+    const a = termScore(clause, SECTOR_ANCHORS);
+    const c = termScore(clause, SECTOR_CONTEXT);
+    if (a.score > 0 && c.score > 0) {
+      out.push({ id: "sector-gap", score: a.score + c.score, firstPos: Math.min(a.firstPos, c.firstPos), derived: true, eligible: true, contextScore: c.score });
+    }
+  }
+  // Horizons-detail derived intent: needs a year anchor + gap context.
+  {
+    const a = termScore(clause, HORIZON_ANCHORS);
+    const c = termScore(clause, HORIZON_CONTEXT);
+    if (a.score >= 2 && c.score > 0) {
+      out.push({ id: "horizons-detail", score: a.score + c.score, firstPos: Math.min(a.firstPos, c.firstPos), derived: true, eligible: true, contextScore: c.score });
+    }
+  }
+  return out;
+}
+
+function pickBest(candidates) {
+  let best = null;
+  for (const c of candidates) {
+    if (!best || c.score > best.score ||
+        (c.score === best.score && PRIORITY.indexOf(c.id) < PRIORITY.indexOf(best.id))) {
+      best = c;
+    }
+  }
+  return best;
+}
+
+/* Split the stage-1 text into clauses on "?", ";" and on
+ * " and <question word>" boundaries. */
+const QUESTION_WORDS = ["what", "how", "which", "who", "does", "do", "is", "are", "can", "why", "tell"];
+function splitClauses(stage1) {
+  const rawParts = stage1.split(/[?;]+/);
+  const clauses = [];
+  for (const part of rawParts) {
+    const andSplit = part.split(new RegExp("\\band\\s+(?=(?:" + QUESTION_WORDS.join("|") + ")\\b)", "g"));
+    for (const piece of andSplit) {
+      const c = cleanClause(piece);
+      if (c) clauses.push(c);
+    }
+  }
+  return clauses;
+}
+
+/* ---------------- answer assembly ---------------- */
+
+const SOURCE_PREFIX = "Source: IPEDS Outcomes Lab panel, 2015–2023 — ";
+const NEAR_PREFIX = "I don't have that exact breakdown in the verified fact set — the closest figures it does support are these, with their scope:";
+const UNCW_METRIC_PREFIX = "The verified set doesn't carry UNC Wilmington's overall graduation rate — the closest figures are its eight-year award rates by Pell status, with their scope:";
+
+function bankEntry(id) {
+  return BANK.questions.find(q => q.id === id);
+}
+
+function buildPart(candidate, view) {
+  let template, citation, panel;
+  if (candidate.id === "spotlight") {
+    template = spotlightTemplate(candidate.inst);
+    citation = FACTS.spotlights.measure;
+    panel = PANEL_HOOKS["spotlight"];
+  } else if (candidate.derived) {
+    template = DERIVED_TEMPLATES[candidate.id];
+    citation = DERIVED_CITATIONS[candidate.id];
+    panel = PANEL_HOOKS[candidate.id];
+  } else {
+    const q = bankEntry(candidate.id);
+    if (!q) return null;
+    template = q.template;
+    citation = q.citation;
+    panel = q.panel_hook;
+  }
+  const filled = fillTemplate(template, view);
+  if (filled === null) return null;
+  return {
+    id: candidate.id,
+    text: filled + "\n\n" + SOURCE_PREFIX + citation + "\n" + SCOPE_LINES[candidate.id],
+    citation, panel
+  };
+}
+
+function refusal(text) {
+  return { text, citation: null, panel: null, ids: [], refused: true, nearMiss: false };
+}
+
+async function answerQuestion(text) {
+  const view = buildView(FACTS);
+  const stage1 = foldInstitutions(text);
+  const norm = cleanClause(stage1);
+
+  // Guards first: unsupported metrics, future values, unknown
+  // institutions and trivia are refused even if keywords would match.
+  const guarded = guardCheck(text, norm);
+  if (guarded) return refusal(guarded);
+
+  // Exact bank question fast path.
+  for (const q of BANK.questions) {
+    if (norm === normalize(q.question)) {
+      const part = buildPart({ id: q.id, derived: false }, view);
+      if (!part) return refusal("A figure behind that answer could not be verified against the fact store, so the answer is withheld rather than guessed.");
+      const finalText = await phraseWithMeta(text, part.text);
+      return { text: finalText, citation: part.citation, panel: part.panel, ids: [q.id], refused: false, nearMiss: false };
+    }
+  }
+
+  // Multi-part: distinct strong intents across distinct clauses.
+  const clauses = splitClauses(stage1);
+  if (clauses.length > 1) {
+    const strongParts = [];
+    const seen = new Set();
+    for (const clause of clauses) {
+      const best = pickBest(scoreClause(clause));
+      if (best && best.score >= STRONG && !seen.has(best.id)) {
+        seen.add(best.id);
+        strongParts.push(best);
+      }
+    }
+    // The sectors template already names the smallest sector gap, so a
+    // sector-gap part alongside it would only repeat the headline.
+    const ids = strongParts.map(p => p.id);
+    const parts = strongParts.filter(p => !(p.id === "sector-gap" && ids.includes("sectors")));
+    if (parts.length > 1) {
+      const built = [];
+      for (const p of parts) {
+        const b = buildPart(p, view);
+        if (b) built.push(b);
+      }
+      if (built.length > 1) {
+        const joined = built.map(b => b.text).join("\n\n");
+        const finalText = await phraseWithMeta(text, joined);
+        return {
+          text: finalText,
+          citation: built.map(b => b.citation).join(" · "),
+          panel: built[0].panel,
+          ids: built.map(b => b.id),
+          refused: false, nearMiss: false
+        };
+      }
+    }
+  }
+
+  // Single answer: score the whole question.
+  const best = pickBest(scoreClause(norm));
+  if (!best) {
+    return refusal("That question is outside the verified fact set this assistant is allowed to use, so I won't improvise an answer. Try one of the suggested questions — every answer here is assembled only from cited IPEDS Outcomes Lab figures.");
+  }
+  const part = buildPart(best, view);
+  if (!part) {
+    return refusal("A figure behind that answer could not be verified against the fact store, so the answer is withheld rather than guessed.");
+  }
+  let prefix = "";
+  let nearMiss = false;
+  if (best.score < STRONG || (best.id === "spotlight" && best.contextScore === 0)) {
+    prefix = NEAR_PREFIX + "\n\n";
+    nearMiss = true;
+  }
+  if (best.id === "uncw-compare" && !norm.includes("pell") &&
+      /(overall )?(graduation rate|grad rate|completion rate)/.test(norm)) {
+    prefix = UNCW_METRIC_PREFIX + "\n\n";
+    nearMiss = true;
+  }
+  const finalText = await phraseWithMeta(text, prefix + part.text);
+  return { text: finalText, citation: part.citation, panel: part.panel, ids: [part.id], refused: false, nearMiss };
+}
+
+function trusteeAnswer() {
+  const t = BANK.trustee_summary;
+  return {
+    text: t.text + "\n\n" + SOURCE_PREFIX + t.citation +
+      "\nScope: headline figures — full panel (8,670 institutions) for coverage; equity and model figures from the analysis set.",
+    citation: t.citation, panel: null, ids: ["trustee"], refused: false, nearMiss: false
+  };
+}
+
+async function phraseWithMeta(question, assembledAnswer) {
+  if (!META_API_CONFIG.enabled || !META_API_CONFIG.endpoint || !META_API_CONFIG.apiKey) {
+    return assembledAnswer; // stub: deterministic answer ships
+  }
+  // DECISION (Oct 26, hers, final): participant credits DECLINED — no card
+  // on the account, $0 risk. This layer stays disabled for the submission;
+  // the deterministic answer is the shipped path. (If ever revisited:
+  // POST to META_API_CONFIG.endpoint (Muse via Meta Model API) with:
+  //   system: "You rephrase an already-verified answer into warmer plain
+  //     language. You must not introduce, alter, round, or remove ANY
+  //     number. You must keep the citation line unchanged. If the draft
+  //     says the question is outside the verified fact set, return it
+  //     unchanged."
+  //   user: { question, draft: assembledAnswer }
+  // On timeout/error/non-200: return assembledAnswer unchanged.
+  return assembledAnswer;
+}
+
+/* ---------- page wiring (scaffold) ---------- */
+async function init() {
+  FACTS = JSON.parse(document.getElementById("fact-store-data").textContent);
+  BANK = JSON.parse(document.getElementById("question-bank-data").textContent);
+
+  const chips = document.getElementById("suggested");
+  for (const q of BANK.questions) {
+    const b = document.createElement("button");
+    b.textContent = q.question;
+    b.addEventListener("click", () => ask(q.question));
+    chips.appendChild(b);
+  }
+  document.getElementById("trustee").addEventListener("click", () => {
+    render(trusteeAnswer().text, null);
+  });
+  document.getElementById("ask-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    ask(document.getElementById("ask-input").value);
+  });
+}
+
+async function ask(text) {
+  if (!text || !text.trim()) return;
+  render("…", null);
+  const a = await answerQuestion(text);
+  render(a.text, a.panel);
+}
+
+/* Chart highlighting (integration step, done Oct 31): when an answer
+ * names a Control Tower panel, scroll that panel into view and flash
+ * it. Panels are matched by their data-panel attribute, whose values
+ * are the panel_hook strings from questions.json. On the standalone
+ * preview page no element carries data-panel, so this is a no-op
+ * there; headless tests (stubbed document) skip it too. */
+function highlightPanel(panel) {
+  if (!panel || typeof document.querySelectorAll !== "function") return;
+  const els = document.querySelectorAll("[data-panel]");
+  for (const el of els) {
+    if (el.getAttribute("data-panel") === panel) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      el.classList.add("panel-flash");
+      setTimeout(() => el.classList.remove("panel-flash"), 2600);
+      return;
+    }
+  }
+}
+
+function render(text, panel) {
+  const el = document.getElementById("answer");
+  el.textContent = text;
+  el.dataset.panel = panel || "";
+  if (panel) highlightPanel(panel);
+}
+
+document.addEventListener("DOMContentLoaded", init);
+
 </script>
 </body>
 </html>
