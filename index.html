@@ -30,7 +30,7 @@
   "url": "https://sharmauncw.github.io/",
   "image": "https://avatars.githubusercontent.com/u/289786322?v=4",
   "jobTitle": "Data Analytics Specialist",
-  "description": "Data Analytics Specialist in Institutional Research & Planning at the University of North Carolina Wilmington, specializing in higher-education analytics, student-success reporting, and data quality. Doctor of Information Technology (DIT) doctoral student at Trine University.",
+  "description": "Data Analytics Specialist in Institutional Research & Planning at the University of North Carolina Wilmington, specializing in higher-education analytics, student-success reporting, and data quality. Doctoral student in Information Technology (DIT) at Trine University.",
   "worksFor": {
     "@type": "CollegeOrUniversity",
     "name": "University of North Carolina Wilmington",
@@ -232,6 +232,7 @@ section.news{padding:8px 0 0}
 
 /* PROJECTS */
 .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.proj-subhead{grid-column:1/-1;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:600;margin-top:16px}
 @media(max-width:760px){.proj-grid{grid-template-columns:1fr}}
 .proj{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;box-shadow:var(--shadow)}
 .proj.featured{grid-column:1/-1;background:linear-gradient(120deg,var(--card) 55%,var(--teal-light));}
@@ -468,7 +469,7 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
           <span class="eyebrow"><i></i> Institutional Research &amp; Analytics</span>
           <h1>Akanksha<br><em>Sharma</em></h1>
           <p class="hero-role">Data Analytics Specialist @ UNC Wilmington<br>Office of Institutional Research &amp; Planning</p>
-          <p class="hero-sub">Doctor of Information Technology (DIT) doctoral student at <strong>Trine University</strong> — turning institutional data into clear, trusted decisions for students, faculty, and campus leaders.</p>
+          <p class="hero-sub">Doctoral student in Information Technology (DIT) at <strong>Trine University</strong> — turning institutional data into clear, trusted decisions for students, faculty, and campus leaders.</p>
           <div class="meta-row">
             <span>◎ Greater Wilmington Area, NC</span>
             <span>◎ Higher Education · Analytics · Data Quality</span>
@@ -522,8 +523,8 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
         <div class="about-copy">
           <p>I’m a data analytics professional with <strong>7+ years turning data into decisions</strong> across fintech, automotive data, government IT, consulting, and higher-education institutional research.</p>
           <p>At UNCW’s Office of Institutional Research &amp; Planning, I <strong>build institutional reports and dashboards, strengthen data quality, and partner with campus stakeholders</strong> — working day to day with SQL, Python, Tableau, and statistical analysis.</p>
-          <p>Alongside my role, I’m pursuing a <strong>Doctor of Information Technology at Trine University (4.0 GPA)</strong>, where my interests sit at the intersection of data science, cybersecurity, and responsible, decision-ready analytics. I enjoy connecting with fellow data and analytics professionals — feel free to reach out.</p>
-          <p>Off the clock, I’m a traveler — I’ve lived in 12 cities across three countries, and I keep <a href="https://sharmauncw.github.io/atlas/" target="_blank" rel="noopener">a map of all of it</a>.</p>
+          <p>Education has been the constant in my life, and it is still my favorite subject. Alongside my role, I’m pursuing a <strong>Doctor of Information Technology at Trine University (4.0 GPA)</strong>, where my interests sit where data science, cybersecurity, and responsible, decision-ready analytics meet.</p>
+          <p>Off the clock, I’m a traveler. I’ve lived in 12 cities across three countries, and I keep <a href="https://sharmauncw.github.io/atlas/" target="_blank" rel="noopener">a map of all of it</a>.</p>
         </div>
         <div class="focus-card">
           <h3>What I focus on</h3>
@@ -552,12 +553,12 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
         <article class="job current">
           <div class="job-top"><h3>Founder &amp; Creator <span>· AI Radar with Akanksha</span></h3><span class="date">OCT 2026 — PRESENT</span></div>
           <div class="job-loc">Remote</div>
-          <p>Weekly AI explainer series across Substack, YouTube, Instagram, LinkedIn and a daily web brief. I direct an end-to-end AI production pipeline: story selection from primary sources, plain-language scriptwriting, generative video production, AI avatar direction, compositing of verified data graphics, voice and audio production, and retention-first packaging. Every number published is sourced and verified before it ships.</p>
+          <p>Alongside my UNCW role, I run a weekly AI explainer series across Substack, YouTube, Instagram, LinkedIn and a daily web brief. I direct an end-to-end AI production pipeline: story selection from primary sources, plain-language scriptwriting, generative video production, AI avatar direction, compositing of verified data graphics, voice and audio production, and retention-first packaging. Every number published is sourced and verified before it ships.</p>
         </article>
         <article class="job current">
           <div class="job-top"><h3>Founder <span>· Sharma Digital Studio</span></h3><span class="date">NOV 2026 — PRESENT</span></div>
           <div class="job-loc">Remote</div>
-          <p>Founded a small web studio for clinics and local businesses — websites that turn searches into bookings: design, build, online booking systems, staff dashboards and local SEO. Client #1 delivered Nov 8, 2026: a skin clinic (Hyderabad) — full website with live online booking and a clinic staff dashboard.</p>
+          <p>Alongside my UNCW role, I founded a small web studio for clinics and local businesses — websites that turn searches into bookings: design, build, online booking systems, staff dashboards and local SEO. Client #1 delivered Nov 8, 2026: a skin clinic (Hyderabad) — full website with live online booking and a clinic staff dashboard.</p>
         </article>
         <article class="job">
           <div class="job-top"><h3>Consultant <span>· Source Mantra</span></h3><span class="date">AUG 2024 — JUN 2025</span></div>
@@ -674,73 +675,7 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
       </div>
       <div class="proj-grid">
         <article class="proj featured">
-          <span class="proj-num">01 · FLAGSHIP · HIGHER-ED ANALYTICS</span>
-          <h3>What does student success actually cost?</h3>
-          <p class="proj-sub">Student Success Benchmark</p>
-          <p>A synthetic star-schema data model with DAX measures and an interactive Streamlit/Plotly demo, benchmarked against peer averages. Findings from the synthetic data: 84.3% first-year retention, four-year graduation 8.0 percentage points above benchmark, $8,553 average graduate debt, and a 4.5-point Pell retention gap.</p>
-          <div class="tags"><span class="tag">Synthetic Data</span><span class="tag">Star Schema</span><span class="tag">DAX</span><span class="tag">Streamlit</span><span class="tag">Plotly</span></div>
-          <a class="proj-link" href="https://github.com/sharmauncw/student-success-benchmark" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-
-        <article class="proj">
-          <span class="proj-num">02 · MACHINE LEARNING</span>
-          <h3>What should you watch next?</h3>
-          <p class="proj-sub">Streaming Content Analytics</p>
-          <p>MovieLens analysis with pandas and scikit-learn — exploratory analysis, k-means catalog segmentation, a content-based recommender, DuckDB SQL, and Plotly visuals.</p>
-          <div class="tags"><span class="tag">pandas</span><span class="tag">scikit-learn</span><span class="tag">K-Means</span><span class="tag">DuckDB</span><span class="tag">Plotly</span></div>
-          <a class="proj-link" href="https://github.com/sharmauncw/streaming-content-analytics" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-
-        <article class="proj">
-          <span class="proj-num">03 · FORECASTING</span>
-          <h3>What will sales look like in 90 days?</h3>
-          <p class="proj-sub">Retail Sales Forecasting</p>
-          <p>Holt-Winters 90-day forecast with confidence bands, residual-based anomaly detection, and a DuckDB analytics mart.</p>
-          <div class="tags"><span class="tag">Holt-Winters</span><span class="tag">Forecasting</span><span class="tag">Anomaly Detection</span><span class="tag">DuckDB</span></div>
-          <a class="proj-link" href="https://github.com/sharmauncw/retail-sales-forecasting" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-
-        <article class="proj">
-          <span class="proj-num">04 · HIGHER-ED ANALYTICS</span>
-          <h3>Higher-Ed Retention Dashboard Demo</h3>
-          <p>Synthetic higher-education retention dashboard demo with model QA and stakeholder reporting structure.</p>
-          <div class="tags"><span class="tag">Retention</span><span class="tag">Dashboard Design</span><span class="tag">Model QA</span></div>
-          <a class="proj-link" href="https://github.com/sharmauncw/higher-ed-retention-dashboard-demo" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-
-        <article class="proj">
-          <span class="proj-num">05 · DATA QUALITY</span>
-          <h3>Student-Success Data Quality Checks</h3>
-          <p>Privacy-safe Python and SQL data-quality check patterns for student-success data — null rates, duplicate keys, range checks, referential integrity, and freshness — with a documented privacy ruleset.</p>
-          <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Privacy-Safe</span></div>
-          <a class="proj-link" href="https://github.com/sharmauncw/student-success-data-quality-checks" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-
-        <article class="proj">
-          <span class="proj-num">06 · SQL PATTERNS</span>
-          <h3>Banner-Style Datamart SQL Patterns</h3>
-          <p>Sanitized SQL reporting patterns for higher-ed datamarts: cohort definitions, term-to-term and fall-to-fall retention, DFW rates, and course-outcome analysis.</p>
-          <div class="tags"><span class="tag">SQL</span><span class="tag">Cohorts</span><span class="tag">Retention</span><span class="tag">DFW Rates</span></div>
-          <a class="proj-link" href="https://github.com/sharmauncw/banner-datamart-sql-patterns" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-
-        <article class="proj">
-          <div class="proj-top"><span class="proj-num">07 · POWER BI</span></div>
-          <h3>Automotive Repair Data Dashboard</h3>
-          <p>Interactive Power BI dashboard analyzing automotive repair data: Power Query transformations, DAX measures, and fact/dimension semantic models.</p>
-          <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag">Semantic Modeling</span><span class="tag">Row-Level Security</span></div>
-          <span class="proj-note">Details available on request.</span>
-        </article>
-
-        <article class="proj">
-          <span class="proj-num">08 · CAPSTONE</span>
-          <h3>Project Empower</h3>
-          <p>University capstone: nonprofit concept and livelihood analysis with data-informed recommendations, built in Python and Jupyter.</p>
-          <div class="tags"><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">Capstone</span></div>
-        </article>
-
-        <article class="proj">
-          <span class="proj-num">09 · HIGHER-ED ANALYTICS · IPEDS</span>
+          <span class="proj-num">01 · FLAGSHIP · HIGHER-ED ANALYTICS · IPEDS</span>
           <h3>How much of a college's graduation rate is already written in its profile?</h3>
           <p class="proj-sub">IPEDS Outcomes Lab</p>
           <p>A gradient-boosted regression predicting the graduation rate at 150% of normal time from institutional features — retention, admissions, finances, Pell share. Test R² 0.745, MAE 7.15 points on held-out 2021–2023 (trained 2015–2019, 2020 excluded), against simple baselines that score near zero. SHAP ranks full-time retention first — and the published fairness slices show where the model errs most: for-profit colleges and high-Pell campuses.</p>
@@ -749,7 +684,7 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
         </article>
 
         <article class="proj">
-          <span class="proj-num">10 · MACHINE LEARNING · OULAD</span>
+          <span class="proj-num">02 · MACHINE LEARNING · OULAD</span>
           <h3>Two weeks into a course, who is quietly slipping away?</h3>
           <p class="proj-sub">OULAD Early Alert</p>
           <p>Logistic regression on the first 14 days of engagement only — clicks, active days, resources touched — predicting which students will withdraw or fail. AUC 0.704 on a true temporal split: trained on 2013 presentations, tested on held-out 2014 (n = 16,032). Flagging the top-risk 20% — the length of list an advising team can actually work — captures 31.3% of at-risk students, well above a zero-activity rule.</p>
@@ -758,7 +693,7 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
         </article>
 
         <article class="proj">
-          <span class="proj-num">11 · OPEN SOURCE</span>
+          <span class="proj-num">03 · OPEN SOURCE</span>
           <h3>Second Brain</h3>
           <p class="proj-sub">The memory system behind AI Radar with Akanksha</p>
           <p>An open-source markdown memory system for personal AI agents — curated long-term memory, a people index, verification gates, and a weekly promise audit. No database; just files that think. It is the system my own agent runs on, published for anyone to clone.</p>
@@ -767,7 +702,7 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
         </article>
 
         <article class="proj">
-          <span class="proj-num">12 · PRODUCT BUILD</span>
+          <span class="proj-num">04 · PRODUCT BUILD</span>
           <h3>Find your people. Come home.</h3>
           <p class="proj-sub">Nostos — Roommate Matching</p>
           <p>A roommate-matching app built around a compatibility score: a 10-question quiz, weighted matching with deal-breaker filters, verified profiles, matches, and chat — designed, built, and shipped live.</p>
@@ -776,12 +711,80 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
         </article>
 
         <article class="proj">
-          <span class="proj-num">13 · CLIENT PRODUCT · SHARMA DIGITAL STUDIO</span>
+          <span class="proj-num">05 · CLIENT PRODUCT · SHARMA DIGITAL STUDIO</span>
           <h3>A clinic website that takes real bookings</h3>
           <p class="proj-sub">A skin clinic — client booking website</p>
           <p>First client delivery from my web studio: a full clinic website with live online booking (clinic-hours slots, capacity limits, blocked days), phone and walk-in desk bookings, WhatsApp confirmations, and a staff dashboard — designed, built, tested end to end, and handed over.</p>
           <div class="tags"><span class="tag">Web Design</span><span class="tag">Supabase</span><span class="tag">Booking Systems</span><span class="tag">Client Delivery</span></div>
           <span class="proj-note">Details available on request.</span>
+        </article>
+
+        <div class="proj-subhead">Earlier demos &amp; patterns</div>
+
+        <article class="proj">
+          <span class="proj-num">06 · HIGHER-ED ANALYTICS</span>
+          <h3>What does student success actually cost?</h3>
+          <p class="proj-sub">Student Success Benchmark</p>
+          <p>A synthetic star-schema data model with DAX measures and an interactive Streamlit/Plotly demo, benchmarked against peer averages. Findings from the synthetic data: 84.3% first-year retention, four-year graduation 8.0 percentage points above benchmark, $8,553 average graduate debt, and a 4.5-point Pell retention gap.</p>
+          <div class="tags"><span class="tag">Synthetic Data</span><span class="tag">Star Schema</span><span class="tag">DAX</span><span class="tag">Streamlit</span><span class="tag">Plotly</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/student-success-benchmark" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">07 · MACHINE LEARNING</span>
+          <h3>What should you watch next?</h3>
+          <p class="proj-sub">Streaming Content Analytics</p>
+          <p>MovieLens analysis with pandas and scikit-learn — exploratory analysis, k-means catalog segmentation, a content-based recommender, DuckDB SQL, and Plotly visuals.</p>
+          <div class="tags"><span class="tag">pandas</span><span class="tag">scikit-learn</span><span class="tag">K-Means</span><span class="tag">DuckDB</span><span class="tag">Plotly</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/streaming-content-analytics" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">08 · FORECASTING</span>
+          <h3>What will sales look like in 90 days?</h3>
+          <p class="proj-sub">Retail Sales Forecasting</p>
+          <p>Holt-Winters 90-day forecast with confidence bands, residual-based anomaly detection, and a DuckDB analytics mart.</p>
+          <div class="tags"><span class="tag">Holt-Winters</span><span class="tag">Forecasting</span><span class="tag">Anomaly Detection</span><span class="tag">DuckDB</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/retail-sales-forecasting" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">09 · HIGHER-ED ANALYTICS</span>
+          <h3>Higher-Ed Retention Dashboard Demo</h3>
+          <p>Synthetic higher-education retention dashboard demo with model QA and stakeholder reporting structure.</p>
+          <div class="tags"><span class="tag">Retention</span><span class="tag">Dashboard Design</span><span class="tag">Model QA</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/higher-ed-retention-dashboard-demo" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">10 · DATA QUALITY</span>
+          <h3>Student-Success Data Quality Checks</h3>
+          <p>Privacy-safe Python and SQL data-quality check patterns for student-success data — null rates, duplicate keys, range checks, referential integrity, and freshness — with a documented privacy ruleset.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Privacy-Safe</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/student-success-data-quality-checks" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">11 · SQL PATTERNS</span>
+          <h3>Banner-Style Datamart SQL Patterns</h3>
+          <p>Sanitized SQL reporting patterns for higher-ed datamarts: cohort definitions, term-to-term and fall-to-fall retention, DFW rates, and course-outcome analysis.</p>
+          <div class="tags"><span class="tag">SQL</span><span class="tag">Cohorts</span><span class="tag">Retention</span><span class="tag">DFW Rates</span></div>
+          <a class="proj-link" href="https://github.com/sharmauncw/banner-datamart-sql-patterns" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <div class="proj-top"><span class="proj-num">12 · POWER BI</span></div>
+          <h3>Automotive Repair Data Dashboard</h3>
+          <p>Interactive Power BI dashboard analyzing automotive repair data: Power Query transformations, DAX measures, and fact/dimension semantic models.</p>
+          <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag">Semantic Modeling</span><span class="tag">Row-Level Security</span></div>
+          <span class="proj-note">Details available on request.</span>
+        </article>
+
+        <article class="proj">
+          <span class="proj-num">13 · CAPSTONE</span>
+          <h3>Project Empower</h3>
+          <p>University capstone: nonprofit concept and livelihood analysis with data-informed recommendations, built in Python and Jupyter.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">Capstone</span></div>
         </article>
 
         <article class="proj">
@@ -1224,7 +1227,7 @@ footer{padding:28px 0 36px;color:var(--text-3);font-size:13px}
           <div class="kicker" style="color:#7dd3c8">Contact</div>
           <h2>Let’s talk about <em>data that matters.</em></h2>
           <p>I’m glad to connect with fellow data and analytics professionals, higher-education colleagues, and anyone working on clearer, more trustworthy institutional data. The fastest way to reach me is email or LinkedIn.</p>
-          <p style="font-size:13.5px;margin-top:18px;color:#9fc9c2">Résumé summary: Data Analytics Specialist at UNCW (2026–present) · Consultant, Source Mantra · MOTOR Information Systems · CredAble · Fast Enterprises · Doctor of Information Technology (DIT) doctoral student, Trine (4.0 GPA) · M.S. MIS, Oakland · B.S. Computer Engineering, Purdue · Guest Lecturer, EDL 586/686 Program Evaluation, Watson College of Education, UNCW — “Data Visualization” (Session 1, Oct 14, 2026) and “Before You Trust a Number” (Session 2, Oct 28, 2026).</p>
+          <p style="font-size:13.5px;margin-top:18px;color:#9fc9c2">Résumé summary: Data Analytics Specialist at UNCW (2026–present) · Consultant, Source Mantra · MOTOR Information Systems · CredAble · Fast Enterprises · Doctoral student in Information Technology (DIT), Trine (4.0 GPA) · M.S. MIS, Oakland · B.S. Computer Engineering, Purdue · Guest Lecturer, EDL 586/686 Program Evaluation, Watson College of Education, UNCW — “Data Visualization” (Session 1, Oct 14, 2026) and “Before You Trust a Number” (Session 2, Oct 28, 2026).</p>
         </div>
         <div class="contact-links">
           <a href="mailto:akankshasharma9292@gmail.com"><span style="display:inline;font-weight:800">@</span><span><span>Email</span>akankshasharma9292@gmail.com</span></a>
